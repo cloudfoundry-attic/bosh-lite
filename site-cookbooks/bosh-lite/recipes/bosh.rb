@@ -16,6 +16,7 @@
   wamerican
   redis-server
   nginx
+  libcurl4-openssl-dev
 ).each do |package_name|
   package package_name
 end
@@ -40,7 +41,8 @@ end
 end
 
 rbenv_gem 'bosh_docker_cpi' do
-  options '-pre'
+  version '>=0.0.0'
+  options('--prerelease')
 end
 
 %w(config blobstore director db).each do |dir|

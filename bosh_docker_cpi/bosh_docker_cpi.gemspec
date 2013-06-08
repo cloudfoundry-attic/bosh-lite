@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = "bosh_docker_cpi"
-  s.version      = '0.0.1.pre.1'
+  s.version      = '0.0.1.pre.2'
   s.platform     = Gem::Platform::RUBY
   s.summary      = "BOSH Docker CPI"
   s.description  = s.summary

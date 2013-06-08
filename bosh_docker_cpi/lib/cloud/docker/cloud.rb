@@ -1,6 +1,6 @@
 module Bosh
-  module DockerCloud
-    class Cloud < Bosh::Cloud
+  module Clouds
+    class Docker < Bosh::Cloud
 
       def initialize(options)
         @agent_properties ||= options.fetch('agent', {})
