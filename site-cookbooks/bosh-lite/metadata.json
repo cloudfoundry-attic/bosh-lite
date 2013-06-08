@@ -1,0 +1,12 @@
+{
+    "name": "bosh-lite",
+    "dependencies": {
+        "apt": ">= 0.0.0",
+        "build-essential": ">= 0.0.0",
+        "rbenv": ">= 0.0.0"
+    },
+    "recipes": {
+        "bosh-lite::docker": "Setup Docker",
+        "bosh-lite::bosh": "Setup BOSH"
+    }
+}

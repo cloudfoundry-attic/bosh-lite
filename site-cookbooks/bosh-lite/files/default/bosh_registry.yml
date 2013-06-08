@@ -1,0 +1,19 @@
+---
+loglevel: debug
+
+http:
+  port: 21085
+  user: admin
+  password: admin
+
+db:
+  adapter: sqlite
+  database: /opt/bosh/db/director.sqlite
+  connection_options:
+    max_connections: 32
+    pool_timeout: 10
+
+cloud:
+  plugin: docker
+  properties:
+    nats: nats://192.168.50.4:21084

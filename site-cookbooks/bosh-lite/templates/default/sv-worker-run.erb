@@ -1,0 +1,8 @@
+#!/bin/sh
+
+PATH=/opt/rbenv/shims:/opt/rbenv/bin:/opt/rbenv/bin/rbenv:/bin:/usr/bin
+
+export QUEUE='*'
+
+exec 2>&1
+exec chpst -u <%= @options[:user] %> worker -c /opt/bosh/config/director.yml

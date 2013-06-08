@@ -1,0 +1,5 @@
+#!/bin/sh
+
+PATH=/opt/rbenv/shims:/opt/rbenv/bin:/opt/rbenv/bin/rbenv:/bin:/usr/bin
+exec 2>&1
+exec chpst -u <%= @options[:user] %> simple_blobstore_server -c /opt/bosh/config/simple_blobstore_server.yml

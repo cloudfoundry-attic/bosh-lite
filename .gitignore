@@ -1,0 +1,7 @@
+tmp
+vendor
+cookbooks
+.idea
+.vagrant
+*.lock
+pkg/

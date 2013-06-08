@@ -1,0 +1,56 @@
+---
+name: Bosh Lite Director
+port: 21085
+mbus: nats://127.0.0.1:21084
+dir: /opt/bosh/director
+logging:
+  level: DEBUG
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password:
+db:
+  adapter: sqlite
+  database: /opt/bosh/db/director.sqlite
+  connection_options:
+    max_connections: 32
+    pool_timeout: 10
+dns:
+  db:
+    adapter: sqlite
+    database: /opt/bosh/db/director-dns.sqlite
+    connection_options:
+      max_connections: 32
+      pool_timeout: 10
+blobstore:
+  provider: simple
+  options:
+    endpoint: http://127.0.0.1:21081
+    user: bs_admin
+    password: bs_pass
+compiled_package_cache:
+  provider: simple
+  options:
+    endpoint: http://127.0.0.1:21081
+    user: bs_admin
+    password: bs_pass
+scan_and_fix:
+  auto_fix_stateful_nodes: true
+cloud:
+  plugin: dummy
+  properties:
+    registry:
+      endpoint: http://192.168.50.4:21085
+      user: admin
+      password: admin
+    nats: nats://192.168.50.4:21084
+    agent:
+      blobstore:
+        provider: simple
+        options:
+          endpoint: http://192.168.50.4:21081
+          user: bs_admin
+          password: bs_pass
+      server:
+        host: 192.168.50.4
+        password:
