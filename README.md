@@ -1,11 +1,10 @@
-bosh-lite
-=========
+#bosh-lite
 
 A lite development env for BOSH using Docker.io from within vagrant
 
-Warning:   This is very much a work in progress and not really suited for use.... really run and hide.
+**Warning:**   This is very much a work in progress and not really suited for use.... really run and hide.
 
-=== Instalation
+###Instalation
 
 1. Install Fusion 
 
