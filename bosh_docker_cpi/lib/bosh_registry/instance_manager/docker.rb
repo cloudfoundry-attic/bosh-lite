@@ -4,8 +4,10 @@ module Bosh::Registry
 
     class Docker < InstanceManager
 
+      require 'bosh_docker_cpi'
+
       def initialize(cloud_config)
-        @docker = Docker::API.new(base_url: 'http://localhost:4243')
+        @docker = ::Docker::API.new(base_url: 'http://localhost:4243')
       end
 
       # Get the list of IPs belonging to this instance
