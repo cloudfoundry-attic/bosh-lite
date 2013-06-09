@@ -4,16 +4,16 @@ module Bosh
 
       def initialize(options)
         @agent_properties ||= options.fetch('agent', {})
-        registry_properties = options.fetch('registry')
-        registry_endpoint = registry_properties.fetch('endpoint')
-        registry_user = registry_properties.fetch('user')
-        registry_password = registry_properties.fetch('password')
+        #registry_properties = options.fetch('registry')
+        #registry_endpoint = registry_properties.fetch('endpoint')
+        #registry_user = registry_properties.fetch('user')
+        #registry_password = registry_properties.fetch('password')
+        #
+        #@registry = Bosh::Registry::Client.new(registry_endpoint,
+        #                                       registry_user,
+        #                                       registry_password)
 
-        @registry = Bosh::Registry::Client.new(registry_endpoint,
-                                               registry_user,
-                                               registry_password)
-
-        @docker = Docker::API.new(base_url: 'http://localhost:4243')
+        @docker = ::Docker::API.new(base_url: 'http://localhost:4243')
       end
 
       def current_vm_id
@@ -37,17 +37,17 @@ module Bosh
           network_spec, disk_locality = nil, environment = nil)
 
 
-        result = containers.create(['/bin/sh', '-c', 'while true; do echo hello world; sleep 1; done'], stemcell_id)
+        result = containers.create(['/bin/sh', '-c', '/usr/bin/nice -n -10 /var/vcap/bosh/bin/bosh_agent --nats nats://172.16.42.1:21084 -c'], stemcell_id)
         vm_id = result["Id"]
 
 
-        registry_settings = initial_agent_settings(
-            agent_id,
-            network_spec,
-            environment,
-            ''
-        )
-        registry.update_settings(vm_id, registry_settings)
+        #registry_settings = initial_agent_settings(
+        #    agent_id,
+        #    network_spec,
+        #    environment,
+        #    ''
+        #)
+        #registry.update_settings(vm_id, registry_settings)
 
         containers.start(vm_id)
 
