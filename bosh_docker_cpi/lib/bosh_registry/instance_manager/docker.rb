@@ -1,10 +1,10 @@
+require 'docker'
+
 module Bosh::Registry
 
   class InstanceManager
 
     class Docker < InstanceManager
-
-      require 'bosh_docker_cpi'
 
       def initialize(cloud_config)
         @docker = ::Docker::API.new(base_url: 'http://localhost:4243')
