@@ -10,7 +10,7 @@ mbus:
   password:
 
 director: &director
-  endpoint: http://127.0.0.1:25555
+  endpoint: https://127.0.0.1:25555
   user: admin
   password: admin
 
@@ -31,7 +31,7 @@ plugins:
       - alert
       - heartbeat
     options:
-      endpoint: nats://localhost:21084
+      endpoint: nats://127.0.0.1:21084
       user:
       password:
   - name: resurrector
