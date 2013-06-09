@@ -23,21 +23,33 @@ module Bosh
       def create_stemcell(image_path, cloud_properties)
         Dir.mktmpdir do |dir|
           Dir.chdir(dir) do
+            system 'mkdir mnt'
             system "tar -xzf #{image_path} root.img"
-
+            system 'sudo kpartx -a root.img'
+            system 'sudo mount /dev/mapper/loop0p1 mnt'
+            Dir.chdir('mnt') do
+              system 'sudo tar zcf ../stemcell_img.tgz .'
+            end
+            system 'sudo umount mnt'
+            system 'sudo kpartx -d root.img'
+            system 'sudo chmod 777 stemcell_img.tgz'
+            system 'cat stemcell_img.tgz | docker image - bosh latest'  #returns stemcell_id
           end
         end
       end
 
       def delete_stemcell(stemcell_id)
-        not_implemented(:delete_stemcell)
+        system "docker rmi #{stemcell_id}"
       end
 
       def create_vm(agent_id, stemcell_id, resource_pool,
           network_spec, disk_locality = nil, environment = nil)
 
-
-        result = containers.create(['/bin/sh', '-c', '/usr/bin/nice -n -10 /var/vcap/bosh/bin/bosh_agent --nats nats://172.16.42.1:21084 -c'], stemcell_id)
+        nats_uri = 'nats://172.16.42.1:21084'
+        blobstore_uri = 'http://172.16.42.1:21081'
+        agent_base_dir = '/var/vcap/bosh'
+        root_dir = '/var/vcap/bosh'
+        result = containers.create(['/bin/sh', '-c', "/var/vcap/bosh/bin/bosh_agent -a #{agent_id} -s #{blobstore_uri} -p simple -b #{agent_base_dir} -n #{nats_uri} -r #{root_dir}"], stemcell_id)
         vm_id = result["Id"]
 
 
