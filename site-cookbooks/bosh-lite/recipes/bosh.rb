@@ -60,13 +60,13 @@ end
   end
 end
 
-cookbook_file '/etc/nginx/nginx.conf' do
-  mode 0755
-end
-
 execute 'migrate' do
   user 'vagrant'
   command '/opt/rbenv/shims/migrate -c /opt/bosh/config/director.yml'
+end
+
+cookbook_file '/etc/nginx/nginx.conf' do
+  mode 0755
 end
 
 directory '/etc/nginx/ssl' do
@@ -82,7 +82,11 @@ execute 'self sign director ssl csr' do
   command 'openssl x509 -req -days 3650 -in /etc/nginx/ssl/director.csr -signkey /etc/nginx/ssl/director.key -out /etc/nginx/ssl/director.pem'
 end
 
-%w(nats blobstore registry director worker health_monitor).each do |service_name|
+service 'nginx' do
+  action :restart
+end
+
+%w(nats blobstore director worker health_monitor).each do |service_name|
   runit_service service_name do
     default_logger true
     options({:user => 'vagrant'})
