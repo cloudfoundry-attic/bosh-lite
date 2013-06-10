@@ -38,7 +38,7 @@ module Bosh
             system 'sudo umount mnt'
             system 'sudo kpartx -d root.img'
             system 'sudo chmod 777 stemcell_img.tgz'
-            system 'cat stemcell_img.tgz | docker image - bosh latest' #returns stemcell_id
+            system 'cat stemcell_img.tgz | docker import - bosh latest' #returns stemcell_id
           end
         end
       end
