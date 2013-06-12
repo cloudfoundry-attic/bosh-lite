@@ -35,12 +35,17 @@ end
 
 %w(bosh_registry director simple_blobstore_server health_monitor).each do |gem|
   rbenv_gem gem do
-    version '1.5.0.pre.721'
+    version '>=1.5.0.pre.721'
     source 'https://s3.amazonaws.com/bosh-jenkins-gems/'
   end
 end
 
 rbenv_gem 'bosh_docker_cpi' do
+  version '>=0.0.0'
+  options('--prerelease')
+end
+
+rbenv_gem 'bosh_warden_cpi' do
   version '>=0.0.0'
   options('--prerelease')
 end

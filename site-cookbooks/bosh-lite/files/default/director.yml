@@ -37,12 +37,14 @@ compiled_package_cache:
 scan_and_fix:
   auto_fix_stateful_nodes: true
 cloud:
-  plugin: docker
+  plugin: warden
   properties:
-    registry:
-      endpoint: http://192.168.50.4:21085
-      user: admin
-      password: admin
+    warden:
+      unix_domain_socket: "/tmp/warden.sock"
+    disk:
+      root: /opt/warden/rootfs
+    stemcell:
+      root: /opt/warden/stemcells
     nats: nats://192.168.50.4:21084
     agent:
       blobstore:
