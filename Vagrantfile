@@ -5,7 +5,7 @@ Vagrant.configure('2') do |config|
   config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
 
   config.vm.provider :vmware_fusion do |v, override|
-    override.vm.box.url = 'http://files.vagrantup.com/precise64_vmware.box'
+    override.vm.box_url = 'http://files.vagrantup.com/precise64_vmware.box'
   end
 
   config.vm.network :private_network, ip: '192.168.50.4'
