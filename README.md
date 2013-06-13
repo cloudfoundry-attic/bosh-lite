@@ -1,6 +1,6 @@
 #bosh-lite
 
-A lite development env for BOSH using Docker.io from within vagrant
+A lite development env for BOSH using Warden and Docker.io from within vagrant
 
 **Warning:**   This is very much a work in progress and not really suited for use.... really run and hide.
 
