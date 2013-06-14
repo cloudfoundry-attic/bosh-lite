@@ -1,8 +1,10 @@
 #!/bin/sh
 
-PATH=/opt/rbenv/shims:/opt/rbenv/bin:/opt/rbenv/bin/rbenv:/bin:/usr/bin
+PATH=/opt/rbenv/shims:/opt/rbenv/bin:/opt/rbenv/bin/rbenv:/bin:/usr/bin:/sbin:/usr/sbin
 
 ulimit -c $((1024*1024*1024))
 
 exec 2>&1
+
+cd /opt/warden/warden
 exec bundle exec rake warden:start[/opt/warden/config/warden-cpi-vm.yml]
