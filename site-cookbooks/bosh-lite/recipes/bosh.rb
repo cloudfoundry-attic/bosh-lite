@@ -21,15 +21,11 @@
   package package_name
 end
 
-include_recipe 'rbenv::default'
-include_recipe 'rbenv::ruby_build'
+include_recipe 'bosh-lite::rbenv'
+
 include_recipe 'runit'
 
-rbenv_ruby '1.9.3-p392' do
-  global true
-end
-
-%w(sqlite3 nats).each do |gem|
+%w(sqlite3 nats bundler).each do |gem|
   rbenv_gem gem
 end
 
@@ -67,7 +63,9 @@ end
 
 execute 'migrate' do
   user 'vagrant'
-  command '/opt/rbenv/shims/migrate -c /opt/bosh/config/director.yml'
+  # UGLY HACK WARNING - the warden cpi isn't on the load path until we require something for it.  Not sure why.
+  # 
+  command 'RUBYOPT="-r director -r cloud/warden/helpers" /opt/rbenv/shims/migrate -c /opt/bosh/config/director.yml'
 end
 
 cookbook_file '/etc/nginx/nginx.conf' do
@@ -91,9 +89,16 @@ service 'nginx' do
   action :restart
 end
 
-%w(nats blobstore director worker health_monitor).each do |service_name|
+%w( worker director).each do |service_name|
   runit_service service_name do
     default_logger true
-    options({:user => 'vagrant'})
+    options({:user => 'root'})
+  end
+end
+
+%w( blobstore health_monitor nats registry ).each do |service_name|
+  runit_service service_name do
+    default_logger true
+    options({:user => 'root'})
   end
 end

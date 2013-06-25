@@ -1,7 +1,7 @@
 include_recipe 'runit'
+include_recipe 'bosh-lite::rbenv'
 
-package "build-essential"
-package "git"
+%w{ build-essential debootstrap quota git iptables }.each { |package_name| package package_name }
 
 execute "install bundler" do
   command "gem install bundler"
@@ -27,9 +27,11 @@ end
   end
 end
 
+execute "rbenv rehash"
+
 execute "setup_warden" do
   cwd "/opt/warden/warden"
-  command "bundle install && bundle exec rake setup:bin[/opt/warden/config/warden-cpi-vm.yml]"
+  command "/opt/rbenv/shims/bundle install && /opt/rbenv/shims/bundle exec rake setup:bin[/opt/warden/config/warden-cpi-vm.yml]"
   action :run
 end
 
