@@ -3,6 +3,7 @@
   libreadline-dev
   build-essential
   zlib1g-dev
+  git
   libxml2-dev
   libxslt-dev
   libsqlite3-dev
