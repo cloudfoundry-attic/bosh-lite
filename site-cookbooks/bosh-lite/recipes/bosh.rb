@@ -13,7 +13,6 @@
   kpartx
   debootstrap
   wamerican
-  redis-server
   nginx
   libcurl4-openssl-dev
 ).each do |package_name|
