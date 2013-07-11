@@ -2,7 +2,7 @@
 loglevel: debug
 
 http:
-  port: 21085
+  port: 25777
   user: admin
   password: admin
 
