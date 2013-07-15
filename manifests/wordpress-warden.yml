@@ -1,0 +1,129 @@
+---
+name: wordpress
+director_uuid: 6f3cf352-4a92-40bb-81e5-00ef986cd92c 
+
+release:
+  name: wordpress
+  version: 2
+
+compilation:
+  workers: 3
+  network: compile
+  cloud_properties:
+    ram: 2048
+    disk: 8096
+    cpu: 2
+
+# this section describes how updates are handled
+update:
+  canaries: 1
+  canary_watch_time: 30000
+  update_watch_time: 30000
+  max_in_flight: 4
+  max_errors: 1
+
+networks:
+
+- name: compile
+  subnets:
+  - range: 10.244.0.240/30
+    static:
+      - 10.244.0.242 - 10.244.0.242
+    cloud_properties:
+      name: random
+  - range: 10.244.0.244/30
+    static:
+      - 10.244.0.246 - 10.244.0.246
+    cloud_properties:
+      name: random
+  - range: 10.244.0.248/30
+    static:
+      - 10.244.0.250 - 10.244.0.250
+    cloud_properties:
+      name: random
+  - range: 10.244.0.252/30
+    static:
+      - 10.244.0.254 - 10.244.0.254
+    cloud_properties:
+      name: random
+- name: default
+  subnets:
+  - range: 10.244.0.0/23
+    static:
+    - 10.244.0.1 - 10.244.0.99
+    cloud_properties:
+      name: random
+
+
+resource_pools:
+
+- name: infrastructure
+  network: default
+  size: 4
+  stemcell:
+    name: bosh-stemcell 
+    version: latest
+  cloud_properties:
+    cpu: 1
+
+
+jobs:
+  - name: mysql
+    template: mysql
+    instances: 1
+    resource_pool: infrastructure
+    networks:
+    - name: default
+      static_ips:
+      - 10.244.0.2 
+
+  - name: wordpress
+    template: wordpress
+    instances: 1
+    resource_pool: infrastructure
+    networks:
+    - name: default
+      static_ips:
+      - 10.244.0.6 
+
+  - name: nginx
+    template: nginx
+    instances: 2
+    resource_pool: infrastructure
+    networks:
+    - name: default
+      default: [dns, gateway]
+      static_ips:
+        - 10.244.0.10 
+        - 10.244.0.14 
+#    - name: dmz
+#      static_ips:
+#        - 10.42.40.131
+
+properties:
+  wordpress:
+    admin: foo@bar.com
+    port: 8008
+    servers:
+      - 10.244.0.2 
+    servername: wp.appcloud14.dev.mozycloud.com
+    db:
+       name: wp
+       user: wordpress
+       pass: w0rdpr3ss
+    auth_key: random key
+    secure_auth_key: random key
+    logged_in_key: random key
+    nonce_key: random key
+    auth_salt: random key
+    secure_auth_salt: random key
+    logged_in_salt: random key
+    nonce_salt: random key
+
+  mysql:
+    address: 10.244.0.6
+    port: 3306
+    password: rootpass
+
+  nginx:
+    workers: 1
