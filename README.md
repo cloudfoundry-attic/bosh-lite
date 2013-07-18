@@ -34,9 +34,17 @@ A lite development env for BOSH using Warden and Docker.io from within vagrant
 
     $> vagrant reload
 
-1. Bosh target
+1. Bosh target (login with admin/admin)
 
     $> bosh target 192.168.50.4
+    
+1. Download latest warden stemcell
+
+    $> wget http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
+    
+1. Upload Stemcell
+ 
+    $> bosh upload stemcell latest-bosh-stemcell-warden.tgz
 
 
 ###USE AWS provider
