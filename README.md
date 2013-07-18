@@ -11,9 +11,10 @@ A lite development env for BOSH using Warden and Docker.io from within vagrant
 1. Install vagrant
            http://downloads.vagrantup.com/
 
-1. Install vagrant Fusion Plugin + license (optional)
+1. Install vagrant Fusion Plugin + license
        
     $> vagrant plugin install vagrant-vmware-fusion
+
     $> vagrant plugin license vagrant-vmware-fusion license.lic
 
 1. Install Ruby + RubyGems + Bundler
@@ -27,7 +28,7 @@ A lite development env for BOSH using Warden and Docker.io from within vagrant
 
 1. Start vagrant
 
-    $> vagrant up # --prover vmware_fusion (optional)
+    $> vagrant up --provider vmware_fusion
 
 1. Restart vagrant after chef provision
 
