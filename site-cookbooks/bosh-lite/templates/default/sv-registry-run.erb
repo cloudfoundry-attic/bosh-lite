@@ -1,6 +1,0 @@
-#!/bin/sh
-
-PATH=/opt/rbenv/shims:/opt/rbenv/bin:/opt/rbenv/bin/rbenv:/bin:/usr/bin
-
-exec 2>&1
-exec chpst -u <%= @options[:user] %> bosh_registry -c /opt/bosh/config/bosh_registry.yml

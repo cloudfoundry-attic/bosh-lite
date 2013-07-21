@@ -1,0 +1,223 @@
+---
+name: dev-test3
+director_uuid: CHANGE-ME
+
+release:
+  name: cf-release
+  version: latest
+
+compilation:
+  workers: 8
+  network: default
+  cloud_properties: {}
+    
+update:
+  canaries: 1
+  canary_watch_time: 3000-90000
+  update_watch_time: 3000-90000
+  max_in_flight: 4
+  max_errors: 1
+
+networks:
+
+- name: default
+  subnets:
+<% (0..63).each_with_index do |i| %>
+  - range: 10.244.0.<%= i*4 %>/30
+    reserved:
+      - 10.244.0.<%= i*4 + 1 %>
+    cloud_properties:
+      name: random
+<% end %>
+<% (0..63).each_with_index do |i| %>
+  - range: 10.244.1.<%= i*4 %>/30
+    reserved:
+      - 10.244.1.<%= i*4 + 1 %>
+    static:
+      - 10.244.1.<%= i*4 + 2 %>
+    cloud_properties:
+      name: random
+<% end
+(0..63).each_with_index do |i| %>
+  - range: 10.244.2.<%= i*4 %>/30
+    reserved:
+      - 10.244.2.<%= i*4 + 1 %>
+    cloud_properties:
+      name: random
+<% end %>
+
+resource_pools:
+
+- name: infrastructure
+  network: default
+  size: 5
+  stemcell:
+    name: bosh-stemcell
+    version: latest
+  cloud_properties: {}
+
+jobs:
+# - name: syslog_aggregator
+#   template: syslog_aggregator
+#   instances: 1
+#   resource_pool: infrastructure
+#   persistent_disk: 100
+#   networks:
+#   - name: default
+#     static_ips:
+#     - 10.244.0.2
+
+- name: nats
+  template: nats
+  instances: 1
+  resource_pool: infrastructure
+  networks:
+  - name: default
+    static_ips:
+    - 10.244.1.6
+
+- name: health_manager
+  template: health_manager_next
+  instances: 1
+  resource_pool: infrastructure
+  networks:
+  - name: default
+    static_ips:
+    - 10.244.1.10
+
+# - name: ccdb_postgres
+#   template: postgres
+#   instances: 1
+#   resource_pool: infrastructure
+#   persistent_disk: 100
+#   networks:
+#   - name: default
+#     static_ips:
+#     - 10.244.0.10
+#   properties:
+#     db: ccdb
+
+# - name: cloud_controller
+#   template: cloud_controller_ng
+#   instances: 1
+#   resource_pool: infrastructure
+#   networks:
+#   - name: default
+#     static_ips:
+#     - 10.244.1.14
+#   properties:
+#     ccdb: ccdb
+
+- name: router
+  template: gorouter
+  instances: 1
+  resource_pool: infrastructure
+  networks:
+  - name: default
+    static_ips:
+    - 10.244.1.18
+
+- name: dea_next
+  template: dea_next
+  instances: 1
+  resource_pool: infrastructure
+  networks:
+  - name: default
+  properties:
+    disk_quota_enabled: false
+
+properties:
+  domain: vcap.me
+  system_domain: vcap.me
+  app_domains:
+  - vcap.me
+  
+
+  env:
+
+  networks:
+    apps: default
+    management: default
+
+  nats:
+    user: nats
+    password: z2b3ij3122
+    address: 10.244.1.6
+    port: 4222
+
+  ccdb: &ccdb
+    address: 10.244.0.10
+    port: 5524
+    pool_size: 10
+    roles:
+    - tag: admin
+      name: ccadmin
+      password: tauBauWauZZb2
+    databases:
+    - tag: cc
+      name: appcloud
+
+  ccdb_ng: *ccdb
+
+  uaadb:
+
+  ccng: &ccng
+    logging_level: debug
+    external_host: ccng
+    srv_api_uri: http://api.vcap.me
+    cc_partition: default
+    db_encryption_key: "b963127302433579"
+    bootstrap_admin_email: admin@vcap.me
+    bulk_api_password: admin
+    uaa_resource_id: cloud_controller
+    staging_upload_user: uploaduser
+    staging_upload_password: admin
+    resource_pool:
+      resource_directory_key: cc-resources
+      fog_connection:
+        provider: Local
+        local_root: /var/vcap/shared
+    packages:
+      app_package_directory_key: cc-packages
+    droplets:
+      droplet_directory_key: cc-droplets
+
+  cc: *ccng
+
+  uaa:
+    cc:
+      token_secret: WGvbxaiC371JM
+      client_secret: fOZF5DMNDZIfCb9A
+    admin:
+      client_secret: MeM5fER8evgEisjj
+    batch:
+      username: do0H2AKay2jAc
+      password: FSCTiplI5Q83n
+
+  vcap_redis:
+    address: 10.244.0.14
+    port: 5454
+    password: PoIxbL98RWpwBuUJvKNojnpIcRb1ot2
+    maxmemory: 2000000000 # 2GB
+
+  router:
+    client_inactivity_timeout: 60
+    app_inactivity_timeout: 60
+    port: 8088
+    status:
+      port: 8080
+      user: sBNUxXlS0pc71wVef
+      password: 7nTmaIf9vPV4mJyBe
+
+  dea:
+    max_memory: 32768
+
+  # syslog_aggregator:
+  #   address: 10.244.0.2
+  #   port: 54321
+
+  stager:
+    max_staging_duration: 120
+    max_active_tasks: 20
+    queues:
+    - staging

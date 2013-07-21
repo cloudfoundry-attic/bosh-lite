@@ -30,10 +30,6 @@ A lite development env for BOSH using Warden and Docker.io from within vagrant
 
     $> vagrant up --provider vmware_fusion
 
-1. Restart vagrant after chef provision
-
-    $> vagrant reload
-
 1. Bosh target (login with admin/admin)
 
     $> bosh target 192.168.50.4

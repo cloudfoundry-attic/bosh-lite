@@ -1,8 +1,8 @@
 Vagrant.configure('2') do |config|
   config.vm.hostname='bosh-lite'
 
-  config.vm.box = 'lucid_base'
-  config.vm.box_url = 'http://files.vagrantup.com/lucid64.box'
+  config.vm.box = 'precise64'
+  # config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
 
   config.vm.provider :virtualbox do |v, override|
     v.customize ["modifyvm", :id, "--memory", 3*1024]
@@ -16,7 +16,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.network :private_network, ip: '192.168.50.4'
-  config.vm.provision :shell,       :path => "scripts/virtualbox_lucid_customize.sh"
+  # config.vm.provision :shell,       :path => "scripts/virtualbox_lucid_customize.sh"
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
@@ -27,4 +27,3 @@ Vagrant.configure('2') do |config|
     chef.add_recipe 'bosh-lite::bosh'
   end
 end
-

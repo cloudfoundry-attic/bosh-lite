@@ -15,6 +15,7 @@
   wamerican
   nginx
   libcurl4-openssl-dev
+  redis-server
 ).each do |package_name|
   package package_name
 end
@@ -27,7 +28,7 @@ include_recipe 'runit'
   rbenv_gem gem
 end
 
-%w(bosh_registry director simple_blobstore_server health_monitor).each do |gem|
+%w(director simple_blobstore_server health_monitor).each do |gem|
   rbenv_gem gem do
     version '>=1.5.0.pre.721'
     source 'https://s3.amazonaws.com/bosh-jenkins-gems/'
@@ -48,7 +49,7 @@ end
   end
 end
 
-%w(bosh_registry.yml director.yml health_monitor.yml simple_blobstore_server.yml).each do |config_file|
+%w(director.yml health_monitor.yml simple_blobstore_server.yml).each do |config_file|
   cookbook_file "/opt/bosh/config/#{config_file}" do
     owner 'vagrant'
   end
@@ -82,14 +83,14 @@ service 'nginx' do
   action :restart
 end
 
-%w( worker director).each do |service_name|
+%w(worker director).each do |service_name|
   runit_service service_name do
     default_logger true
     options({:user => 'root'})
   end
 end
 
-%w( blobstore health_monitor nats registry ).each do |service_name|
+%w(blobstore health_monitor nats).each do |service_name|
   runit_service service_name do
     default_logger true
     options({:user => 'root'})
