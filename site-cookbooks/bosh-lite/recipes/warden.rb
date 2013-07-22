@@ -33,12 +33,6 @@ execute "setup_warden" do
   action :run
 end
 
-10.upto(138) do |i|
-  execute "mknod /dev/loop#{i} b 7 #{i}" do
-    not_if { ::File.exists?("/dev/loop#{i}") }
-  end
-end
-
 %w(warden).each do |service_name|
   runit_service service_name do
     default_logger true
