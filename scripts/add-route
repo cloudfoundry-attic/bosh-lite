@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Adding the following route entry to your local route table to enable direct warden container access. Your sudo password may be required."
+echo "  - net 10.244.0.0/24 via 192.168.50.4"
+sudo route add -net 10.244.0.0/24 192.168.50.4
