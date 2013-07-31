@@ -1,6 +1,6 @@
 ---
 name: cf-warden
-director_uuid: c0ed7323-2f11-4b66-9b81-6b93409def23
+director_uuid: 7cd0ee32-d342-4832-ab72-8f73de72e5de
 
 releases:
  - name: cf-release
@@ -118,6 +118,7 @@ jobs:
     template:
       - nats
       - health_manager_next
+      - login
     instances: 1
     resource_pool: medium
     persistent_disk: 4096
@@ -130,7 +131,6 @@ jobs:
     release: cf-release
     template:
       - postgres
-#      - debian_nfs_server
     instances: 1
     resource_pool: medium
     persistent_disk: 4096
@@ -178,22 +178,24 @@ jobs:
       - name: default
         static_ips:
         - 10.244.0.18
+    properties:
+      disk_quota_enabled: false
 
 properties:
   cf:
     name: cf-warden
-    dns: vcap.me
+    dns: 10.244.0.14.xip.io
     ip_addresses: ["10.244.0.2"]
     core_size: medium
     security_group: cf
     persistent_disk: 4096
     common_password: admin
 
-  domain: vcap.me
-  system_domain: vcap.me
+  domain: 10.244.0.14.xip.io
+  system_domain: 10.244.0.14.xip.io
   system_domain_organization: system_domain
   app_domains:
-    - vcap.me
+    - 10.244.0.14.xip.io
 
   networks:
     apps: default
@@ -284,10 +286,10 @@ properties:
   cc: &cc
     logging_level: debug
     external_host: ccng
-    srv_api_uri: http://api.vcap.me
+    srv_api_uri: http://api.10.244.0.14.xip.io
     cc_partition: default
     db_encryption_key: "b963127302433579"
-    bootstrap_admin_email: admin@vcap.me
+    bootstrap_admin_email: admin@10.244.0.14.xip.io
     bulk_api_password: admin
     uaa_resource_id: cloud_controller
     staging_upload_user: uploaduser
@@ -296,23 +298,29 @@ properties:
       resource_directory_key: cc-resources
       fog_connection:
         provider: Local
-        local_root: /var/vcap/shared
+        local_root: /var/vcap/store
     packages:
       app_package_directory_key: cc-packages
+      fog_connection:
+        provider: Local
+        local_root: /var/vcap/store
     droplets:
       droplet_directory_key: cc-droplets
+      fog_connection:
+        provider: Local
+        local_root: /var/vcap/store
 
   ccng: *cc
 
   login:
     protocol: http
     links:
-      home: http://console.vcap.me
-      passwd: http://console.vcap.me/password_resets/new
-      signup: http://console.vcap.me/register
+      home: http://console.10.244.0.14.xip.io
+      passwd: http://console.10.244.0.14.xip.io/password_resets/new
+      signup: http://console.10.244.0.14.xip.io/register
 
   uaa:
-    url: http://uaa.vcap.me
+    url: http://uaa.10.244.0.14.xip.io
     spring_profiles: postgresql
     no_ssl: true
     catalina_opts: -Xmx768m -XX:MaxPermSize=256m
@@ -363,12 +371,12 @@ properties:
         authorities: oauth.login
         secret: admin
         authorized-grant-types: authorization_code,client_credentials,refresh_token
-        redirect-uri: http://login.vcap.me
+        redirect-uri: http://login.10.244.0.14.xip.io
       support-services:
         scope: scim.write,scim.read,openid,cloud_controller.read,cloud_controller.write
         secret: ssosecretsso
         authorized-grant-types: authorization_code,client_credentials
-        redirect-uri: http://support-signon.vcap.me
+        redirect-uri: http://support-signon.10.244.0.14.xip.io
         authorities: portal.users.read
         access-token-validity: 1209600
         refresh-token-validity: 1209600
