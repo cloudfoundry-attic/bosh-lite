@@ -14,7 +14,7 @@ db:
   database: /opt/bosh/db/director.sqlite
   connection_options:
     max_connections: 32
-    pool_timeout: 10
+    pool_timeout: 20
 dns:
   db:
     adapter: sqlite
