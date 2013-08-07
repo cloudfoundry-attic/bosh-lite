@@ -51,6 +51,9 @@ network:
   # Pool this many /30 networks.
   pool_size: 256
 
+  #disable release delay
+  release_delay: -1
+
 user:
   pool_start_uid: 20000
   pool_size: 256
