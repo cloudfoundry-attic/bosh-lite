@@ -13,3 +13,4 @@ which chef-solo || gem install chef --no-ri --no-rdoc -v 10.26.0
 grep -q vagrant /etc/passwd || useradd vagrant
 
 ifconfig lo:1 192.168.50.4 netmask 255.255.255.0
+mount --bind /mnt /opt

@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     aws.keypair_name = "bosh"
 
     aws.ami = "ami-23d9a94a"  # offical Precise AMI on us-east-1
-    aws.instance_type = "m1.large"
+    aws.instance_type = "c1.medium" # m1.large
     aws.tags = { "Name" => "Vagrant" }
     aws.security_groups =  ["inception"]
 
