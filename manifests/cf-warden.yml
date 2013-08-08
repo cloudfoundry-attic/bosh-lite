@@ -161,6 +161,7 @@ jobs:
       - gorouter
     instances: 1
     resource_pool: medium
+    persistent_disk: 4096
     networks:
     - name: default
       static_ips:
@@ -221,6 +222,7 @@ properties:
     memory_overcommit_factor: 4
     disk_mb: 4096
     disk_overcommit_factor: 4
+    kernel_tuning_enabled: false
 
   dea_next: *dea
 
