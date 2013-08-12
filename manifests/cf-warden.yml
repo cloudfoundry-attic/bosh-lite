@@ -222,7 +222,7 @@ properties:
     memory_overcommit_factor: 4
     disk_mb: 4096
     disk_overcommit_factor: 4
-    kernel_tuning_enabled: false
+    kernel_network_tuning_enabled: false
 
   dea_next: *dea
 
