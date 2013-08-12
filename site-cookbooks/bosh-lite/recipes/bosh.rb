@@ -16,6 +16,7 @@
   nginx
   libcurl4-openssl-dev
   redis-server
+  linux-image-3.8.0-26-generic
 ).each do |package_name|
   package package_name
 end
@@ -95,4 +96,8 @@ end
     default_logger true
     options({:user => 'root'})
   end
+end
+
+execute 'reboot vm' do
+  command 'reboot'
 end
