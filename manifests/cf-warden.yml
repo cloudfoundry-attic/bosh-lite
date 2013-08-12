@@ -8,85 +8,24 @@ releases:
 
 networks:
 
-- name: compile
-  subnets:
-  - range: 10.244.0.240/30
-    static:
-      - 10.244.0.242 - 10.244.0.242
-    cloud_properties:
-      name: random
-  - range: 10.244.0.244/30
-    static:
-      - 10.244.0.246 - 10.244.0.246
-    cloud_properties:
-      name: random
-  - range: 10.244.0.248/30
-    static:
-      - 10.244.0.250 - 10.244.0.250
-    cloud_properties:
-      name: random
-  - range: 10.244.0.252/30
-    static:
-      - 10.244.0.254 - 10.244.0.254
-    cloud_properties:
-      name: random
 - name: default
   subnets:
-  - range: 10.244.0.0/30
+<% (0..63).each_with_index do |i| %>
+  - range: 10.244.0.<%= i*4 %>/30
     reserved:
-      - 10.244.0.1
+      - 10.244.0.<%= i*4 + 1 %>
     static:
-      - 10.244.0.2
+      - 10.244.0.<%= i*4 + 2 %>
     cloud_properties:
       name: random
-  - range: 10.244.0.4/30
+<% end %>
+<% (0..63).each_with_index do |i| %>
+  - range: 10.244.1.<%= i*4 %>/30
     reserved:
-      - 10.244.0.5
-    static:
-      - 10.244.0.6
+      - 10.244.1.<%= i*4 + 1 %>
     cloud_properties:
       name: random
-  - range: 10.244.0.8/30
-    reserved:
-      - 10.244.0.9
-    static:
-      - 10.244.0.10
-    cloud_properties:
-      name: random
-  - range: 10.244.0.12/30
-    reserved:
-      - 10.244.0.13
-    static:
-      - 10.244.0.14
-    cloud_properties:
-      name: random
-  - range: 10.244.0.16/30
-    reserved:
-      - 10.244.0.17
-    static:
-      - 10.244.0.18
-    cloud_properties:
-      name: random
-  - range: 10.244.0.20/30
-    reserved:
-      - 10.244.0.21
-    cloud_properties:
-      name: random
-  - range: 10.244.0.24/30
-    reserved:
-      - 10.244.0.25
-    cloud_properties:
-      name: random
-  - range: 10.244.0.28/30
-    reserved:
-      - 10.244.0.29
-    cloud_properties:
-      name: random
-  - range: 10.244.0.100/26
-    reserved:
-      - 10.244.0.100
-    cloud_properties:
-      name: random
+<% end %>
 
 update:
   canaries: 1
@@ -96,11 +35,9 @@ update:
   max_errors: 1
 
 compilation:
-  workers: 1
+  workers: 8
   network: default
-  reuse_compilation_vms: true
-  cloud_properties:
-    cpu: 4
+  cloud_properties: {}
 
 resource_pools:
   - name: medium
