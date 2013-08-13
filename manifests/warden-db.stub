@@ -1,0 +1,34 @@
+---
+jobs:
+  - name: postgres
+    template: postgres
+    instances: 1
+    resource_pool: common
+    persistent_disk: 4096
+    networks:
+    - name: cf1
+      static_ips:
+      - 10.244.0.250
+    properties:
+      db: databases
+
+properties:
+  databases: &databases
+    db_scheme: postgres
+    address: 10.244.0.250
+    port: 5524
+    roles:
+      - tag: admin
+        name: ccadmin
+        password: admin
+      - tag: admin
+        name: uaaadmin
+        password: admin
+    databases:
+      - tag: cc
+        name: ccdb
+        citext: true
+      - tag: uaa
+        name: uaadb
+        citext: true
+
