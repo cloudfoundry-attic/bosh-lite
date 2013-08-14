@@ -24,11 +24,15 @@ mock_db_stub = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'manife
 if options[:file]
   dep_yaml = YAML.load_file(options[:file])
 
+  nats_ip = nil
+  log_ip = nil
+
   dep_yaml['jobs'].each do |job|
     case job['name']
     when 'syslog_aggregator'
       # reduce persistent disk of syslog
       job['persistent_disk'] = 200
+      log_ip = job['networks'][0]['static_ips'].first
 
     when 'dea_next'
       # simplify dea network
@@ -43,8 +47,15 @@ if options[:file]
       # hardcode router ip
       job['networks'][0].delete('default')
       job['networks'][0]['static_ips'] = '10.244.0.254'
+
+    when 'nats'
+      nats_ip = job['networks'][0]['static_ips'].first
     end
   end
+
+  # Change nats/syslog hardcode ip(dirty part in aws template)
+  dep_yaml['properties']['nats']['address'] = nats_ip
+  dep_yaml['properties']['syslog_aggregator']['address'] = log_ip
 
   # Unused job/properties removed
   dep_yaml['jobs'].delete_if { |job| ['collector', 'loggregator'].include?(job['name']) }
