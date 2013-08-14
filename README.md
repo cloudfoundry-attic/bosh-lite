@@ -42,6 +42,20 @@ A lite development env for BOSH using Warden and Docker.io from within vagrant
  
     $> bosh upload stemcell latest-bosh-stemcell-warden.tgz
 
+1. Generate CF deployment manifest
+
+    $> cp manifests/cf-stub.yml manifests/<your-name-manifest>.yml
+    
+    $> bosh deployment manifests/<your-name-manifest>.yml
+    
+    $> bosh diff <cf-release>/templates/cf-aws-template.yml.erb
+    
+    $> ./scripts/transform.rb -f manifests/<your-name-manifest>.yml
+ 
+
+1. Create CF release (form cf-release repo bosh-lite branch)
+
+1. Deploy!
 
 ###USE AWS provider
 
