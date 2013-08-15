@@ -69,6 +69,7 @@ if options[:file]
 
   # Properties changes for warden cpi
   dep_yaml['properties']['dea_next']['kernel_network_tuning_enabled'] = false
+  dep_yaml['properties']['dea_next']['enable_https_directory_server_protocal'] = false
   ['resource_pool', 'packages', 'droplets'].each do |name|
     dep_yaml['properties']['cc'][name]['fog_connection'] = {
       'provider' => 'Local',
