@@ -97,7 +97,3 @@ end
     options({:user => 'root'})
   end
 end
-
-execute 'reboot vm' do
-  command 'reboot'
-end
