@@ -26,9 +26,9 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'build-essential::default'
     chef.add_recipe 'bosh-lite::warden'
     chef.add_recipe 'bosh-lite::bosh'
+    chef.add_recipe 'bosh-lite::bosh_cli'
   end
 
-  config.vm.provision :shell,  :inline => "ip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`; echo public ip is $ip; echo now you can run bundle exec bosh target $ip"
-
+  config.vm.provision :shell,  :inline => "ip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`; echo Public IP is $ip; echo Now you can bosh target $ip, or run vagrant ssh and then bosh target 127.0.0.1"
 
 end
