@@ -3,6 +3,8 @@ include_recipe 'bosh-lite::rbenv'
 %w(
   vim
   ack-grep
+  maven2
+  default-jdk
 ).each do |package_name|
   package package_name
 end
