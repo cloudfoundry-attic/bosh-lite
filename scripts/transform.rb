@@ -31,7 +31,7 @@ if options[:file]
     case job['name']
     when 'syslog_aggregator'
       # reduce persistent disk of syslog
-      job['persistent_disk'] = 200
+      job['persistent_disk'] = 4096
       log_ip = job['networks'][0]['static_ips'].first
 
     when 'cloud_controller'
