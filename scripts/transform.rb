@@ -34,14 +34,16 @@ if options[:file]
       job['persistent_disk'] = 200
       log_ip = job['networks'][0]['static_ips'].first
 
+    when 'cloud_controller'
+      # add persistent disk for CC
+      job['persistent_disk'] = 4096
+
     when 'dea_next'
       # simplify dea network
       job['networks'][0].delete('default')
       # add disk quota properties
       job['properties'] = {}
       job['properties']['disk_quota_enabled'] = false
-      # clear template logging agent
-      job['template'].delete_if { |temp| temp.eql?('dea_logging_agent') }
 
     when 'router'
       # hardcode router ip
@@ -58,9 +60,8 @@ if options[:file]
   dep_yaml['properties']['syslog_aggregator']['address'] = log_ip
 
   # Unused job/properties removed
-  dep_yaml['jobs'].delete_if { |job| ['collector', 'loggregator'].include?(job['name']) }
+  dep_yaml['jobs'].delete_if { |job| job['name'] == 'collector' }
   dep_yaml['properties'].delete('collector')
-  dep_yaml['properties'].delete('loggregator')
 
   # Add postgresql db
   db_yaml = YAML.load_file(mock_db_stub)
@@ -70,6 +71,7 @@ if options[:file]
   # Properties changes for warden cpi
   dep_yaml['properties']['dea_next']['kernel_network_tuning_enabled'] = false
   dep_yaml['properties']['dea_next']['enable_https_directory_server_protocal'] = false
+  dep_yaml['properties']['dea_next']['directory_server_protocol'] = 'http'
   ['resource_pool', 'packages', 'droplets'].each do |name|
     dep_yaml['properties']['cc'][name]['fog_connection'] = {
       'provider' => 'Local',
@@ -79,10 +81,6 @@ if options[:file]
 
   # Clean up aws related stuff to keep yaml clear
   dep_yaml['resource_pools'].each do |rp|
-    if rp['name'] == 'common'
-      size = rp['size'].to_i
-      rp['size'] = size -1
-    end
     rp['cloud_properties'] = { 'name' => 'random' }
   end
   dep_yaml['compilation']['cloud_properties'] = { 'name' => 'random' }
