@@ -24,6 +24,12 @@ networks:
       subnet: subnet-fake
 
 properties:
+  uaa:
+    scim:
+      users:
+      - admin|admin|scim.write,scim.read,openid,cloud_controller.admin
+      - services|services|scim.write,scim.read,openid,cloud_controller.admin
+
   domain: 10.244.0.254.xip.io
   system_domain: 10.244.0.254.xip.io
   system_domain_organization: system_domain
