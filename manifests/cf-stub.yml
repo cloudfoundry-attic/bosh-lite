@@ -1,6 +1,6 @@
 ---
 name: cf-warden
-director_uuid: 0d86717e-0b5a-4ad5-9297-3a34a5f42d87
+director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 networks:
 - name: cf1

@@ -5,3 +5,4 @@ cookbooks
 .vagrant
 *.lock
 pkg/
+manifests/cf-manifest.yml
