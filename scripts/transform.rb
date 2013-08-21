@@ -79,6 +79,12 @@ if options[:file]
     }
   end
 
+  # Uaa/login memory tunnings
+  # Note: reduce more memory usage will increase CPU usage
+  ['uaa', 'login'].each do |j|
+    dep_yaml['properties'][j]['catalina_opts'] = '-Xmx384m -XX:MaxPermSize=128m'
+  end
+
   # Clean up aws related stuff to keep yaml clear
   dep_yaml['resource_pools'].each do |rp|
     rp['cloud_properties'] = { 'name' => 'random' }
