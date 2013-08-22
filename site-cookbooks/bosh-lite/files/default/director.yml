@@ -10,18 +10,22 @@ redis:
   port: 6379
   password:
 db:
-  adapter: sqlite
-  database: /opt/bosh/db/director.sqlite
-  connection_options:
-    max_connections: 32
-    pool_timeout: 20
+  adapter: postgres
+  user: postgres
+  password: postges
+  host: 127.0.0.1
+  port: 5432
+  database: bosh
+  connection_options: {"max_connections":32,"pool_timeout":10}
 dns:
   db:
-    adapter: sqlite
-    database: /opt/bosh/db/director-dns.sqlite
-    connection_options:
-      max_connections: 32
-      pool_timeout: 10
+    adapter: postgres
+    user: postgres
+    password: postges
+    host: 127.0.0.1
+    port: 5432
+    database: bosh
+    connection_options: {"max_connections":32,"pool_timeout":10}
 blobstore:
   provider: simple
   options:

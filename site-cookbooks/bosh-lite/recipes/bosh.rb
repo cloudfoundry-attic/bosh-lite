@@ -5,7 +5,6 @@
   zlib1g-dev
   libxml2-dev
   libxslt-dev
-  libsqlite3-dev
   libyaml-dev
   libyajl-dev
   curl
@@ -25,13 +24,26 @@ include_recipe 'bosh-lite::rbenv'
 
 include_recipe 'runit'
 
-%w(sqlite3 nats bundler).each do |gem|
+node.set['postgresql']['password']['postgres'] = 'postges'
+#node.set['postgresql']['config']['data_directory'] = '/opt/bosh/db'
+node.set['postgresql']['config']['port'] = 5432
+node.set['postgresql']['config']['ssl'] = false
+include_recipe 'postgresql::server'
+include_recipe 'postgresql::ruby'
+
+%w(pg nats bundler).each do |gem|
   rbenv_gem gem
 end
 
+postgresql_database 'bosh' do
+  connection ({:host => "127.0.0.1", :port => 5432, :username => 'postgres', :password => node['postgresql']['password']['postgres']})
+  action :create
+end
+
+
 %w(director simple_blobstore_server health_monitor).each do |gem|
   rbenv_gem gem do
-    version '>=1.5.0.pre.721'
+    version '>=1.5.0.pre.919'
     source 'https://s3.amazonaws.com/bosh-jenkins-gems/'
   end
 end
@@ -50,6 +62,9 @@ end
   end
 end
 
+
+
+
 %w(director.yml health_monitor.yml simple_blobstore_server.yml).each do |config_file|
   cookbook_file "/opt/bosh/config/#{config_file}" do
     owner 'vagrant'
@@ -59,8 +74,8 @@ end
 execute 'migrate' do
   user 'vagrant'
   # UGLY HACK WARNING - the warden cpi isn't on the load path until we require something for it.  Not sure why.
-  # 
-  command 'RUBYOPT="-r director -r cloud/warden/helpers" /opt/rbenv/shims/migrate -c /opt/bosh/config/director.yml'
+  #
+  command 'RUBYOPT="-r director -r cloud/warden/helpers" /opt/rbenv/shims/bosh_director_migrate -c /opt/bosh/config/director.yml'
 end
 
 cookbook_file '/etc/nginx/nginx.conf' do
