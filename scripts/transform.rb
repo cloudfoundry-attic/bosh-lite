@@ -85,6 +85,9 @@ if options[:file]
     dep_yaml['properties'][j]['catalina_opts'] = '-Xmx384m -XX:MaxPermSize=128m'
   end
 
+  # canary_watch_time tunnings
+  dep_yaml['update']['canary_watch_time'] = '30000-240000'
+
   # Clean up aws related stuff to keep yaml clear
   dep_yaml['resource_pools'].each do |rp|
     rp['cloud_properties'] = { 'name' => 'random' }
