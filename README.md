@@ -1,8 +1,6 @@
 #bosh-lite
 
-A lite development env for BOSH using Warden and Docker.io from within vagrant
-
-**Warning:**   This is very much a work in progress and not really suited for use.... really run and hide.
+A lite development env for BOSH using Warden from within vagrant
 
 ###Installation
 
@@ -48,7 +46,7 @@ A lite development env for BOSH using Warden and Docker.io from within vagrant
     
     $> bosh deployment manifests/[your-name-manifest].yml
     
-    $> bosh diff <cf-release>/templates/cf-aws-template.yml.erb
+    $> bosh diff [cf-release]/templates/cf-aws-template.yml.erb
     
     $> ./scripts/transform.rb -f manifests/[your-name-manifest].yml
  
