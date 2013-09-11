@@ -2,6 +2,7 @@
   libssl-dev
   libreadline-dev
   build-essential
+  make
   zlib1g-dev
   libxml2-dev
   libxslt-dev
