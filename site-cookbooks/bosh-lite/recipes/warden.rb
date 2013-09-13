@@ -7,7 +7,6 @@ rbenv_gem "bundler"
 
 git "/opt/warden" do
   repository "git://github.com/cloudfoundry/warden.git"
-  revision "nested-rebase"   #9712451911c7a0fad149f83895169a4062c47fc3
   action :sync
 end
 
