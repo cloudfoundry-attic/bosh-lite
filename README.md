@@ -4,9 +4,10 @@ A lite development env for BOSH using Warden from within vagrant
 
 ## Installation
 
-Below are two installation processes, including deployment of Cloud Foundry.
+Below are installation processes, including deployment of Cloud Foundry.
 
 * Vagrant (VMWare Fusion)
+* Virtualbox
 * AWS
 
 ### Vagrant / VMWare Fusion
@@ -67,10 +68,50 @@ Below are two installation processes, including deployment of Cloud Foundry.
     bosh diff [cf-release]/templates/cf-aws-template.yml.erb
     ./scripts/transform.rb -f manifests/[your-name-manifest].yml
     ```
+    
+    or simply
+    ```
+    ./scripts/make_manifest
+    ```
 
 1. Create CF release (form cf-release repo bosh-lite branch)
 1. Deploy!
 
+###USE Virtualbox Provider
+
+1. Install Virtualbox 
+
+1. [Install vagrant](http://downloads.vagrantup.com/)
+
+1. Install Vagrant omnibus plugin
+    ```
+    vagrant plugin install vagrant-omnibus
+    ```
+
+1. Run Bundler
+
+    ```
+    bundle
+    ```
+
+1. Run Librarian
+
+    ```
+    librarian-chef install
+    ```
+
+1. Start vagrant
+
+    ```
+    vagrant up
+    ```
+
+1. Bosh target (login with admin/admin)
+
+    ```
+    bosh target 192.168.50.4
+    ```
+    
 ###USE AWS provider
 
 1. Install Vagrant AWS provider
