@@ -63,7 +63,13 @@ Below are installation processes for different target Vagrant provisioners.
     ```
     bosh target 192.168.50.4
     ```
-    
+
+1. Add a set of route entries to your local route table to enable direct warden container access. Your sudo password may be required.
+
+    ```
+    scripts/add-route
+    ```
+
 ###USE Virtualbox Provider
 
 1. Install Virtualbox 
@@ -86,7 +92,13 @@ Below are installation processes for different target Vagrant provisioners.
     ```
     bosh target 192.168.50.4
     ```
-    
+
+1. Add a set of route entries to your local route table to enable direct warden container access. Your sudo password may be required.
+
+    ```
+    scripts/add-route
+    ```
+
 ###USE AWS provider
 
 1. Install Vagrant AWS provider
