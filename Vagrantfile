@@ -5,6 +5,7 @@ Vagrant.configure('2') do |config|
   config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
 
   config.vm.provider :virtualbox do |v, override|
+    override.omnibus.chef_version = "10.26.0"
     v.customize ["modifyvm", :id, "--memory", 3*1024]
     v.customize ["modifyvm", :id, "--cpus", 4]
   end
@@ -16,7 +17,6 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.network :private_network, ip: '192.168.50.4'
-#  config.vm.provision :shell,       :path => "scripts/virtualbox_precise_customize.sh"
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
