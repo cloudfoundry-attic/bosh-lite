@@ -77,9 +77,7 @@
     "scripts": [
       "script/base.sh",
       "script/vagrant.sh",
-      "script/vmtools.sh",
-      "script/cleanup.sh",
-      "script/zerodisk.sh"
+      "script/vmtools.sh"
     ],
     "override": {
       "virtualbox": {
@@ -95,6 +93,21 @@
      "install_command": "wget -O /tmp/chef_install.sh http://www.opscode.com/chef/install.sh; sudo bash /tmp/chef_install.sh -v 10.28.0",
      "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
      "run_list": ["bosh-lite::warden", "bosh-lite::bosh"]
+  },
+  {
+    "type": "shell",
+    "scripts": [
+      "script/cleanup.sh",
+      "script/zerodisk.sh"
+    ],
+    "override": {
+      "virtualbox": {
+        "execute_command": "echo 'packer'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+      },
+      "vmware": {
+        "execute_command": "echo 'packer'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+      }
+    }
   }],
   "post-processors": [{
     "type": "vagrant",
