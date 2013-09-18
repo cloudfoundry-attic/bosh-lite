@@ -1,1 +1,1 @@
-package 'linux-image-3.8.0-30-generic'
+package 'linux-image-3.8.0-26-generic'
