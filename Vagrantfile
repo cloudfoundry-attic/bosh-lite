@@ -25,6 +25,7 @@ Vagrant.configure('2') do |config|
     chef.add_recipe 'build-essential::default'
     chef.add_recipe 'bosh-lite::warden'
     chef.add_recipe 'bosh-lite::bosh'
+    chef.add_recipe 'bosh-lite::update-kernel'
     chef.add_recipe 'bosh-lite::reboot'
   end
 end
