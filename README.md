@@ -138,9 +138,14 @@ Known to work with Fusion version 5.0.3
     Logged in as `admin'
     ```    
 
+## Troubleshooting
+
+1. If you want to start over again, you can use `vagrant destory` from the base directory of this project to remove the VM.
+1. To start with a new VM just execute the appropriate `vagrant up` command optionally with the provider option as shown in the earlier sections.
+
 ## Upload Warden stemcell
 
-bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell.
+bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will be the root file system for all Linux Containers created by the Warden CPI.
 
 1. Download latest warden stemcell
 
