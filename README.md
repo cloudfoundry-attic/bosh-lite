@@ -10,13 +10,19 @@ For all use cases, first prepare this project with `bundler` & `librarian-chef`.
 
 1. [Install vagrant](http://downloads.vagrantup.com/)
 
+    Known to work version:
+    ```
+    $ vagrant -v
+    Vagrant 1.3.3
+    ```
+
 1. Install Vagrant omnibus plugin
     ```
     vagrant plugin install vagrant-omnibus
     ```
 1. Install Ruby + RubyGems + Bundler
 
-1. Run Bundler
+1. Run Bundler from the base directory of this repository
 
     ```
     bundle
@@ -36,6 +42,7 @@ Below are installation processes for different Vagrant providers.
 
 ### USE VMWare Fusion Provider
 
+Known to work with Fusion version 5.0.3
 
 1. Install vagrant Fusion Plugin + license
 
@@ -45,7 +52,7 @@ Below are installation processes for different Vagrant providers.
     ```
 
 
-1. Start vagrant
+1. Start vagrant from the base directory of this repository (which uses the Vagrantfile)
 
     ```
     vagrant up --provider vmware_fusion
@@ -55,6 +62,10 @@ Below are installation processes for different Vagrant providers.
 
     ```
     bosh target 192.168.50.4
+    Target set to `Bosh Lite Director'
+    Your username: admin
+    Enter password: admin
+    Logged in as `admin'
     ```
 
 1. Add a set of route entries to your local route table to enable direct warden container access. Your sudo password may be required.
@@ -66,7 +77,7 @@ Below are installation processes for different Vagrant providers.
 ###USE Virtualbox Provider
 
 
-1. Start vagrant
+1. Start vagrant from the base directory of this repository (which uses the Vagrantfile)
 
     ```
     vagrant up
@@ -76,6 +87,10 @@ Below are installation processes for different Vagrant providers.
 
     ```
     bosh target 192.168.50.4
+    Target set to `Bosh Lite Director'
+    Your username: admin
+    Enter password: admin
+    Logged in as `admin'
     ```
 
 1. Add a set of route entries to your local route table to enable direct warden container access. Your sudo password may be required.
@@ -106,11 +121,21 @@ Below are installation processes for different Vagrant providers.
     ```
 
 1. Make sure the EC2 secure group you are using in the `Vagrantfile` exists and allows tcp/25555
-1. Run Vagrant:
+1. Run Vagrant from the base directory of this repository (which uses the Vagrantfile):
 
     ```
     vagrant up --provider=aws
     ```
+    
+1. Bosh target (login with admin/admin)
+
+    ```
+    bosh target 192.168.50.4
+    Target set to `Bosh Lite Director'
+    Your username: admin
+    Enter password: admin
+    Logged in as `admin'
+    ```    
 
 ## Upload Warden stemcell
 
