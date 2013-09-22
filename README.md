@@ -8,6 +8,14 @@ This readme also includes demonstrates how to deploy Cloud Foundry into bosh-lit
 
 For all use cases, first prepare this project with `bundler` & `librarian-chef`.
 
+1. [Install vagrant](http://downloads.vagrantup.com/)
+
+1. Install Vagrant omnibus plugin
+    ```
+    vagrant plugin install vagrant-omnibus
+    ```
+1. Install Ruby + RubyGems + Bundler
+
 1. Run Bundler
 
     ```
@@ -20,17 +28,14 @@ For all use cases, first prepare this project with `bundler` & `librarian-chef`.
     librarian-chef install
     ```
 
-Below are installation processes for different target Vagrant provisioners.
+Below are installation processes for different Vagrant providers.
 
 * VMWare Fusion
 * Virtualbox
 * AWS
 
-### Vagrant / VMWare Fusion
+### USE VMWare Fusion Provider
 
-1. Install Fusion 
-
-1. [Install vagrant](http://downloads.vagrantup.com/)
 
 1. Install vagrant Fusion Plugin + license
 
@@ -39,18 +44,6 @@ Below are installation processes for different target Vagrant provisioners.
     vagrant plugin license vagrant-vmware-fusion license.lic
     ```
 
-1. Install Ruby + RubyGems + Bundler
-1. Run Bundler
-
-    ```
-    bundle
-    ```
-
-1. Run Librarian
-
-    ```
-    librarian-chef install
-    ```
 
 1. Start vagrant
 
@@ -72,14 +65,6 @@ Below are installation processes for different target Vagrant provisioners.
 
 ###USE Virtualbox Provider
 
-1. Install Virtualbox 
-
-1. [Install vagrant](http://downloads.vagrantup.com/)
-
-1. Install Vagrant omnibus plugin
-    ```
-    vagrant plugin install vagrant-omnibus
-    ```
 
 1. Start vagrant
 
@@ -99,7 +84,7 @@ Below are installation processes for different target Vagrant provisioners.
     scripts/add-route
     ```
 
-###USE AWS provider
+###USE AWS Provider
 
 1. Install Vagrant AWS provider
 
@@ -136,9 +121,9 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell.
     ```
     wget http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
     ```
-    
+
 1. Upload Stemcell
- 
+
     ```
     bosh upload stemcell latest-bosh-stemcell-warden.tgz
     ```
@@ -153,7 +138,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell.
     bosh diff [cf-release]/templates/cf-aws-template.yml.erb
     ./scripts/transform.rb -f manifests/[your-name-manifest].yml
     ```
-    
+
     or simply
     ```
     ./scripts/make_manifest
@@ -187,5 +172,5 @@ $ ssh_boshlite
 9. health_manager/0
 10. dea_next/0
 11. router/0
-Choose an instance: 
+Choose an instance:
 ```
