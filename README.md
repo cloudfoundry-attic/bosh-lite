@@ -170,7 +170,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell.
     ./scripts/make_manifest
     ```
 
-1. Create CF release (form cf-release repo bosh-lite branch)
+1. Create a CF release
 1. Deploy!
 
 ## SSH into deployment jobs
