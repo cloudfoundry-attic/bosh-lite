@@ -10,11 +10,12 @@ For all use cases, first prepare this project with `bundler` & `librarian-chef`.
 
 1. [Install vagrant](http://downloads.vagrantup.com/)
 
-    Known to work version:
+    Known to work for version:
     ```
     $ vagrant -v
-    Vagrant 1.3.3
+    Vagrant 1.3.1
     ```
+    Note: Vagrant 1.3.2+ using OSX and VirtualBox may encounter [this issue](https://github.com/mitchellh/vagrant/issues/2252) with Private Networking. The work-around is to downgrade to Vagrant 1.3.1 until Vagrant 1.3.4 is released.
 
 1. Install Vagrant omnibus plugin
     ```
