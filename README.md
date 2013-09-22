@@ -159,6 +159,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell.
 
     ```
     cp manifests/cf-stub.yml manifests/[your-name-manifest].yml
+    # replace director_uuid: PLACEHOLDER-DIRECTOR-UUID in [your-name-manifest].yml with the UUID from "bosh status"
     bosh deployment manifests/[your-name-manifest].yml
     bosh diff [cf-release]/templates/cf-aws-template.yml.erb
     ./scripts/transform.rb -f manifests/[your-name-manifest].yml
