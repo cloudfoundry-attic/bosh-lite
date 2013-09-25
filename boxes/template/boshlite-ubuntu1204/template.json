@@ -90,7 +90,6 @@
   },
   {
      "type": "chef-solo",
-     "install_command": "wget -O /tmp/chef_install.sh http://www.opscode.com/chef/install.sh; sudo bash /tmp/chef_install.sh -v 10.28.0",
      "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
      "run_list": ["bosh-lite::warden", "bosh-lite::bosh"]
   },
