@@ -221,6 +221,7 @@ Spiff is the way that Cloud Foundry is deployed in production, and can be used f
     Might look like this:
     
     ```
+    # This is the router ip in bosh vms (not the cc)
     export VCAP_BVT_API_ENDPOINT=http://api.10.244.0.22.xip.io
     export VCAP_BVT_ADMIN_USER=admin
     export VCAP_BVT_ADMIN_USER_PASSWD=admin
