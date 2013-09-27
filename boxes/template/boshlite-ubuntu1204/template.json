@@ -1,7 +1,7 @@
 {
   "builders": [
     {
-      "vm_name": "boshlite-ubuntu1204",
+      "vm_name": "boshlite-vmware-ubuntu1204",
       "type": "vmware",
       "guest_os_type": "ubuntu-64",
       "headless": "true",
@@ -44,7 +44,7 @@
       }
     },
     {
-      "vm_name": "boshlite-ubuntu1204",
+      "vm_name": "boshlite-virtualbox-ubuntu1204",
       "type": "virtualbox",
       "guest_os_type": "Ubuntu_64",
       "headless": "true",
