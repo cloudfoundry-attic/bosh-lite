@@ -5,7 +5,7 @@ Vagrant.configure('2') do |config|
   config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
 
   config.vm.provider :virtualbox do |v, override|
-    override.omnibus.chef_version = "10.26.0"
+    override.omnibus.chef_version = :latest
     v.customize ["modifyvm", :id, "--memory", 3*1024]
     v.customize ["modifyvm", :id, "--cpus", 4]
   end
