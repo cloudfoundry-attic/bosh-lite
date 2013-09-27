@@ -113,6 +113,6 @@
   "post-processors": [{
     "type": "vagrant",
     "keep_input_artifact": true,
-    "output": "../../{{.Provider}}/boshlite-ubuntu1204.box"
+    "output": "../../{{.Provider}}/boshlite-{{.Provider}}-ubuntu1204.box"
   }]
 }
