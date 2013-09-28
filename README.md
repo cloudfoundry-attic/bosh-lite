@@ -115,7 +115,7 @@ Known to work with Fusion version 5.0.3
     ```
 
 1. Rename Vagrantfile.aws to Vagrantfile
-1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values.  If you've followed along with other documentation such as (these steps to deploy Cloud Foundry on AWS)[http://docs.cloudfoundry.com/docs/running/deploying-cf/ec2/index.html#deployment-env-prep], you may simply need to source your `bosh_environment` file.
+1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values.  If you've followed along with other documentation such as [these steps to deploy Cloud Foundry on AWS](http://docs.cloudfoundry.com/docs/running/deploying-cf/ec2/index.html#deployment-env-prep), you may simply need to source your `bosh_environment` file.
 1. Make sure the EC2 secure group you are using in the `Vagrantfile` exists and allows tcp/25555
 1. Run Vagrant from the base directory of this repository (which uses the Vagrantfile):
 
