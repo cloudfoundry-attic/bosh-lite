@@ -133,6 +133,12 @@ Known to work with Fusion version 5.0.3
     Logged in as `admin'
     ```    
 
+1. Add a set of route entries to your local route table to enable direct warden container access. Your sudo password may be required.
+
+    ```
+    scripts/add-route
+    ```
+    
 ## Troubleshooting
 
 1. If you want to start over again, you can use `vagrant destory` from the base directory of this project to remove the VM.
