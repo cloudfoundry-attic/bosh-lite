@@ -94,7 +94,7 @@ Known to work with Fusion version 5.0.3
     Logged in as `admin'
     ```
 
-1. Add a set of route entries to your local route table to enable direct warden container access. Your sudo password may be required.
+1. Add a set of route entries to your local route table to enable direct warden container access every time your networking gets reset (eg. reboot or connect to a different network). Your sudo password may be required.
 
     ```
     scripts/add-route
