@@ -1,0 +1,119 @@
+{
+  "builders": [
+    {
+      "vm_name": "boshlite-vmware-ubuntu1204",
+      "type": "vmware",
+      "guest_os_type": "ubuntu-64",
+      "headless": "true",
+      "http_directory": "http",
+      "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.3-server-amd64.iso",
+      "iso_checksum": "61d5e67c70d97b33c13537461a0b153b41304ef412bb0e9d813bb157068c3c65",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "packer",
+      "ssh_password": "packer",
+      "tools_upload_flavor": "linux",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz auto",
+        " console-setup/ask_detect=false",
+        " console-setup/layoutcode=us",
+        " console-setup/modelcode=pc105",
+        " debconf/frontend=noninteractive",
+        " debian-installer=en_US",
+        " fb=false",
+        " initrd=/install/initrd.gz",
+        " kbd-chooser/method=us",
+        " keyboard-configuration/layout=USA",
+        " keyboard-configuration/variant=USA",
+        " locale=en_US",
+        " netcfg/get_domain=vm",
+        " netcfg/get_hostname=vagrant",
+        " noapic" ,
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " -- ",
+        "<enter>"
+      ],
+      "floppy_files": ["floppy/vmware9.compat_mm.patch", "floppy/vmware9.k3.8rc4.patch", "floppy/vmtools.inode.c.patch"],
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo 'packer'|sudo -S shutdown -P now",
+      "disk_size": 40960,
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      }
+    },
+    {
+      "vm_name": "boshlite-virtualbox-ubuntu1204",
+      "type": "virtualbox",
+      "guest_os_type": "Ubuntu_64",
+      "headless": "true",
+      "http_directory": "http",
+      "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.3-server-amd64.iso",
+      "iso_checksum": "61d5e67c70d97b33c13537461a0b153b41304ef412bb0e9d813bb157068c3c65",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "packer",
+      "ssh_password": "packer",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{ .Name }} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo 'packer'|sudo -S shutdown -P now",
+      "disk_size": 40960,
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ]
+    }
+  ],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "script/base.sh",
+      "script/vagrant.sh",
+      "script/vmtools.sh"
+    ],
+    "override": {
+      "virtualbox": {
+        "execute_command": "echo 'packer'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+      },
+      "vmware": {
+        "execute_command": "echo 'packer'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+      }
+    }
+  },
+  {
+     "type": "chef-solo",
+     "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
+     "run_list": ["bosh-lite::warden", "bosh-lite::bosh", "bosh-lite::bosh_cli", "bosh-lite::repos"]
+  },
+  {
+    "type": "shell",
+    "scripts": [
+      "script/install_cf.sh",
+      "script/cleanup.sh",
+      "script/zerodisk.sh"
+    ],
+    "override": {
+      "virtualbox": {
+        "execute_command": "echo 'packer'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+      },
+      "vmware": {
+        "execute_command": "echo 'packer'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+      }
+    }
+  }],
+  "post-processors": [{
+    "type": "vagrant",
+    "keep_input_artifact": true,
+    "output": "../../{{.Provider}}/boshlite-{{.Provider}}-ubuntu1204.box"
+  }]
+}

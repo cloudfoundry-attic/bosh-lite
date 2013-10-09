@@ -16,6 +16,7 @@
   nginx
   libcurl4-openssl-dev
   redis-server
+  libpq-dev
 ).each do |package_name|
   package package_name
 end
@@ -31,6 +32,7 @@ node.set['postgresql']['config']['ssl'] = false
 include_recipe 'postgresql::server'
 include_recipe 'postgresql::ruby'
 
+# Workaround for nats gem install
 rbenv_gem "eventmachine" do
   version "0.12.10"
 end
@@ -43,7 +45,6 @@ postgresql_database 'bosh' do
   connection ({:host => "127.0.0.1", :port => 5432, :username => 'postgres', :password => node['postgresql']['password']['postgres']})
   action :create
 end
-
 
 %w(director simple_blobstore_server health_monitor).each do |gem|
   rbenv_gem gem do
@@ -65,9 +66,6 @@ end
     recursive true
   end
 end
-
-
-
 
 %w(director.yml health_monitor.yml simple_blobstore_server.yml).each do |config_file|
   cookbook_file "/opt/bosh/config/#{config_file}" do
