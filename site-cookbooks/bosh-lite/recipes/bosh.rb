@@ -16,6 +16,7 @@
   nginx
   libcurl4-openssl-dev
   redis-server
+  libpq-dev
 ).each do |package_name|
   package package_name
 end
@@ -30,6 +31,16 @@ node.set['postgresql']['config']['port'] = 5432
 node.set['postgresql']['config']['ssl'] = false
 include_recipe 'postgresql::server'
 include_recipe 'postgresql::ruby'
+
+# Workaround for nats gem install
+rbenv_gem 'eventmachine' do
+  version '0.12.10'
+end
+
+# Workaround for nats gem install
+rbenv_gem 'thin' do
+  version '1.5.1'
+end
 
 %w(pg nats bundler).each do |gem|
   rbenv_gem gem
