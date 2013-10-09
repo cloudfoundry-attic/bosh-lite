@@ -1,4 +1,6 @@
 # create cf release
+PATH=/opt/rbenv/shims/:$PATH
+
 cd /tmp/bosh-lite/
 bundle
 bundle exec bosh -n target 127.0.0.1:25555
