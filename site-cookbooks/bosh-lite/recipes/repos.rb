@@ -1,3 +1,5 @@
+rbenv_ruby '1.9.3-p392'
+
 git "/tmp/bosh-lite" do
   repository "git://github.com/cloudfoundry/bosh-lite.git"
   action :sync
