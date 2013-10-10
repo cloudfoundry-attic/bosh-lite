@@ -2,7 +2,7 @@
 PATH=/opt/rbenv/shims/:$PATH
 
 cd /tmp/bosh-lite/
-bundle
+bundle install
 bundle exec bosh -n target 127.0.0.1:25555
 
 wget -r --tries=10 http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz -O ./latest-bosh-stemcell-warden.tgz
@@ -25,7 +25,7 @@ scripts/transform.rb -f manifests/cf-manifest.yml
 
 (
   cd cf-release
-  bundle
+  bundle install
   echo "---\ndev_name: cf-release" > ./config/dev.yml
   bundle exec bosh -n create release --force
   bundle exec bosh -u admin -p admin -n upload release
