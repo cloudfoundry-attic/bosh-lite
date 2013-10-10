@@ -1,5 +1,9 @@
 rbenv_ruby '1.9.3-p392'
 
+rbenv_gem "bundler" do
+    ruby_version "1.9.3-p392"
+end
+
 git "/tmp/bosh-lite" do
   repository "git://github.com/cloudfoundry/bosh-lite.git"
   action :sync
