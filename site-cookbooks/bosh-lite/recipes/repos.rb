@@ -1,7 +1,7 @@
 rbenv_ruby '1.9.3-p392'
 
 rbenv_gem "bundler" do
-    ruby_version "1.9.3-p392"
+  ruby_version "1.9.3-p392"
 end
 
 git "/tmp/bosh-lite" do
@@ -13,3 +13,5 @@ git "/tmp/bosh-lite/cf-release" do
   repository "git://github.com/cloudfoundry/cf-release.git"
   action :sync
 end
+
+cookbook_file "/tmp/dev.yml"

@@ -26,7 +26,7 @@ scripts/transform.rb -f manifests/cf-manifest.yml
 (
   cd cf-release
   bundle install
-  echo "---\ndev_name: cf-release" > ./config/dev.yml
+  cp -f /tmp/dev.yml ./config/
   bundle exec bosh -n create release --force
   bundle exec bosh -u admin -p admin -n upload release
   bundle exec bosh -u admin -p admin -n deploy
