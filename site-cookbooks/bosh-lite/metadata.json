@@ -7,8 +7,7 @@
         "rbenv": ">= 0.0.0"
     },
     "recipes": {
-        "bosh-lite::docker": "Setup Docker",
-        "bosh-lite::bosh": "Setup BOSH"
+        "bosh-lite::bosh": "Setup BOSH",
         "bosh-lite::warden": "Setup Warden"
     }
 }
