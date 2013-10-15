@@ -42,6 +42,7 @@ if options[:file]
       # simplify dea network
       job['networks'][0].delete('default')
       # add disk quota properties
+      job['properties'] = {} if job['properties'].nil?
       job['properties']['disk_quota_enabled'] = false
 
     when 'router'
