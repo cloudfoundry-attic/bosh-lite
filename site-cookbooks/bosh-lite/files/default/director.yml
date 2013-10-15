@@ -33,11 +33,9 @@ blobstore:
     user: bs_admin
     password: bs_pass
 compiled_package_cache:
-  provider: simple
+  provider: local
   options:
-    endpoint: http://127.0.0.1:21081
-    user: bs_admin
-    password: bs_pass
+    blobstore_path:  /vagrant/tmp/compiled_package_cache
 scan_and_fix:
   auto_fix_stateful_nodes: false
 cloud:
