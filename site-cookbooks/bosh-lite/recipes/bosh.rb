@@ -76,7 +76,7 @@ execute 'migrate' do
   user 'vagrant'
   # UGLY HACK WARNING - the warden cpi isn't on the load path until we require something for it.  Not sure why.
   #
-  command 'RUBYOPT="-r director -r cloud/warden/helpers" /opt/rbenv/shims/bosh_director_migrate -c /opt/bosh/config/director.yml'
+  command 'RUBYOPT="-r bosh/director -r cloud/warden/helpers" /opt/rbenv/shims/bosh-director-migrate -c /opt/bosh/config/director.yml'
 end
 
 cookbook_file '/etc/nginx/nginx.conf' do
