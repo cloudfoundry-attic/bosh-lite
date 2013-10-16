@@ -46,7 +46,7 @@ postgresql_database 'bosh' do
   action :create
 end
 
-%w(bosh_director simple_blobstore_server health_monitor).each do |gem|
+%w(bosh-director simple_blobstore_server bosh-monitor).each do |gem|
   rbenv_gem gem do
     version '>=1.5.0.pre.919'
   end
