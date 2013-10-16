@@ -3,4 +3,4 @@
 PATH=/opt/rbenv/shims:/opt/rbenv/bin:/opt/rbenv/bin/rbenv:/bin:/usr/bin
 
 exec 2>&1
-exec chpst -u <%= @options[:user] %> health_monitor -c /opt/bosh/config/health_monitor.yml
+exec chpst -u <%= @options[:user] %> bosh-monitor -c /opt/bosh/config/bosh-monitor.yml

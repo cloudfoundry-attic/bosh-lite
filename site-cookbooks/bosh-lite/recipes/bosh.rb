@@ -66,7 +66,7 @@ end
   end
 end
 
-%w(director.yml health_monitor.yml simple_blobstore_server.yml).each do |config_file|
+%w(director.yml bosh-monitor.yml simple_blobstore_server.yml).each do |config_file|
   cookbook_file "/opt/bosh/config/#{config_file}" do
     owner 'vagrant'
   end
@@ -107,7 +107,7 @@ end
   end
 end
 
-%w(blobstore health_monitor nats).each do |service_name|
+%w(blobstore bosh-monitor nats).each do |service_name|
   runit_service service_name do
     default_logger true
     options({:user => 'root'})
