@@ -1,3 +1,10 @@
+%w(
+ libmysqlclient-dev
+ libsqlite3-dev
+).each do |package_name|
+  package package_name
+end
+
 rbenv_ruby '1.9.3-p392'
 
 rbenv_gem "bundler" do
