@@ -229,6 +229,8 @@ Spiff is the way that Cloud Foundry is deployed in production, and can be used f
     ```
     bundle; bundle exec rake prepare; # create initial users/assets
     bundle exec rspec # run!
+    
+    warden_rspec # Run tests in parallel
     ```
     
 
