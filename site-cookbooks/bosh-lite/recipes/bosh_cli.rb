@@ -11,7 +11,6 @@ end
 
 rbenv_gem 'bosh_cli' do
   version '~>1.5.0.pre.847'
-  source 'https://s3.amazonaws.com/bosh-jenkins-gems/'
 end
 
 rbenv_gem 'cf'
