@@ -1,6 +1,7 @@
 Vagrant.configure('2') do |config|
   VM_MEMORY = 6*1024
   VM_CORES = 4
+  DIRECTOR_IP = '192.168.50.4'
 
   config.vm.hostname='bosh-lite'
   config.omnibus.chef_version = :latest
@@ -18,9 +19,13 @@ Vagrant.configure('2') do |config|
     v.vmx["memsize"] = VM_MEMORY
   end
 
-  config.vm.network :private_network, ip: '192.168.50.4'
+  config.vm.network :private_network, ip: DIRECTOR_IP
 
   config.vm.provision :chef_solo do |chef|
+    chef.json = {
+      :director_ip => DIRECTOR_IP
+    }
+
     chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
 
     chef.add_recipe 'bosh-lite::apt-update'

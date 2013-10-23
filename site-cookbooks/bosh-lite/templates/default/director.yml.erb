@@ -48,16 +48,16 @@ cloud:
       root: /opt/warden/disks
     stemcell:
       root: /opt/warden/stemcells
-    nats: nats://192.168.50.4:21084
+    nats: nats://<%= @director_ip %>:21084
     agent:
       blobstore:
         provider: simple
         options:
-          endpoint: http://192.168.50.4:21081
+          endpoint: http://<%= @director_ip %>:21081
           user: bs_admin
           password: bs_pass
-      mbus: "nats://nats:nats@192.168.50.4:21084"
+      mbus: "nats://nats:nats@<%= @director_ip %>:21084"
       server:
-        host: 192.168.50.4
+        host: <%= @director_ip %>
         password:
       ntp: []

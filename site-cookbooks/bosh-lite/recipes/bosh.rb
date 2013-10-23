@@ -66,11 +66,21 @@ end
   end
 end
 
-%w(director.yml bosh-monitor.yml simple_blobstore_server.yml).each do |config_file|
+%w(bosh-monitor.yml simple_blobstore_server.yml).each do |config_file|
   cookbook_file "/opt/bosh/config/#{config_file}" do
     owner 'vagrant'
   end
 end
+
+template "/opt/bosh/config/director.yml" do
+  source "director.yml.erb"
+  mode 0755
+  owner "vagrant"
+  variables({
+     :director_ip => node[:director_ip]
+  })
+end
+
 
 execute 'migrate' do
   user 'vagrant'
