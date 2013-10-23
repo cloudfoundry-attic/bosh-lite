@@ -1,4 +1,5 @@
 set -x
+set -e
 PATH=/home/jenkins-ci/.rbenv/shims:/home/jenkins-ci/.rbenv/bin:/home/jenkins-ci/.rbenv/bin:$PATH
 
 vagrant destroy -f
