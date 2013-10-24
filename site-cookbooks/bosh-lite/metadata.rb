@@ -1,7 +1,8 @@
 name              "bosh-lite"
-recipe            "bosh-lite::docker", "Adds docker repos and install docker packages"
-recipe            "bosh-lite::warden", "Adds warden"
-recipe            "bosh-lite::bosh", "Add bosh packages and gems"
+version           "0.1"
+recipe            "bosh-lite::rbenv", "Setup rbenv, ruby and bundler"
+recipe            "bosh-lite::warden", "Setup warden"
+recipe            "bosh-lite::bosh", "Setup bosh packages and gems"
 
 %w{ ubuntu debian }.each do |os|
   supports os
