@@ -122,7 +122,7 @@ Known to work with Fusion version 5.0.3
     ```
     vagrant up --provider=aws
     ```
-    
+
 1. Bosh target (login with admin/admin)
 
     ```
@@ -131,7 +131,7 @@ Known to work with Fusion version 5.0.3
     Your username: admin
     Enter password: admin
     Logged in as `admin'
-    ```    
+    ```
 
 ## Troubleshooting
 
@@ -154,52 +154,16 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     bosh upload stemcell latest-bosh-stemcell-warden.tgz
     ```
 
-## Deploy Cloud Foundry (Non-Spiff Approach)
+## Deploy Cloud Foundry
 
-1. Generate CF deployment manifest
 
-    ```
-    cp manifests/cf-stub.yml manifests/[your-name-manifest].yml
-    # replace director_uuid: PLACEHOLDER-DIRECTOR-UUID in [your-name-manifest].yml with the UUID from "bosh status"
-    bosh deployment manifests/[your-name-manifest].yml
-    bosh diff [cf-release]/templates/cf-aws-template.yml.erb
-    ./scripts/transform.rb -f manifests/[your-name-manifest].yml
-    ```
 
-    or simply
-    ```
-    ./scripts/make_manifest
-    ```
+1.  Use the make_manifest_spiff script to create a cf manifest.  This step assumes you have cf-release checked out to ~/workspace and that you have [spiff](https://github.com/vito/spiff) installed.
 
-1. Create a CF release
-1. Deploy!
-
-## Deploy Cloud Foundry (Using Spiff)
-
-Spiff is the way that Cloud Foundry is deployed in production, and can be used for Bosh-lite installs too. 
-
-1.  Create a deployment stub, like the one below:.  
-    
-    (In the rest of this section, we refer to this as being at ~/deployment-stub.yml)
+    make_manifest_spiff will target your bosh-lite director, find the uuid, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml.
 
     ```
-    name: cf-warden
-    director_uuid: [your director UUID, you can use 'bosh status' to get it, look for the UUID line]
-    releases:
-        - name: cf
-          version: latest
-    ```
-
-1.  Generate a deployment manifest based on your stub.  
-
-    The command will look something like:
-    
-    **NOTE**: This uses spiff. Install that first, see https://github.com/vito/spiff
-    
-    **NOTE**: This assumes you've checked out http://github.com/cloudfoundry/cf-release to ~/cf-release. Do that first too. Run ~/cf-release/update also.
-
-    ```
-    ~/cf-release/generate_deployment_manifest warden ~/deployment-stub.yml > ~/deployment.yml
+    ./scripts/make_manifest_spiff
     ```
 
 1.  Bosh target 192.168.50.4 and run bosh as normal, passing your generated manifest:
@@ -216,23 +180,23 @@ Spiff is the way that Cloud Foundry is deployed in production, and can be used f
     a.  Set the environment variables VCAP_BVT_API_ENDPOINT, VCAP_BVT_ADMIN_USER, VCAP_BVT_ADMIN_USER_PASSWD
 
     Might look like this:
-    
+
     ```
-    # This is the router ip in bosh vms (not the cc)
-    export VCAP_BVT_API_ENDPOINT=http://api.10.244.0.22.xip.io
+    # This is the HA Proxy ip in bosh vms (not the cc)
+    export VCAP_BVT_API_ENDPOINT=http://api.10.244.0.34.xip.io
     export VCAP_BVT_ADMIN_USER=admin
     export VCAP_BVT_ADMIN_USER_PASSWD=admin
     ```
-    
+
     b.  Run yeti as normal from cf-release/src/tests.. e.g.
-    
+
     ```
     bundle; bundle exec rake prepare; # create initial users/assets
     bundle exec rspec # run!
-    
+
     warden_rspec # Run tests in parallel
     ```
-    
+
 
 ## SSH into deployment jobs
 
