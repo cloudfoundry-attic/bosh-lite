@@ -4,3 +4,7 @@ director_uuid: PLACEHOLDER-DIRECTOR-UUID
 releases:
   - name: cf
     version: latest
+
+properties:
+  loggregator:
+    shared_secret: 7l8MAzkoiTsGCNKVyScxaWguDJLhdU

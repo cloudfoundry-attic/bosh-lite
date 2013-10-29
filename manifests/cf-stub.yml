@@ -75,4 +75,5 @@ properties:
 
   loggregator:
     incoming_port: 3456
+    shared_secret: zhp5AUxMrKEF3aXmGJ8QNysVTidwYP
 
