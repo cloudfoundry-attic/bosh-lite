@@ -13,7 +13,7 @@ For all use cases, first prepare this project with `bundler` & `librarian-chef`.
     Known to work for version:
     ```
     $ vagrant -v
-    Vagrant 1.3.4
+    Vagrant 1.3.5
     ```
     Note: for OSX and VirtualBox you are required to use Vagrant 1.3.4+
 
