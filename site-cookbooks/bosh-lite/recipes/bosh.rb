@@ -77,7 +77,7 @@ template "/opt/bosh/config/director.yml" do
   mode 0755
   owner "vagrant"
   variables({
-     :director_ip => node[:director_ip]
+     :director_ip => node[:director_ip] || '192.168.50.4'
   })
 end
 
