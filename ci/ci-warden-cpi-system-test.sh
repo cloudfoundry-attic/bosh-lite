@@ -1,6 +1,6 @@
 set -x
 set -e
-PATH=/home/jenkins-ci/.rbenv/shims:/home/jenkins-ci/.rbenv/bin:/home/jenkins-ci/.rbenv/bin:$PATH
+PATH=/home/jenkins/.rbenv/shims:/home/jenkins/.rbenv/bin:/home/jenkins/.rbenv/bin:$PATH
 
 vagrant destroy -f
 bundle
@@ -36,7 +36,7 @@ scripts/transform.rb -f manifests/cf-manifest.yml
 (
   cd cf-release
   bundle
-echo "---\ndev_name: cf-release" > ./config/dev.yml
+echo "---\ndev_name: cf" > ./config/dev.yml
   bundle exec bosh -n create release --force
   bundle exec bosh -u admin -p admin -n upload release
   bundle exec bosh -u admin -p admin -n deploy
