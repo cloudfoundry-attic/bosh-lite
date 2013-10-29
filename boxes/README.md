@@ -4,7 +4,7 @@ Templates and scripts are based on https://github.com/misheska/basebox-packer
 
 A GNU Make makefile is provided to support automated builds.  It assumes
 that both GNU Make and Packer are in the PATH.  Download and install
-Packer from <http://www.packer.io/downloads.html>
+Packer from <http://www.packer.io/docs/installation.html>
 
 
 To build all boxes:
