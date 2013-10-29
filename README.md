@@ -200,18 +200,16 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
 
 ## SSH into deployment jobs
 
-To use `bosh ssh` to SSH into running jobs of a deployment, you need to specify various `bosh ssh` flags to use the Vagrant VM as the gateway.
-
-To make it simple, add the following alias to your environment:
-
-``` bash
-alias ssh_boshlite='bosh ssh --gateway_host 192.168.50.4 --gateway_user vagrant --gateway_identity_file $HOME/.vagrant.d/insecure_private_key'
-```
-
-You can now SSH into any VM with `ssh_boshlite` in the same way you would run `bosh ssh`:
+To use `bosh ssh` to SSH into running jobs of a deployment, to run the following command:
 
 ```
-$ ssh_boshlite
+scripts/add-route
+```
+
+Now you can now SSH into any VM with `bosh ssh`:
+
+```
+$ bosh ssh
 1. nats/0
 2. syslog_aggregator/0
 3. postgres/0
