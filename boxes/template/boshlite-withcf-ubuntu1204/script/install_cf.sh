@@ -5,6 +5,7 @@ ifconfig lo:1 192.168.50.4 netmask 255.255.255.0
 
 cd /tmp/bosh-lite/
 bundle install
+rbenv rehash
 bundle exec bosh -n target 127.0.0.1:25555
 
 wget -r --tries=10 http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz -O ./latest-bosh-stemcell-warden.tgz
