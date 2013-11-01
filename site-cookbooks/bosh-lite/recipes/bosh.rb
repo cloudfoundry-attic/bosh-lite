@@ -48,7 +48,7 @@ end
 
 %w(bosh-director simple_blobstore_server bosh-monitor).each do |gem|
   rbenv_gem gem do
-    version '>=1.5.0.pre.919'
+    version '>=1.5.0.pre.1113'
   end
 end
 
