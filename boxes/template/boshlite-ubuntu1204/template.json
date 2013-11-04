@@ -38,8 +38,8 @@
       "shutdown_command": "echo 'packer'|sudo -S shutdown -P now",
       "disk_size": 40960,
       "vmx_data": {
-        "memsize": "512",
-        "numvcpus": "1",
+        "memsize": "2048",
+        "numvcpus": "4",
         "cpuid.coresPerSocket": "1"
       }
     },
@@ -69,8 +69,8 @@
       "shutdown_command": "echo 'packer'|sudo -S shutdown -P now",
       "disk_size": 40960,
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "512"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ["modifyvm", "{{.Name}}", "--memory", "2048"],
+        ["modifyvm", "{{.Name}}", "--cpus", "4"]
       ]
     }
   ],

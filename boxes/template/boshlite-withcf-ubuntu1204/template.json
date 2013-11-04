@@ -39,7 +39,7 @@
       "disk_size": 61440,
       "vmx_data": {
         "memsize": "5120",
-        "numvcpus": "2",
+        "numvcpus": "4",
         "cpuid.coresPerSocket": "1"
       }
     },
@@ -70,7 +70,7 @@
       "disk_size": 61440,
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "5120"],
-        ["modifyvm", "{{.Name}}", "--cpus", "2"]
+        ["modifyvm", "{{.Name}}", "--cpus", "4"]
       ]
     }
   ],
