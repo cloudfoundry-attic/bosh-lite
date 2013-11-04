@@ -1,15 +1,17 @@
 # create cf release
-PATH=/opt/rbenv/shims/:$PATH
+set -e
+set -x
+PATH=/opt/rbenv/shims:/opt/rbenv/bin:$PATH
 
 ifconfig lo:1 192.168.50.4 netmask 255.255.255.0
 
 cd /tmp/bosh-lite/
 bundle install
 rbenv rehash
-bundle exec bosh -n target 127.0.0.1:25555
+bosh -n target 127.0.0.1:25555
 
-wget -r --tries=10 http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz -O ./latest-bosh-stemcell-warden.tgz
-bundle exec bosh -u admin -p admin -n upload stemcell ./latest-bosh-stemcell-warden.tgz
+wget -r --tries=10 http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz -O /tmp/latest-bosh-stemcell-warden.tgz
+bosh -u admin -p admin -n upload stemcell /tmp/latest-bosh-stemcell-warden.tgz
 
 (
   cd cf-release
@@ -22,16 +24,16 @@ cp manifests/cf-stub.yml manifests/cf-manifest.yml
 DIRECTOR_UUID=$(bundle exec bosh status | grep UUID | awk '{print $2}')
 echo $DIRECTOR_UUID
 perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" manifests/cf-manifest.yml
-bundle exec bosh -n deployment manifests/cf-manifest.yml
-bundle exec bosh -n diff ./cf-release/templates/cf-aws-template.yml.erb
+bosh -n deployment manifests/cf-manifest.yml
+bosh -n diff ./cf-release/templates/cf-aws-template.yml.erb
 scripts/transform.rb -f manifests/cf-manifest.yml
 
 (
   cd cf-release
   bundle install
   cp -f /tmp/dev.yml ./config/
-  bundle exec bosh -n create release --force
-  bundle exec bosh -u admin -p admin -n upload release
-  bundle exec bosh -u admin -p admin -n deploy
+  bosh -n create release --force
+  bosh -u admin -p admin -n upload release
+  bosh -u admin -p admin -n deploy
 )
 
