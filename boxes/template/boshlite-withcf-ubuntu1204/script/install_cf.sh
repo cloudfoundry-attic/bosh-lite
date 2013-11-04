@@ -15,7 +15,7 @@ bosh -u admin -p admin -n upload stemcell /tmp/latest-bosh-stemcell-warden.tgz
 
 (
   cd cf-release
-  git checkout release-candidate
+  git checkout deployed-to-prod
   git reset --hard
   ./update
 )
