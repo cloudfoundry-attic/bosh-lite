@@ -188,7 +188,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     bundle; bundle exec rake prepare; # create initial users/assets
     bundle exec rspec # run!
 
-    warden_rspec # Run tests in parallel
+    ./warden_rspec # Run tests in parallel
     ```
 
 
