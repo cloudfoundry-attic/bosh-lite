@@ -1,21 +1,23 @@
 set -x
 set -e
-PATH=/home/jenkins/.rbenv/shims:/home/jenkins/.rbenv/bin:/home/jenkins/.rbenv/bin:$PATH
+
+export TERM=xterm
+export PATH=/var/lib/jenkins/.rbenv/shims:/var/lib/jenkins/.rbenv/bin:/usr/local/bin:/usr/bin:/bin
 
 vagrant destroy -f
 bundle
 bundle exec librarian-chef install
 vagrant plugin install vagrant-omnibus
 
-vagrant up
+vagrant up || vagrant provision
 
 wget -N http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
-sleep 60
+sleep 30
 bundle exec bosh -n target 192.168.50.4:25555
 bundle exec bosh -u admin -p admin -n upload stemcell ./latest-bosh-stemcell-warden.tgz
 
-rm -rf ./cf-release
-git clone git@github.com:cloudfoundry/cf-release.git
+#rm -rf ./cf-release
+[ -d cf-release ] || git clone git@github.com:cloudfoundry/cf-release.git
 
 (
   cd cf-release
@@ -24,19 +26,12 @@ git clone git@github.com:cloudfoundry/cf-release.git
   ./update
 )
 
-cp manifests/cf-stub.yml manifests/cf-manifest.yml
-DIRECTOR_UUID=$(bundle exec bosh status | grep UUID | awk '{print $2}')
-echo $DIRECTOR_UUID
-perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" manifests/cf-manifest.yml
-bundle exec bosh -n deployment manifests/cf-manifest.yml
-bundle exec bosh -n diff ./cf-release/templates/cf-aws-template.yml.erb
-scripts/transform.rb -f manifests/cf-manifest.yml
-
+CF_RELEASE_DIR=`pwd`/cf-release ./scripts/make_manifest_spiff
 
 (
   cd cf-release
-  bundle
-echo "---\ndev_name: cf" > ./config/dev.yml
+  bundle install
+  echo "---\ndev_name: cf" > ./config/dev.yml
   bundle exec bosh -n create release --force
   bundle exec bosh -u admin -p admin -n upload release
   bundle exec bosh -u admin -p admin -n deploy
