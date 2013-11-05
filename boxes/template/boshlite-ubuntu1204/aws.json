@@ -1,0 +1,40 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "ami_name": "boshlite-{{timestamp}}",
+      "instance_type": "m1.large",
+      "region": "us-east-1",
+      "source_ami":  "ami-a73264ce",
+      "ssh_username": "ubuntu",
+      "ami_description": "Bosh-lite AMI" }
+  ],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "script/base-aws.sh",
+      "script/vagrant.sh"
+    ],
+    "override": {
+      "amazon-ebs": {
+        "execute_command": "echo 'packer'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+      }
+    }
+  },
+  {
+     "type": "chef-solo",
+     "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
+     "run_list": ["bosh-lite::warden", "bosh-lite::bosh"]
+  },
+  {
+    "type": "shell",
+    "scripts": [
+      "script/cleanup.sh"
+    ],
+    "override": {
+      "amazon-ebs": {
+        "execute_command": "echo 'packer'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+      }
+    }
+  }]
+ }
