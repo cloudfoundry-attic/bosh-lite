@@ -1,22 +1,13 @@
 %w(
-  libssl-dev
-  libreadline-dev
-  build-essential
   make
-  zlib1g-dev
-  libxml2-dev
   libxslt-dev
-  libyaml-dev
   libyajl-dev
-  curl
   genisoimage
   kpartx
-  debootstrap
   wamerican
   nginx
   libcurl4-openssl-dev
   redis-server
-  libpq-dev
 ).each do |package_name|
   package package_name
 end
@@ -37,7 +28,7 @@ rbenv_gem "eventmachine" do
   version "0.12.10"
 end
 
-%w(pg nats bundler).each do |gem|
+%w(pg nats).each do |gem|
   rbenv_gem gem
 end
 

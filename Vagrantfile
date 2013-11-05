@@ -29,7 +29,6 @@ Vagrant.configure('2') do |config|
     chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
 
     chef.add_recipe 'bosh-lite::apt-update'
-    chef.add_recipe 'build-essential::default'
     chef.add_recipe 'bosh-lite::warden'
     chef.add_recipe 'bosh-lite::bosh'
     chef.add_recipe 'bosh-lite::update-kernel'

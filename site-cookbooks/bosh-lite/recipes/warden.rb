@@ -1,9 +1,7 @@
 include_recipe 'runit'
 include_recipe 'bosh-lite::rbenv'
 
-%w{ build-essential debootstrap quota iptables }.each { |package_name| package package_name }
-
-rbenv_gem "bundler"
+%w{ debootstrap quota iptables }.each { |package_name| package package_name }
 
 git "/opt/warden" do
   repository "git://github.com/cloudfoundry/warden.git"
@@ -23,8 +21,6 @@ end
     owner 'vagrant'
   end
 end
-
-execute "rbenv rehash"
 
 execute "setup_warden" do
   cwd "/opt/warden/warden"
