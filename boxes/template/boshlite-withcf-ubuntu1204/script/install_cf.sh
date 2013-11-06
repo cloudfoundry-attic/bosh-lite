@@ -29,3 +29,6 @@ CF_RELEASE_DIR=cf-release ./scripts/make_manifest_spiff
   bosh -u admin -p admin -n upload release releases/cf-${last}.yml
   bosh -u admin -p admin -n deploy
 )
+
+# wipe out all containers before exporting box
+sv stop warden
