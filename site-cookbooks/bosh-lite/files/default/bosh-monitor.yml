@@ -18,7 +18,7 @@ intervals:
   poll_director: 10
   poll_grace_period: 5
   log_stats: 10
-  analyze_agents: 20
+  analyze_agents: 60
   agent_timeout: 60
   rogue_agent_alert: 20
 
@@ -34,12 +34,3 @@ plugins:
       endpoint: nats://127.0.0.1:21084
       user:
       password:
-  - name: resurrector
-    events:
-      - alert
-    options:
-      director: *director
-      # force warden-cpi never think it's melting down
-      minimum_down_jobs: 100
-      percent_threshold: 1.1
-      time_threshold: 60
