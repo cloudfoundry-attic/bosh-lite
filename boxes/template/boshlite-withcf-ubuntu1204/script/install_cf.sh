@@ -8,7 +8,7 @@ ifconfig lo:1 192.168.50.4 netmask 255.255.255.0
 cd /tmp/bosh-lite/
 bundle install
 rbenv rehash
-bosh -n target 127.0.0.1:25555
+bosh -n target 192.168.50.4
 
 wget -r --tries=10 http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz -O /tmp/latest-bosh-stemcell-warden.tgz
 bosh -u admin -p admin -n upload stemcell /tmp/latest-bosh-stemcell-warden.tgz
@@ -16,24 +16,16 @@ bosh -u admin -p admin -n upload stemcell /tmp/latest-bosh-stemcell-warden.tgz
 (
   cd cf-release
   git checkout deployed-to-prod
-  git reset --hard
-  ./update
 )
 
-cp manifests/cf-stub.yml manifests/cf-manifest.yml
-DIRECTOR_UUID=$(bundle exec bosh status | grep UUID | awk '{print $2}')
-echo $DIRECTOR_UUID
-perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" manifests/cf-manifest.yml
-bosh -n deployment manifests/cf-manifest.yml
-bosh -n diff ./cf-release/templates/cf-aws-template.yml.erb
-scripts/transform.rb -f manifests/cf-manifest.yml
+wget  -r --tries=10 https://github.com/vito/spiff/releases/download/v0.2/spiff_linux_amd64 -O /usr/local/bin/spiff
+chmod +x /usr/local/bin/spiff
+mkdir -p tmp
+CF_RELEASE_DIR=cf-release ./scripts/make_manifest_spiff
 
 (
   cd cf-release
-  bundle install
-  cp -f /tmp/dev.yml ./config/
-  bosh -n create release --force
-  bosh -u admin -p admin -n upload release
+  last=` tail -1 releases/index.yml |grep -Po "\d+"`
+  bosh -u admin -p admin -n upload release releases/cf-${last}.yml
   bosh -u admin -p admin -n deploy
 )
-
