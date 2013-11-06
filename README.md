@@ -185,6 +185,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     b.  Run yeti as normal from cf-release/src/tests.. e.g.
 
     ```
+    rake config:clear_bvt # clear the BVT from previous runs
     bundle; bundle exec rake prepare; # create initial users/assets
     bundle exec rspec # run!
 
