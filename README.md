@@ -217,3 +217,29 @@ $ bosh ssh
 11. router/0
 Choose an instance:
 ```
+
+## Restore your deployment
+
+The warden container will lost after vm reboot, but you can restore your deployment with bosh cck.
+```
+$ bosh cck
+```
+Chose 2 to recreate each missing vm:
+```
+Problem 1 of 13: VM with cloud ID `vm-74d58924-7710-4094-86f2-2f38ff47bb9a' missing.
+  1. Ignore problem
+  2. Recreate VM using last known apply spec
+  3. Delete VM reference (DANGEROUS!)
+Please choose a resolution [1 - 3]: 2
+...
+```
+Typing yes to confirm at the end:
+```
+Apply resolutions? (type 'yes' to continue): yes
+
+Applying problem resolutions
+  missing_vm 212: Recreate VM using last known apply spec (00:00:13)                                
+  missing_vm 215: Recreate VM using last known apply spec (00:00:08)                                
+...
+Done                    13/13 00:03:48                                                              
+```
