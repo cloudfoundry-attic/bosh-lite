@@ -30,5 +30,7 @@ CF_RELEASE_DIR=cf-release ./scripts/make_manifest_spiff
   bosh -u admin -p admin -n deploy
 )
 
-# wipe out all containers before exporting box
-sv stop warden
+sleep 30
+# wipe out all containers before exporting box. They will be lost anyway
+/opt/warden/warden/root/linux/clear.sh /opt/warden/containers/
+rm -rf /opt/warden/disks/ephemeral_mount_point/*
