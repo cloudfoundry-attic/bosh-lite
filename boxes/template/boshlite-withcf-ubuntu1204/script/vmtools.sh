@@ -83,8 +83,8 @@ if test -f linux.iso ; then
     umount /mnt/cdrom
     rmdir /mnt/cdrom
 
-    apt-get -y remove linux-headers-$(uname -r) 
-    apt-get -y autoremove
+#    apt-get -y remove linux-headers-$(uname -r) 
+#    apt-get -y autoremove
 elif test -f .vbox_version ; then
     echo "Installing VirtualBox guest additions"
 
