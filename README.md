@@ -225,7 +225,7 @@ The warden container will lost after vm reboot, but you can restore your deploym
 ```
 $ bosh cck
 ```
-Chose 2 to recreate each missing vm:
+Choose `2` to recreate each missing vm:
 ```
 Problem 1 of 13: VM with cloud ID `vm-74d58924-7710-4094-86f2-2f38ff47bb9a' missing.
   1. Ignore problem
