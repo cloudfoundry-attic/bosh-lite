@@ -1,16 +1,11 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "dummy"
-  DIRECTOR_IP = '192.168.50.4'
-
-  # vagrant plugin install vagrant-omnibus
-  config.omnibus.chef_version = '10.26.0'
-
   config.vm.provider :aws do |aws, override|
     aws.access_key_id = ENV["BOSH_AWS_ACCESS_KEY_ID"]
     aws.secret_access_key = ENV["BOSH_AWS_SECRET_ACCESS_KEY"]
     aws.keypair_name = "bosh"
 
-    aws.ami = "ami-fbb2fc92"  # offical Precise AMI on us-east-1
+    aws.ami = "ami-8ba3f9e2"
     aws.instance_type = "m1.xlarge"
     aws.tags = { "Name" => "Vagrant" }
     aws.security_groups =  ["inception"]
@@ -19,27 +14,7 @@ Vagrant.configure("2") do |config|
     override.ssh.private_key_path = "/home/ubuntu/.ssh/id_rsa_bosh"
   end
 
-  config.vm.provision :shell, :path => "scripts/aws_precise_customize.sh"
-
-  config.vm.provision :chef_solo do |chef|
-
-    chef.json = {
-      :director_ip => DIRECTOR_IP
-    }
-    chef.cookbooks_path = ['cookbooks', 'site-cookbooks']
-
-#   chef.log_level = :debug
-
-    chef.add_recipe 'bosh-lite::aws_files'
-    chef.add_recipe 'build-essential::default'
-    chef.add_recipe 'bosh-lite::warden'
-    chef.add_recipe 'bosh-lite::bosh'
-    chef.add_recipe 'bosh-lite::update-kernel'
-    chef.add_recipe 'bosh-lite::bosh_cli'
-
-#   chef.add_recipe 'bosh-lite::reboot'
-  end
-
-  config.vm.provision :shell,  :inline => "ip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`; echo Public IP is $ip; echo Please reboot that instance to use the new kernel just installed. After that you can bosh target $ip, or run vagrant ssh and then bosh target 127.0.0.1"
+  config.vm.provision :shell, :inline => "ifconfig lo:1 192.168.50.4 netmask 255.255.255.0"
+  config.vm.provision :shell, :inline => "ip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`; echo Public IP is $ip; echo You can bosh target $ip, or run vagrant ssh and then bosh target 127.0.0.1"
 
 end
