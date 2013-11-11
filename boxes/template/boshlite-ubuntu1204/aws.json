@@ -5,8 +5,11 @@
       "ami_name": "boshlite-{{timestamp}}",
       "instance_type": "m1.large",
       "region": "us-east-1",
-      "source_ami":  "ami-a73264ce",
+      "source_ami":  "ami-69f5a900",
       "ssh_username": "ubuntu",
+      "ami_block_device_mappings": [
+          {"device_name": "/dev/sda1", "volume_size": 40}
+      ],
       "ami_description": "Bosh-lite AMI" }
   ],
   "provisioners": [{
@@ -24,7 +27,7 @@
   {
      "type": "chef-solo",
      "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
-     "run_list": ["bosh-lite::warden", "bosh-lite::bosh"]
+     "run_list": ["bosh-lite::warden", "bosh-lite::bosh", "bosh-lite::bosh_cli"]
   },
   {
     "type": "shell",
