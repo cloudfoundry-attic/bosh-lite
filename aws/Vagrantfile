@@ -5,16 +5,15 @@ Vagrant.configure("2") do |config|
     aws.secret_access_key = ENV["BOSH_AWS_SECRET_ACCESS_KEY"]
     aws.keypair_name = "bosh"
 
-    aws.ami = "ami-8ba3f9e2"
+    aws.ami = "ami-a96a4fc0"
     aws.instance_type = "m1.xlarge"
     aws.tags = { "Name" => "Vagrant" }
     aws.security_groups =  ["inception"]
 
     override.ssh.username = "ubuntu"
-    override.ssh.private_key_path = "/home/ubuntu/.ssh/id_rsa_bosh"
+    override.ssh.private_key_path = "~/.ssh/id_rsa_bosh"
   end
 
-  config.vm.provision :shell, :inline => "ifconfig lo:1 192.168.50.4 netmask 255.255.255.0"
   config.vm.provision :shell, :inline => "ip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`; echo Public IP is $ip; echo You can bosh target $ip, or run vagrant ssh and then bosh target 127.0.0.1"
 
 end
