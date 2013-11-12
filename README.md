@@ -11,13 +11,14 @@ For all use cases, first prepare this project with `bundler` .
 1. [Install vagrant](http://downloads.vagrantup.com/)
 
     Known to work for version:
+
     ```
     $ vagrant -v
     Vagrant 1.3.5
     ```
+
     Note: for OSX and VirtualBox you are required to use Vagrant 1.3.4+
 
-    ```
 1. Install Ruby + RubyGems + Bundler
 
 1. Run Bundler from the base directory of this repository
@@ -26,7 +27,6 @@ For all use cases, first prepare this project with `bundler` .
     bundle
     ```
 
-    ```
 
 Below are installation processes for different Vagrant providers.
 
