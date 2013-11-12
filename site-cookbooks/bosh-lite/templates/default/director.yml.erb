@@ -33,10 +33,12 @@ blobstore:
     endpoint: http://127.0.0.1:21081
     user: bs_admin
     password: bs_pass
+<% if @enable_compiled_package_cache == true  %>
 compiled_package_cache:
   provider: local
   options:
     blobstore_path:  /vagrant/tmp/compiled_package_cache
+<% end %>
 scan_and_fix:
   auto_fix_stateful_nodes: false
 cloud:

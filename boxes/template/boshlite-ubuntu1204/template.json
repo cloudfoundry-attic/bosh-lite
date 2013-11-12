@@ -95,7 +95,8 @@
   {
      "type": "chef-solo",
      "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
-     "run_list": ["bosh-lite::warden", "bosh-lite::bosh"]
+     "run_list": ["bosh-lite::warden", "bosh-lite::bosh"],
+     "json": { "boshlite": { "enable_compiled_package_cache": true} }
   },
   {
     "type": "shell",
