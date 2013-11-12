@@ -1,3 +1,5 @@
+node[:boshlite] ||= {}
+
 %w(
   make
   libxslt-dev
