@@ -6,7 +6,7 @@ This readme also includes demonstrates how to deploy Cloud Foundry into bosh-lit
 
 ## Installation
 
-For all use cases, first prepare this project with `bundler` & `librarian-chef`.
+For all use cases, first prepare this project with `bundler` .
 
 1. [Install vagrant](http://downloads.vagrantup.com/)
 
@@ -17,9 +17,6 @@ For all use cases, first prepare this project with `bundler` & `librarian-chef`.
     ```
     Note: for OSX and VirtualBox you are required to use Vagrant 1.3.4+
 
-1. Install Vagrant omnibus plugin
-    ```
-    vagrant plugin install vagrant-omnibus
     ```
 1. Install Ruby + RubyGems + Bundler
 
@@ -29,10 +26,6 @@ For all use cases, first prepare this project with `bundler` & `librarian-chef`.
     bundle
     ```
 
-1. Run Librarian
-
-    ```
-    librarian-chef install
     ```
 
 Below are installation processes for different Vagrant providers.
