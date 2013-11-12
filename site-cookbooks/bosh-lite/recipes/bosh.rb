@@ -1,5 +1,3 @@
-node[:boshlite] ||= {}
-
 %w(
   make
   libxslt-dev
@@ -65,12 +63,15 @@ end
   end
 end
 
+node.default[:boshlite][:director_ip] = '192.168.50.4'
+node.default[:boshlite][:enable_compiled_package_cache] = false
+
 template "/opt/bosh/config/director.yml" do
   source "director.yml.erb"
   mode 0755
   owner "vagrant"
   variables({
-     :director_ip => node[:boshlite][:director_ip] || '192.168.50.4',
+     :director_ip => node[:boshlite][:director_ip],
      :enable_compiled_package_cache => !!node[:boshlite][:enable_compiled_package_cache]
   })
 end
