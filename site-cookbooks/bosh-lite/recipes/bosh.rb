@@ -96,6 +96,7 @@ end
 directory '/var/vcap/store/director' do
   mode 0755
   action :create
+  recursive true
 end
 
 execute 'create director ssl key and csr' do
