@@ -2,7 +2,7 @@
   "builders": [
     {
       "type": "amazon-ebs",
-      "ami_name": "boshlite-{{timestamp}}",
+      "ami_name": "mcf-{{timestamp}}",
       "instance_type": "m1.large",
       "region": "us-east-1",
       "source_ami":  "ami-69f5a900",
@@ -13,7 +13,7 @@
       "launch_block_device_mappings": [
           {"device_name": "/dev/sda1", "volume_size": 40}
       ],
-      "ami_description": "Bosh-lite AMI" }
+      "ami_description": "Micro Cloud Foundry AMI" }
   ],
   "provisioners": [{
     "type": "shell",
