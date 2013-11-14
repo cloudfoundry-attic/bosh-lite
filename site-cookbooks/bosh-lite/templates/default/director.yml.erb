@@ -18,15 +18,6 @@ db:
   database: bosh
   sslmode: "disable"
   connection_options: {"max_connections":32,"pool_timeout":10}
-dns:
-  db:
-    adapter: postgres
-    user: postgres
-    password: postges
-    host: 127.0.0.1
-    port: 5432
-    database: bosh
-    connection_options: {"max_connections":32,"pool_timeout":10}
 blobstore:
   provider: simple
   options:
