@@ -1,11 +1,14 @@
 {
+  "variables": {
+    "base_ami": "ami-69f5a900"
+  },
   "builders": [
     {
       "type": "amazon-ebs",
       "ami_name": "mcf-{{timestamp}}",
       "instance_type": "m1.large",
       "region": "us-east-1",
-      "source_ami":  "ami-69f5a900",
+      "source_ami":  "{{user `base_ami`}}",
       "ssh_username": "ubuntu",
       "ssh_timeout": "3m",
       "ami_block_device_mappings": [
