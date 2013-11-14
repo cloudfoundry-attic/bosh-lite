@@ -92,6 +92,12 @@ directory '/etc/nginx/ssl' do
   action :create
 end
 
+# Directory for bosh backup
+directory '/var/vcap/store/director' do
+  mode 0755
+  action :create
+end
+
 execute 'create director ssl key and csr' do
   command 'openssl req -nodes -new -newkey rsa:1024 -out /etc/nginx/ssl/director.csr -keyout /etc/nginx/ssl/director.key -subj \'/O=Bosh/CN=*\''
 end
