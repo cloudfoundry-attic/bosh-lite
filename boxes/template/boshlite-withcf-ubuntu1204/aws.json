@@ -37,7 +37,7 @@
   {
     "type": "shell",
     "scripts": [
-      "script/install_cf.sh",
+      "script/install_cf_aws.sh",
       "script/cleanup.sh"
     ],
     "override": {
