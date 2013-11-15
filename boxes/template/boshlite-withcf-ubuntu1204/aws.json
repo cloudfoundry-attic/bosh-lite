@@ -6,7 +6,7 @@
     {
       "type": "amazon-ebs",
       "ami_name": "mcf-{{timestamp}}",
-      "instance_type": "m1.large",
+      "instance_type": "c3.xlarge",
       "region": "us-east-1",
       "source_ami":  "{{user `base_ami`}}",
       "ssh_username": "ubuntu",
