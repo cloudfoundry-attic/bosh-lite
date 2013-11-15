@@ -12,10 +12,10 @@
       "ssh_username": "ubuntu",
       "ssh_timeout": "3m",
       "ami_block_device_mappings": [
-          {"device_name": "/dev/sda1", "volume_size": 40}
+          {"device_name": "/dev/sda1", "volume_size": 30}
       ],
       "launch_block_device_mappings": [
-          {"device_name": "/dev/sda1", "volume_size": 40}
+          {"device_name": "/dev/sda1", "volume_size": 15}
       ],
       "ami_description": "Micro Cloud Foundry AMI" }
   ],
