@@ -1,11 +1,12 @@
 {
   "variables": {
-    "base_ami": "ami-69f5a900"
+    "base_ami": "ami-69f5a900",
+    "build_number": "0"
   },
   "builders": [
     {
       "type": "amazon-ebs",
-      "ami_name": "mcf-{{timestamp}}",
+      "ami_name": "mcf-{{user `build_number`}}-{{timestamp}}",
       "instance_type": "c3.xlarge",
       "region": "us-east-1",
       "source_ami":  "{{user `base_ami`}}",
@@ -14,7 +15,7 @@
       "launch_block_device_mappings": [
           {"device_name": "/dev/sda1", "volume_size": 15}
       ],
-      "ami_description": "Micro Cloud Foundry AMI" }
+      "ami_description": "Micro Cloud Foundry AMI (build {{user `build_number`}} )" }
   ],
   "provisioners": [{
     "type": "shell",
