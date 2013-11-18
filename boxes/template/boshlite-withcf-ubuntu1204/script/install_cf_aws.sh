@@ -10,7 +10,7 @@ mv /tmp/bosh-lite /mnt
 cd /mnt/bosh-lite/
 bundle install
 rbenv rehash
-bosh -n target 192.168.50.4
+bosh -n target 127.0.0.1
 
 wget -r --tries=10 http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz -O latest-bosh-stemcell-warden.tgz
 bosh -u admin -p admin -n upload stemcell latest-bosh-stemcell-warden.tgz
