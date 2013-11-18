@@ -1,17 +1,18 @@
 {
   "variables": {
-    "base_ami": "ami-69f5a900"
+    "base_ami": "ami-69f5a900",
+    "build_number": "0"
   },
 
   "builders": [
     {
       "type": "amazon-ebs",
-      "ami_name": "boshlite-{{timestamp}}",
+      "ami_name": "boshlite-{{user `build_number`}}",
       "instance_type": "m1.large",
       "region": "us-east-1",
       "source_ami":  "{{user `base_ami`}}",
       "ssh_username": "ubuntu",
-      "ami_description": "Bosh-lite AMI" }
+      "ami_description": "Bosh-lite AMI (build {{user `build_number`}})" }
   ],
   "provisioners": [{
     "type": "shell",
