@@ -6,7 +6,7 @@
   "builders": [
     {
       "type": "amazon-ebs",
-      "ami_name": "mcf-{{user `build_number`}}-{{timestamp}}",
+      "ami_name": "mcf-{{user `build_number`}}",
       "instance_type": "c3.xlarge",
       "region": "us-east-1",
       "source_ami":  "{{user `base_ami`}}",
