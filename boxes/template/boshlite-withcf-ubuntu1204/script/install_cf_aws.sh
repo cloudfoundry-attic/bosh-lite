@@ -29,9 +29,9 @@ CF_RELEASE_DIR=cf-release ./scripts/make_manifest_spiff
   cd cf-release
   last=` tail -1 releases/index.yml |grep -Po "\d+"`
   cmd="bosh -u admin -p admin -n upload release releases/cf-${last}.yml"
-  $cmd || $cmd || $cmd
+  $cmd || $cmd || true
   cmd="bosh -u admin -p admin -n deploy"
-  $cmd || $cmd || $cmd
+  $cmd || $cmd
 )
 
 sleep 30
