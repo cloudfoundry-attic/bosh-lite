@@ -44,7 +44,7 @@ cloud:
     nats: nats://<%= @director_ip %>:21084
     agent:
       blobstore:
-        provider: simple
+        provider: dav
         options:
           endpoint: http://<%= @director_ip %>:21081
           user: bs_admin
