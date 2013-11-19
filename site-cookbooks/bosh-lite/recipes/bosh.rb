@@ -37,7 +37,7 @@ postgresql_database 'bosh' do
   action :create
 end
 
-%w(bosh-director simple_blobstore_server bosh-monitor).each do |gem|
+%w(bosh-director bosh-monitor).each do |gem|
   rbenv_gem gem do
     version '>=1.5.0.pre.1113'
   end
@@ -48,7 +48,7 @@ rbenv_gem 'bosh_warden_cpi' do
   source 'https://s3.amazonaws.com/bosh-jenkins-gems-warden/'
 end
 
-%w(config blobstore director db).each do |dir|
+%w(config blobstore blobstore/tmp blobstore/tmp/upload director db).each do |dir|
   directory "/opt/bosh/#{dir}" do
     owner 'vagrant'
     mode 0755
@@ -57,7 +57,7 @@ end
   end
 end
 
-%w(bosh-monitor.yml simple_blobstore_server.yml).each do |config_file|
+%w(bosh-monitor.yml).each do |config_file|
   cookbook_file "/opt/bosh/config/#{config_file}" do
     owner 'vagrant'
   end
@@ -83,8 +83,11 @@ execute 'migrate' do
   command 'RUBYOPT="-r bosh/director -r cloud/warden/helpers" /opt/rbenv/shims/bosh-director-migrate -c /opt/bosh/config/director.yml'
 end
 
-cookbook_file '/etc/nginx/nginx.conf' do
-  mode 0755
+
+%w(nginx.conf read_users write_users).each do |file|
+  cookbook_file "/etc/nginx/#{file}" do
+    mode 0755
+  end
 end
 
 directory '/etc/nginx/ssl' do
@@ -111,14 +114,7 @@ service 'nginx' do
   action :restart
 end
 
-%w(worker-0 worker-1 director).each do |service_name|
-  runit_service service_name do
-    default_logger true
-    options({:user => 'root'})
-  end
-end
-
-%w(blobstore bosh-monitor nats).each do |service_name|
+%w(worker-0 worker-1 director nats bosh-monitor).each do |service_name|
   runit_service service_name do
     default_logger true
     options({:user => 'root'})
