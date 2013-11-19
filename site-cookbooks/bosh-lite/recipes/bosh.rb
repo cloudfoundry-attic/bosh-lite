@@ -44,7 +44,7 @@ end
 end
 
 rbenv_gem 'bosh_warden_cpi' do
-  version '1.5.0.pre.65'
+  version '1.5.0.pre.60'
   source 'https://s3.amazonaws.com/bosh-jenkins-gems-warden/'
 end
 
