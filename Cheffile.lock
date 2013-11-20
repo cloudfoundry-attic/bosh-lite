@@ -22,7 +22,7 @@ SITE
       openssl (~> 1.1)
     ohai (1.1.12)
     openssl (1.1.0)
-    postgresql (3.1.0)
+    postgresql (3.2.0)
       apt (>= 0.0.0)
       build-essential (>= 0.0.0)
       openssl (>= 0.0.0)
