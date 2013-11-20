@@ -8,6 +8,7 @@ if [[ ! -d $CF_RELEASE_DIR ]]; then
   exit 1
 fi
 
+mkdir -p tmp
 cp manifests/cf-stub-spiff.yml tmp/cf-stub-with-uuid.yml
 DIRECTOR_UUID=$(bosh status | grep UUID | awk '{print $2}')
 echo $DIRECTOR_UUID
