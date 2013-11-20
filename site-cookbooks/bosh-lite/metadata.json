@@ -7,6 +7,7 @@
         "openssl": ">= 0.0.0",
         "postgresql": ">= 0.0.0",
         "database": ">= 0.0.0",
+        "nginx": ">= 0.0.0",
         "rbenv": ">= 0.0.0"
     },
     "recipes": {

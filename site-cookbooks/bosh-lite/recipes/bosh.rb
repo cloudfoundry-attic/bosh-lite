@@ -1,3 +1,5 @@
+include_recipe 'nginx::repo'
+
 %w(
   make
   libxslt-dev
