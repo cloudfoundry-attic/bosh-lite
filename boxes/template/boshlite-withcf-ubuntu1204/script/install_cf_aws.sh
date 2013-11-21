@@ -18,6 +18,11 @@ bosh -u admin -p admin -n upload stemcell latest-bosh-stemcell-warden.tgz
 (
   cd cf-release
   git checkout deployed-to-prod
+  last=` tail -1 releases/index.yml |grep -Po "\d+"`
+  ref=${CF_VERSION:-"$last"}
+  git checkout v${ref}
+  cmd="bosh -u admin -p admin -n upload release releases/cf-${ref}.yml"
+  $cmd || $cmd || true
 )
 
 wget  -r --tries=10 https://github.com/vito/spiff/releases/download/v0.2/spiff_linux_amd64 -O /usr/local/bin/spiff
@@ -27,9 +32,6 @@ CF_RELEASE_DIR=cf-release ./scripts/make_manifest_spiff
 
 (
   cd cf-release
-  last=` tail -1 releases/index.yml |grep -Po "\d+"`
-  cmd="bosh -u admin -p admin -n upload release releases/cf-${last}.yml"
-  $cmd || $cmd || true
   cmd="bosh -u admin -p admin -n deploy"
   $cmd || $cmd
 )

@@ -1,7 +1,8 @@
 {
   "variables": {
     "base_ami": "ami-69f5a900",
-    "build_number": "0"
+    "build_number": "0",
+    "cf_version": ""
   },
   "builders": [
     {
@@ -40,6 +41,9 @@
     "scripts": [
       "script/install_cf_aws.sh",
       "script/cleanup.sh"
+    ],
+    "environment_vars": [
+      "CF_VERSION={{user `cf_version`}}"
     ],
     "override": {
       "amazon-ebs": {
