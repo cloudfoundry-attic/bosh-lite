@@ -160,7 +160,6 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     bosh create release
     # enter the name from the deployment-stub.yml file  - for example, 'cf'
     bosh upload release
-    bosh deployment /path/to/bosh-lite/manifests/cf-manifest.yml
     bosh deploy
     ```
 1.  Run the yeti tests against your new deployment to make sure it's working correctly.
