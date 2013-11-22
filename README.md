@@ -127,6 +127,29 @@ Known to work with Fusion version 5.0.3
     Logged in as `admin'
     ```
 
+## Manage your local boxes
+
+We keep publishing pre-build Vagrant boxes on Amazon S3. It is recommened to use the latest boxes because they should be more smaller, faster or less problematic.
+
+### Download latest boxes
+
+Just get a latest copy of the Vagrantfile from this repo and run `vagrant up`.
+
+### Delete old boxes
+
+Free some disk space by deleting the old boxes.
+
+    $ vagrant box list
+    boshlite-ubuntu1204-build55 (virtualbox)
+    boshlite-ubuntu1204-build55 (vmware_desktop)
+    boshlite-ubuntu1204-build74 (virtualbox)
+    boshlite-ubuntu1204-build83 (virtualbox)
+
+    $ vagrant box remove boshlite-ubuntu1204-build55 virtualbox
+    Removing box 'boshlite-ubuntu1204-build55' with provider 'virtualbox'...
+
+
+
 ## Troubleshooting
 
 1. If you want to start over again, you can use `vagrant destroy` from the base directory of this project to remove the VM.
@@ -232,8 +255,8 @@ Typing yes to confirm at the end:
 Apply resolutions? (type 'yes' to continue): yes
 
 Applying problem resolutions
-  missing_vm 212: Recreate VM using last known apply spec (00:00:13)                                
-  missing_vm 215: Recreate VM using last known apply spec (00:00:08)                                
+  missing_vm 212: Recreate VM using last known apply spec (00:00:13)
+  missing_vm 215: Recreate VM using last known apply spec (00:00:08)
 ...
-Done                    13/13 00:03:48                                                              
+Done                    13/13 00:03:48
 ```
