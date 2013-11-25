@@ -171,7 +171,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
 
 1.  Use the make_manifest_spiff script to create a cf manifest.  This step assumes you have cf-release checked out to ~/workspace and that you have [spiff](https://github.com/vito/spiff) installed.
 
-    make_manifest_spiff will target your bosh-lite director, find the uuid, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml.
+    make_manifest_spiff will target your bosh-lite director, find the uuid, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. (If this fails, try updating spiff)
 
     ```
     cd ~/workspace/bosh-lite
