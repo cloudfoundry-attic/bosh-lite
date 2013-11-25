@@ -12,13 +12,13 @@ vmware/%.box: template/%/template.json
 	cd $(dir $<); \
 	rm -rf output-vmware; \
 	mkdir -p ../../vmware; \
-	packer build -only=vmware $(notdir $<)
+	packer build $(USER_VAR) -only=vmware $(notdir $<)
 
 virtualbox/%.box: template/%/template.json
 	cd $(dir $<); \
 	rm -rf output-virtualbox; \
 	mkdir -p ../../virtualbox; \
-	packer build -only=virtualbox $(notdir $<)
+	packer build $(USER_VAR) -only=virtualbox $(notdir $<)
 
 .PHONY: list
 list:

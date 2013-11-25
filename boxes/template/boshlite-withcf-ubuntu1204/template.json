@@ -1,4 +1,7 @@
 {
+  "variables": {
+    "cf_version": ""
+  },
   "builders": [
     {
       "vm_name": "boshlite-vmware-withcf-ubuntu1204",
@@ -101,6 +104,9 @@
       "script/install_cf.sh",
       "script/cleanup.sh",
       "script/zerodisk.sh"
+    ],
+    "environment_vars": [
+      "CF_VERSION={{user `cf_version`}}"
     ],
     "override": {
       "virtualbox": {
