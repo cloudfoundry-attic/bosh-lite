@@ -199,7 +199,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     export VCAP_BVT_ADMIN_USER_PASSWD=admin
     ```
 
-    b.  Run yeti as normal from cf-release/src/tests.. e.g.
+    b.  Run yeti as normal from cf-release/src/tests.. e.g. (Make sure you are logged in via cf before running these commands)
 
     ```
     rake config:clear_bvt # clear the BVT from previous runs
