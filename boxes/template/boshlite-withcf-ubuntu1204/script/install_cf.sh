@@ -20,7 +20,7 @@ bosh -u admin -p admin -n upload stemcell /tmp/latest-bosh-stemcell-warden.tgz
   ref=${CF_VERSION:-"$last"}
   git checkout v${ref}
   cmd="bosh -u admin -p admin -n upload release releases/cf-${ref}.yml"
-  $cmd || bosh releases | grep cf || $cmd
+  $cmd || (sleep 120; bosh -u admin -p admin releases | grep cf ) || $cmd
 )
 
 wget  -r --tries=10 https://github.com/vito/spiff/releases/download/v0.2/spiff_linux_amd64 -O /usr/local/bin/spiff
