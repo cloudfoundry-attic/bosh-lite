@@ -30,6 +30,11 @@ rbenv_gem "eventmachine" do
   version "0.12.10"
 end
 
+# Workaround for nats gem install
+rbenv_gem "thin" do
+  version "1.4.1"
+end
+
 %w(pg nats).each do |gem|
   rbenv_gem gem
 end
