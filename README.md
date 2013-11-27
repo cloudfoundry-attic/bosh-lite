@@ -101,6 +101,8 @@ Known to work with Fusion version 5.0.3
     vagrant plugin install vagrant-aws
     ```
 
+    Known to work for version: vagrant-aws 0.4.0
+
 1. Add dummy AWS box
 
     ```
