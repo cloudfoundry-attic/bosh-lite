@@ -2,7 +2,7 @@
 
 A lite development env for BOSH using Warden from within Vagrant.
 
-This readme also includes demonstrates how to deploy Cloud Foundry into bosh-lite.
+This readme also includes demonstrates how to deploy Cloud Foundry into bosh-lite. See [Getting Started](GettingStarted.md) for a full example with detailed step-by-step commands.
 
 ## Installation
 
