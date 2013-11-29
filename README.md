@@ -131,7 +131,7 @@ Known to work with Fusion version 5.0.3
 
 ## Manage your local boxes
 
-We keep publishing pre-build Vagrant boxes on Amazon S3. It is recommened to use the latest boxes because they should be more smaller, faster or less problematic.
+We keep publishing pre-built Vagrant boxes on Amazon S3. It is recommened to use the latest boxes because they should be smaller, faster or less problematic.
 
 ### Download latest boxes
 
