@@ -1,4 +1,3 @@
-
 BOSH LITE SETUP AND INSTALLATION
 ================================
 
@@ -13,7 +12,7 @@ This guide has links to two pre-built VMs in case you do not want to have to dea
 The First step is to create the VM containing Bosh Director that will also host Cloud Foundry.
 
     You can download the Bosh Director VM and skip to Section 1 below.                  
-    VM: username: vagrant   password:vagrant
+    VM: username: vagrant   password: vagrant
     See the step about adding the "route add" to make sure you have 
     192.168.50.4 IP address configured in the VM
     Link: https://drive.google.com/a/gopivotal.com/file/d/0B-6leBm8Y9DbNExsRUl4NlZXcGs/edit?usp=sharing
@@ -36,7 +35,7 @@ bundle update
 - Copy your VagrantFile to the bosh-lite directory. An example of my file that allocates 12GB to the VM is [found here](https://drive.google.com/a/gopivotal.com/file/d/0B-6leBm8Y9DbWDVlS3B2cnlma0U/edit?usp=sharing)
 - Create your Bosh Director VM from the command line in the bosh-lite directory: `vagrant up --provider vmware_workstation`
 At this point I get a: `INFO interface: error: The HGFS kernel module was not found on the running virtual machine.`
-I am ignoring it, as mounting HFFS 2 steps from now seems to fix it.
+I am ignoring it, as mounting HFFS  afew steps below seems to fix it.
 - Login to the machine with vagrant/vagrant as the username/password
 `vagrant ssh`
 - Add the route required to handle all CF components:
