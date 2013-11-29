@@ -13,9 +13,6 @@
       "source_ami":  "{{user `base_ami`}}",
       "ssh_username": "ubuntu",
       "ssh_timeout": "3m",
-      "launch_block_device_mappings": [
-          {"device_name": "/dev/sda1", "volume_size": 15}
-      ],
       "ami_description": "Micro Cloud Foundry AMI (build {{user `build_number`}} )" }
   ],
   "provisioners": [{
