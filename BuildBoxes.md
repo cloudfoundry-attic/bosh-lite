@@ -9,16 +9,13 @@ Packer from <http://www.packer.io/docs/installation.html>
 
 To build all boxes:
 
+    cd boxes
     make
 
 Or, to build one box:
 
+    cd boxes
     make list
 
     # Choose a definition, like 'virtualbox/boshlite-ubuntu1204.box'
     make virtualbox/boshlite-ubuntu1204.box
-##Launch bosh-lite boxes
-
-Use the Vagrantfile in this folder
-
-    vagrant up [--provider=vmware_fusion]
