@@ -35,6 +35,7 @@
   {
     "type": "shell",
     "scripts": [
+      "script/bat_aws.sh",
       "script/cleanup.sh"
     ],
     "override": {
