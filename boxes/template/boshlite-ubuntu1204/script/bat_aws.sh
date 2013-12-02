@@ -3,6 +3,8 @@ apt-get -y install libsqlite3-dev  libmysqlclient-dev
 touch ~/.ssh/known_hosts
 
 export TMPDIR=/mnt
+export PATH=/opt/rbenv/shims:/opt/rbenv/bin:$PATH
+
 cd /mnt
 git clone https://github.com/cloudfoundry/bosh.git
 cd bosh
