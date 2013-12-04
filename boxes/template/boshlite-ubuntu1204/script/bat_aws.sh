@@ -9,6 +9,10 @@ cd /mnt
 git clone https://github.com/cloudfoundry/bosh.git
 cd bosh
 git checkout origin/warden-cpi -b warden-cpi
+
+#work around the "No source for ruby-1.9.3-p484 provided with debugger-ruby_core_source gem" issue
+rbenv local 1.9.3-p448
+
 bundle
 wget -nv -N http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
 bundle exec bosh -n target 192.168.50.4:25555
