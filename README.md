@@ -36,7 +36,7 @@ Below are installation processes for different Vagrant providers.
 
 ### USE VMWare Fusion Provider
 
-Known to work with Fusion version 5.0.3
+Known to work with Fusion version 6.0.2
 
 1. Install vagrant Fusion Plugin + license
 
