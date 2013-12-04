@@ -183,6 +183,8 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
 1.  Bosh target 192.168.50.4 and run bosh as normal, passing your generated manifest:
     ```
     cd ~/workspace/cf-release
+    # update all the submodules and nested submodules
+    ./update
     bosh create release
     # enter the name from the deployment-stub.yml file  - for example, 'cf'
     bosh upload release
