@@ -18,7 +18,8 @@ perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" tmp/cf-stub-with-uuid
 $CF_RELEASE_DIR/generate_deployment_manifest \
                                               warden \
                                               tmp/cf-stub-with-uuid.yml \
-                                              $CF_RELEASE_DIR/templates/cf-minimal-dev.yml > manifests/cf-manifest.yml
+                                              $CF_RELEASE_DIR/templates/cf-minimal-dev.yml \
+                                              $* > manifests/cf-manifest.yml
 
 bosh deployment manifests/cf-manifest.yml
 bosh status
