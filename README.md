@@ -1,8 +1,8 @@
 # bosh-lite
 
-A lite development env for BOSH using Warden from within Vagrant.
+A local development environment for BOSH using warden containers in a vagrant box.
 
-This readme also includes demonstrates how to deploy Cloud Foundry into bosh-lite.
+This readme walks through deploying Cloud Foundry with bosh-lite.  Bosh and bosh-lite can be used to deploy just about anything once you've got the hang of it.
 
 ## Installation
 
@@ -10,7 +10,7 @@ For all use cases, first prepare this project with `bundler` .
 
 1. [Install vagrant](http://downloads.vagrantup.com/)
 
-    Known to work for version:
+    Known working version:
 
     ```
     $ vagrant -v
@@ -28,16 +28,16 @@ For all use cases, first prepare this project with `bundler` .
     ```
 
 
-Below are installation processes for different Vagrant providers.
+Below are installation insructions for different Vagrant providers.
 
 * VMWare Fusion
 * Virtualbox
 * AWS
 
-Note: Fusion is faster and we test against it more frequently.  Virtualbox is free and we do support it.
 
+### Using the VMWare Fusion Provider (preferred)
 
-### USE VMWare Fusion Provider
+Fusion is faster, more reliable and we test against it more frequently. Both fusion and the vagrant fusion provider require a license.
 
 Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion version 2.1.0 .
 
@@ -71,7 +71,7 @@ Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion
     scripts/add-route
     ```
 
-###USE Virtualbox Provider
+### Using the Virtualbox Provider
 
 
 1. Start vagrant from the base directory of this repository (which uses the Vagrantfile)
@@ -96,7 +96,7 @@ Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion
     scripts/add-route
     ```
 
-###USE AWS Provider
+### Using the AWS Provider
 
 1. Install Vagrant AWS provider
 
@@ -144,43 +144,24 @@ sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 4
 
 These rules are cleared on restart. They can be saved and configured to be reloaded on startup if so desired (granted the internal ip remains the same).
 
-## Manage your local boxes
-
-We keep publishing pre-built Vagrant boxes on Amazon S3. It is recommened to use the latest boxes because they should be smaller, faster or less problematic.
-
-### Download latest boxes
-
-Just get a latest copy of the Vagrantfile from this repo and run `vagrant up`.
-
-### Delete old boxes
-
-Free some disk space by deleting the old boxes.
-
-    $ vagrant box list
-    boshlite-ubuntu1204-build55 (virtualbox)
-    boshlite-ubuntu1204-build55 (vmware_desktop)
-    boshlite-ubuntu1204-build74 (virtualbox)
-    boshlite-ubuntu1204-build83 (virtualbox)
-
-    $ vagrant box remove boshlite-ubuntu1204-build55 virtualbox
-    Removing box 'boshlite-ubuntu1204-build55' with provider 'virtualbox'...
-
-
-
-## Troubleshooting
-
-1. If you want to start over again, you can use `vagrant destroy` from the base directory of this project to remove the VM.
-1. To start with a new VM just execute the appropriate `vagrant up` command optionally with the provider option as shown in the earlier sections.
 
 ## Upload Warden stemcell
 
 bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will be the root file system for all Linux Containers created by the Warden CPI.
 
-1. Upload the latest warden stemcell
+1. Download latest warden stemcell
 
     ```
-    bosh upload stemcell http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
+    wget http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
     ```
+
+1. Upload the stemcell
+
+    ```
+    bosh upload stemcell latest-bosh-stemcell-warden.tgz
+    ```
+
+NB: It is possible to do this in one command instead of two, but doing this in two steps avoids having to download the stemcell again when you bring up a new bosh-lite box.
 
 ## Deploy Cloud Foundry
 
@@ -192,7 +173,17 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     curl -s http://spiff.cfapps.io/install.sh | bash
     ```
 
-1.  Use the make_manifest_spiff script to create a cf manifest.  This step assumes you have cf-release checked out to ~/workspace.
+1. Decide which final release of Cloud Foundry you wish to deploy, by looking at in the [releases directory of cf-release](https://github.com/cloudfoundry/cf-release/tree/master/releases).  At the time of this writing, cf-149 is the most recent.  We will use that as the example, but you are free to substitute any future release.
+
+1. Check out the desired revision of cf-release, (eg, 149)
+
+    ````
+    cd ~/workspace/cf-release
+    ./update
+    git checkout v149
+    ````
+
+1.  Use the make_manifest_spiff script to create a cf manifest.  This step assumes you have cf-release checked out to ~/workspace.  It requires that cf-release is checked out the tag matching the final release you wish to deploy so tha the templates used by make_manifest_spiff match the code you are deploying.
 
     make_manifest_spiff will target your bosh-lite director, find the uuid, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. (If this fails, try updating spiff)
 
@@ -201,26 +192,23 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     ./scripts/make_manifest_spiff
     ```
 
-1.  Create CF release (Skip this step if you want to use a existing release)
+1.  Create CF release, substituting the final release you which to create
     ```
     cd ~/workspace/cf-release
-    # update all the submodules and nested submodules
-    ./update
     # create the release from the latest code base
-    bosh create release
-    # enter cf (which is the release name)
+    bosh create release releases/cf-149.yml
+    # enter cf if prompted for the release name)
     ```
 
 1.  Upload created CF release
+
     ```
     bosh upload release
     # enter yes to confirm
-    
-    # if you want to use a existing release, point out the link while uploading release
-    bosh upload release <your existing release>
     ```
 
 1.  Deploy CF to bosh-lite
+
     ```
     bosh deploy
     ```
@@ -277,7 +265,7 @@ Choose an instance:
 
 ## Restore your deployment
 
-The warden container will lost after vm reboot, but you can restore your deployment with bosh cck.
+The warden container will be lost after vm reboot, but you can restore your deployment with bosh cck, bosh's command for recovering from unepexted errors.
 ```
 $ bosh cck
 ```
@@ -300,3 +288,31 @@ Applying problem resolutions
 ...
 Done                    13/13 00:03:48
 ```
+
+## Troubleshooting
+
+1. Starting over again is often the quickest path to success, you can use `vagrant destroy` from the base directory of this project to remove the VM.
+1. To start with a new VM just execute the appropriate `vagrant up` command optionally with the provider option as shown in the earlier sections.
+
+## Manage your local boxes
+
+We publish pre-built Vagrant boxes on Amazon S3. It is recommened to use the latest boxes.
+
+### Download latest boxes
+
+Just get a latest copy of the Vagrantfile from this repo and run `vagrant up`.
+
+### Delete old boxes
+
+Free some disk space by deleting the old boxes.
+
+    $ vagrant box list
+    boshlite-ubuntu1204-build55 (virtualbox)
+    boshlite-ubuntu1204-build55 (vmware_desktop)
+    boshlite-ubuntu1204-build74 (virtualbox)
+    boshlite-ubuntu1204-build83 (virtualbox)
+
+    $ vagrant box remove boshlite-ubuntu1204-build55 virtualbox
+    Removing box 'boshlite-ubuntu1204-build55' with provider 'virtualbox'...
+
+
