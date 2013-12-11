@@ -204,7 +204,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     # update all the submodules and nested submodules
     ./update
     bosh create release
-    # enter the name from the deployment-stub.yml file  - for example, 'cf'
+    # enter cf
     bosh upload release
     bosh deploy
     ```
