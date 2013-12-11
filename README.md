@@ -201,16 +201,27 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     ./scripts/make_manifest_spiff
     ```
 
-1.  Bosh target 192.168.50.4 and run bosh as normal, passing your generated manifest:
+1.  Create CF release
     ```
     cd ~/workspace/cf-release
     # update all the submodules and nested submodules
     ./update
+    # create the release from the latest code base
     bosh create release
-    # enter cf
+    # enter cf (which is the release name)
+    ```
+
+1.  Upload created CF release
+    ```
     bosh upload release
+    # enter yes to confirm
+    ```
+
+1.  Deploy CF to bosh-lite
+    ```
     bosh deploy
     ```
+
 1.  Run the yeti tests against your new deployment to make sure it's working correctly.
 
     a.  Set the environment variables VCAP_BVT_API_ENDPOINT, VCAP_BVT_ADMIN_USER, VCAP_BVT_ADMIN_USER_PASSWD
