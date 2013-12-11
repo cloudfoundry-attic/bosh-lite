@@ -8,10 +8,17 @@ if [[ ! -d $CF_RELEASE_DIR ]]; then
   exit 1
 fi
 
+BOSH_STATUS=$(bosh status)
+EXPECTED_DIRECTOR_NAME="Bosh Lite Director"
+DIRECTOR_UUID=$(echo "$BOSH_STATUS" | grep UUID | awk '{print $2}')
+
+if [[ "$(echo "$BOSH_STATUS" | grep Name)" != *"$EXPECTED_DIRECTOR_NAME"* ]]; then
+  echo "Can only target $EXPECTED_DIRECTOR_NAME. Please use 'bosh target' before running this script."
+  exit 1
+fi
+
 mkdir -p tmp
 cp manifests/cf-stub-spiff.yml tmp/cf-stub-with-uuid.yml
-echo $(bosh target https://192.168.50.4:25555) # ensure that we are talking to bosh-lite
-DIRECTOR_UUID=$(bosh status | grep UUID | awk '{print $2}')
 echo $DIRECTOR_UUID
 perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" tmp/cf-stub-with-uuid.yml
 
