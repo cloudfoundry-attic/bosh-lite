@@ -34,6 +34,9 @@ Below are installation processes for different Vagrant providers.
 * Virtualbox
 * AWS
 
+Note: Fusion is faster and we test against it more frequently.  Virtualbox is free and we do support it.
+
+
 ### USE VMWare Fusion Provider
 
 Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion version 2.1.0 .
