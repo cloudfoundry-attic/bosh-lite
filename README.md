@@ -201,7 +201,7 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     ./scripts/make_manifest_spiff
     ```
 
-1.  Create CF release
+1.  Create CF release (Skip this step if you want to use a existing release)
     ```
     cd ~/workspace/cf-release
     # update all the submodules and nested submodules
@@ -215,6 +215,9 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     ```
     bosh upload release
     # enter yes to confirm
+    
+    # if you want to use a existing release, point out the link while uploading release
+    bosh upload release <your existing release>
     ```
 
 1.  Deploy CF to bosh-lite
