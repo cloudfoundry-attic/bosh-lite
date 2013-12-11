@@ -110,7 +110,7 @@ Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion
     ```
 
 1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values.  If you've followed along with other documentation such as [these steps to deploy Cloud Foundry on AWS](http://docs.cloudfoundry.com/docs/running/deploying-cf/ec2/index.html#deployment-env-prep), you may simply need to source your `bosh_environment` file.
-1. Make sure the EC2 security group you are using in the `Vagrantfile` exists and allows inbound TCP traffice on ports 25555 (for the BOSH director) and 22 (for SSH).
+1. Make sure the EC2 security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
 1. Run Vagrant from the `aws` folder:
 
     ```
@@ -128,6 +128,18 @@ Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion
     Enter password: admin
     Logged in as `admin'
     ```
+
+1. Edit manifests/cf-stub-spiff.yml to include a 'domain' key under 'properties' that corresponds to a domain you've set up for this Cloud Foundry instance.
+
+1. Direct future traffic received on the instance to another ip (the HAProxy):
+
+```
+sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 80 -j DNAT --to 10.244.0.34:80
+sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 443 -j DNAT --to 10.244.0.34:443
+sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 4443 -j DNAT --to 10.244.0.34:4443
+```
+
+These rules are cleared on restart. They can be saved and configured to be reloaded on startup if so desired (granted the internal ip remains the same).
 
 ## Manage your local boxes
 
