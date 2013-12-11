@@ -129,7 +129,7 @@ Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion
     Logged in as `admin'
     ```
 
-1. Edit manifests/cf-stub-spiff.yml to include a 'domain' key under 'properties' that corresponds to a domain you've set up for this Cloud Foundry instance.
+1. Edit manifests/cf-stub-spiff.yml to include a 'domain' key under 'properties' that corresponds to a domain you've set up for this Cloud Foundry instance, or if you want to use xip.io, it can be <public ip>.xip.io.
 
 1. Direct future traffic received on the instance to another ip (the HAProxy):
 
