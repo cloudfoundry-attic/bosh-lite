@@ -76,3 +76,5 @@ umount /opt/warden || (sleep 10; umount /opt/warden)
 cp -a -f /mnt/bosh /opt
 cp -a -f /mnt/warden /opt
 start_service
+
+chown ubuntu:ubuntu /home/ubuntu/.bosh_config
