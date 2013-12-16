@@ -10,6 +10,8 @@ git clone https://github.com/cloudfoundry/bosh.git
 cd bosh
 git checkout origin/warden-cpi -b warden-cpi
 
+ifconfig lo:1 192.168.50.4 netmask 255.255.255.0
+
 #work around the "No source for ruby-1.9.3-p484 provided with debugger-ruby_core_source gem" issue
 bundle update debugger
 
