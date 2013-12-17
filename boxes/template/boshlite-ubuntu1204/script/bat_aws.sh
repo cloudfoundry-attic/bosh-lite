@@ -19,10 +19,14 @@ bundle
 wget -nv -N http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
 bundle exec bosh -n target 192.168.50.4:25555
 
+
 # a pre upload so we stopped early when director dies etc.
 bundle exec bosh -u admin -p admin -n upload stemcell ./latest-bosh-stemcell-warden.tgz || sleep 30
 DIRECTOR_UUID=$(bosh -u admin -p admin status | grep UUID | awk '{print $2}')
 echo $DIRECTOR_UUID
+
+#work around bat test
+touch /root/.ssh/known_hosts
 
 # Create bat.spec
 cat > bat.spec << EOF
