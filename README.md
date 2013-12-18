@@ -192,18 +192,10 @@ NB: It is possible to do this in one command instead of two, but doing this in t
     ./scripts/make_manifest_spiff
     ```
 
-1.  Create CF release, substituting the final release you which to create
-    ```
-    cd ~/workspace/cf-release
-    # create the release from the latest code base
-    bosh create release releases/cf-149.yml
-    # enter cf if prompted for the release name)
-    ```
-
-1.  Upload created CF release
+1.  Upload final release
 
     ```
-    bosh upload release
+    bosh upload release releases/cf-149.yml
     # enter yes to confirm
     ```
 
