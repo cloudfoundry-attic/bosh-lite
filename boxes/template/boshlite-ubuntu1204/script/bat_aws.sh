@@ -51,5 +51,5 @@ export BAT_VCAP_PASSWORD=c1oudc0w
 cd bat
 bundle exec rake bat
 
-
-
+ver=`bundle exec bosh -n stemcells |grep bosh-stemcell |cut -d\| -f3`
+bundle exec bosh -n delete stemcell bosh-stemcell $ver
