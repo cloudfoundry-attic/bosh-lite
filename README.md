@@ -166,7 +166,7 @@ NB: It is possible to do this in one command instead of two, but doing this in t
 ## Deploy Cloud Foundry
 
 
-1.  Install [spiff](https://github.com/vito/spiff).
+1.  Install [spiff](https://github.com/cloudfoundry-incubator/spiff).
     ```
     # command from http://spiff.cfapps.io
 
