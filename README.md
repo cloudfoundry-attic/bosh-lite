@@ -14,10 +14,8 @@ For all use cases, first prepare this project with `bundler` .
 
     ```
     $ vagrant -v
-    Vagrant 1.3.5
+    Vagrant 1.4.2
     ```
-
-    Note: for OSX and VirtualBox you are required to use Vagrant 1.3.4+
 
 1. Install Ruby + RubyGems + Bundler
 
@@ -39,12 +37,12 @@ Below are installation insructions for different Vagrant providers.
 
 Fusion is faster, more reliable and we test against it more frequently. Both fusion and the vagrant fusion provider require a license.
 
-Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion version 2.1.0 .
+Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion version 2.2.0 .
 
 1. Install vagrant Fusion Plugin + license
 
     ```
-    vagrant plugin install vagrant-vmware-fusion
+    vagrant plugin install --plugin-version 2.2.0 vagrant-vmware-fusion
     vagrant plugin license vagrant-vmware-fusion license.lic
     ```
 
