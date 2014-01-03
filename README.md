@@ -8,7 +8,7 @@ This readme walks through deploying Cloud Foundry with bosh-lite.  Bosh and bosh
 
 For all use cases, first prepare this project with `bundler` .
 
-1. [Install vagrant](http://downloads.vagrantup.com/)
+1. Install [vagrant](http://www.vagrantup.com/downloads.html)
 
     Known working version:
 
