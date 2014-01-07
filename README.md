@@ -161,6 +161,27 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
 
 NB: It is possible to do this in one command instead of two, but doing this in two steps avoids having to download the stemcell again when you bring up a new bosh-lite box.
 
+Note: You can also use 'bosh public stemcells' to list and download the latest warden stemcell
+
+example:
+```
+$ bosh public stemcells 
++---------------------------------------------+
+| Name                                        |
++---------------------------------------------+
+| bosh-stemcell-1722-aws-xen-ubuntu.tgz       |
+| bosh-stemcell-1722-aws-xen-centos.tgz       |
+| light-bosh-stemcell-1722-aws-xen-ubuntu.tgz |
+| light-bosh-stemcell-1722-aws-xen-centos.tgz |
+| bosh-stemcell-1722-openstack-kvm-ubuntu.tgz |
+| bosh-stemcell-1722-vsphere-esxi-ubuntu.tgz  |
+| bosh-stemcell-1722-vsphere-esxi-centos.tgz  |
+| bosh-stemcell-24-warden-boshlite-ubuntu.tgz |
++---------------------------------------------+
+
+$ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
+```
+
 ## Deploy Cloud Foundry
 
 
