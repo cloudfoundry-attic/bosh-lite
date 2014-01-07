@@ -214,14 +214,15 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 1.  Upload final release
 
     ```
+    cd ~/workspace/cf-release
     bosh upload release releases/cf-149.yml
-    # enter yes to confirm
     ```
 
 1.  Deploy CF to bosh-lite
 
     ```
     bosh deploy
+    # enter yes to confirm
     ```
 
 1.  Run the yeti tests against your new deployment to make sure it's working correctly.
