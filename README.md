@@ -221,6 +221,8 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 1.  Deploy CF to bosh-lite
 
     ```
+    cd ~/workspace/bosh-lite
+    bosh deployment manifests/cf-manifest.yml
     bosh deploy
     # enter yes to confirm
     ```
