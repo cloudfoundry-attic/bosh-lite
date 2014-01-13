@@ -10,7 +10,6 @@ include_recipe 'nginx::repo'
   nginx
   libcurl4-openssl-dev
   redis-server
-  iptables-persistent
 ).each do |package_name|
   package package_name
 end
@@ -82,18 +81,6 @@ template "/opt/bosh/config/director.yml" do
      :director_ip => node[:boshlite][:director_ip],
      :enable_compiled_package_cache => !!node[:boshlite][:enable_compiled_package_cache]
   })
-end
-
-execute 'forward the port 80 to haproxy' do
-  command "iptables -t nat -A PREROUTING -p tcp -d #{node[:boshlite][:director_ip]} --dport 80 -j DNAT --to 10.244.0.34:80"
-end
-
-execute 'forward the port 433 to haproxy' do
-  command "iptables -t nat -A PREROUTING -p tcp -d #{node[:boshlite][:director_ip]} --dport 443 -j DNAT --to 10.244.0.34:443"
-end
-
-execute 'persistent iptable rule' do
-  command 'iptables-save > /etc/iptables/rules.v4'
 end
 
 execute 'migrate' do
