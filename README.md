@@ -86,6 +86,7 @@ a license.
     ```
     bosh target 192.168.50.4
     Target set to `Bosh Lite Director'
+	bosh login
     Your username: admin
     Enter password: admin
     Logged in as `admin'
@@ -166,7 +167,7 @@ NB: It is possible to do this in one command instead of two, but doing this in t
 
 Note: You can also use 'bosh public stemcells' to list and download the latest warden stemcell
 
-example:
+example (the versions you see will be different from these):
 ```
 $ bosh public stemcells 
 +---------------------------------------------+
@@ -195,6 +196,12 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
     curl -s http://spiff.cfapps.io/install.sh | bash
     ```
 
+1. clone a copy of cf-release:
+    ```
+	cd ~/workspace
+	git clone https://github.com/cloudfoundry/cf-release
+    ```
+
 1. Decide which final release of Cloud Foundry you wish to deploy, by looking at in the [releases directory of cf-release](https://github.com/cloudfoundry/cf-release/tree/master/releases).  At the time of this writing, cf-149 is the most recent.  We will use that as the example, but you are free to substitute any future release.
 
 1. Check out the desired revision of cf-release, (eg, 149)
@@ -205,7 +212,10 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
     git checkout v149
     ````
 
-1.  Use the make_manifest_spiff script to create a cf manifest.  This step assumes you have cf-release checked out to ~/workspace.  It requires that cf-release is checked out the tag matching the final release you wish to deploy so tha the templates used by make_manifest_spiff match the code you are deploying.
+1.  Use the make_manifest_spiff script to create a cf manifest.  This step
+assumes you have cf-release checked out to ~/workspace [note that you can have
+it checked out to somewhere else, you just have to set the BOSH_RELEASES_DIR
+environment variable to something other than its default value of ~/workspace].  It requires that cf-release is checked out the tag matching the final release you wish to deploy so tha the templates used by make_manifest_spiff match the code you are deploying.
 
     make_manifest_spiff will target your bosh-lite director, find the uuid, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. (If this fails, try updating spiff)
 
