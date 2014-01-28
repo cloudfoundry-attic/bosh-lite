@@ -18,7 +18,7 @@ if [[ "$(echo "$BOSH_STATUS" | grep Name)" != *"$EXPECTED_DIRECTOR_NAME"* ]]; th
   exit 1
 fi
 
-temp_dir=$TMPDIR/boshlite-$$.tmp
+temp_dir=${TMPDIR:-${BOSH_LITE_HOME}/tmp}/boshlite-$$.tmp
 mkdir -p $temp_dir
 
 cp $BOSH_LITE_HOME/manifests/cf-stub-spiff.yml $temp_dir/cf-stub-with-uuid.yml
