@@ -17,6 +17,8 @@ For all use cases, first prepare this project with `bundler` .
     Vagrant 1.4.2
     ```
 
+    See [this blog](http://aliwahaj.blogspot.de/2014/01/installing-cloud-foundry-on-vagrant.html) for special instructures for Windows users of bosh-lite.
+
 1. Install Ruby + RubyGems + Bundler
 
 1. Run Bundler from the base directory of this repository
