@@ -191,12 +191,7 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 ## Deploy Cloud Foundry
 
 
-1.  Install [spiff](https://github.com/cloudfoundry-incubator/spiff).
-    ```
-    # get the latest 0.3 binary of spiff and put it in your $PATH here:
-
-    https://github.com/cloudfoundry-incubator/spiff/releases/tag/v0.3
-    ```
+1.  Install [spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest 0.3 binary of spiff](https://github.com/cloudfoundry-incubator/spiff/releases/tag/v0.3) extract it and make sure that `spiff` is in your `$PATH`.
 
 1. clone a copy of cf-release:
     ```
