@@ -254,6 +254,7 @@ environment variable to something other than its default value of ~/workspace]. 
     export VCAP_BVT_ADMIN_USER=admin
     export VCAP_BVT_ADMIN_USER_PASSWD=admin
     ```
+    If you do not want to use xip.io or are going to be offline, you can [try the custom DNS and offline instructions for OSX](docs/offline_dns.md).
 
     b.  Run yeti as normal from cf-release/src/tests.. e.g. (Make sure you are logged in via cf before running these commands)
 
