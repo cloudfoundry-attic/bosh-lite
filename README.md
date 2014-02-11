@@ -47,7 +47,7 @@ Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion
 a license. 
 
     ```
-    vagrant plugin install --plugin-version 2.2.0 vagrant-vmware-fusion
+    vagrant plugin install vagrant-vmware-fusion
     vagrant plugin license vagrant-vmware-fusion license.lic
     ```
 
