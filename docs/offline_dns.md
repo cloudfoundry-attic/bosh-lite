@@ -3,19 +3,35 @@ Running bosh-lite and cloudfoundry using a custom dns and offline
 
 by Vinicius Carvalho
 
-1 Install dnsmasq:
+## Install dnsmasq
 
 A simple dns proxy for mac, its really easy to install if you have homebrew on your system
 
-`brew install dnsmaq`
+`brew install dnsmasq`
 
-`sudo cp -fv /usr/local/opt/dnsmasq/*.plist /Library/LaunchDaemons`
+Follow the instructions at the end of the homebrew install to configure and start dnsmasq, which should look something like this: 
 
-Modify the file to add an entry for your custom DNS, for example:
+```
+To configure dnsmasq, copy the example configuration to /usr/local/etc/dnsmasq.conf
+and edit to taste.
+
+  cp /usr/local/opt/dnsmasq/dnsmasq.conf.example /usr/local/etc/dnsmasq.conf
+
+To have launchd start dnsmasq at startup:
+    sudo cp -fv /usr/local/opt/dnsmasq/*.plist /Library/LaunchDaemons
+Then to load dnsmasq now:
+    sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+```
+
+Modify the dnsmasq configuration file to add an entry for your custom DNS, for example:
 
 `address=/.vincloud.com/10.244.0.34`
 
-Will add an wildcard domain pointing to my HA-PROXY machine in cloudfoundry
+Will add a wildcard domain pointing to my HA-PROXY machine in cloudfoundry.
+
+Go to your network preferences and add `127.0.0.1` as your first DNS server.
+
+## Modify cf-release
 
 Next step, edit `cf-releases/cf-release.yml`, replace any occurrence of xxx.xxx.xxx.xxx.xip.io with your own custom domain, you may end up with something like this:
 
@@ -45,11 +61,9 @@ Next step, edit `cf-releases/cf-release.yml`, replace any occurrence of xxx.xxx.
 +------------------------------------+---------+---------------+-------------+
 ```
 
-Go to your network preferences and add `127.0.0.1` as your first DNS server.
-
 you can now use `cf target http://api.<YOURDOMAIN>` instead of the xip.io version.
 
-Running offline
+## Running offline
 
 You may not have network connectivity sometimes. I had a hard time getting OSX to use the nameserver once my network was down, thanks to [this serverfault post](http://serverfault.com/questions/22419/set-dns-server-on-os-x-even-when-without-internet-connection/164215#164215)
 
