@@ -14,7 +14,7 @@ For all use cases, first prepare this project with `bundler` .
 
     ```
     $ vagrant -v
-    Vagrant 1.4.2
+    Vagrant 1.4.3
     ```
 
     See [this blog](http://aliwahaj.blogspot.de/2014/01/installing-cloud-foundry-on-vagrant.html) for special instructures for Windows users of bosh-lite.
@@ -108,7 +108,7 @@ a license.
     vagrant plugin install vagrant-aws
     ```
 
-    Known to work for version: vagrant-aws 0.4.0
+    Known to work for version: vagrant-aws 0.4.1
 
 1. Add dummy AWS box
 
