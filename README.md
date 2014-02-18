@@ -148,6 +148,13 @@ sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 4
 
 These rules are cleared on restart. They can be saved and configured to be reloaded on startup if so desired (granted the internal ip remains the same).
 
+## Restart the director
+
+Occasionally you need to restart the bosh-lite director to avoid https://github.com/cloudfoundry/bosh-lite/issues/82; so perhaps always run the following after booting up bosh-lite:
+
+```
+vagrant ssh -c "sudo sv restart director"
+```
 
 ## Upload Warden stemcell
 
