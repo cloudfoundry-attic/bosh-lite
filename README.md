@@ -150,7 +150,7 @@ These rules are cleared on restart. They can be saved and configured to be reloa
 
 ## Restart the director
 
-Occasionally you need to restart the bosh-lite director to avoid https://github.com/cloudfoundry/bosh-lite/issues/82; so perhaps always run the following after booting up bosh-lite:
+Occasionally you need to restart the bosh-lite director to avoid https://github.com/cloudfoundry/bosh-lite/issues/82;(troubleshooting ...) so perhaps always run the following after booting up bosh-lite:
 
 ```
 vagrant ssh -c "sudo sv restart director"
