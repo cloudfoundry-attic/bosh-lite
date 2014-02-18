@@ -34,7 +34,7 @@ server:
   job_output_limit: 10485760
 
   quota:
-    disk_quota_enabled: false
+    disk_quota_enabled: true
 
   allow_nested_warden: true
 
