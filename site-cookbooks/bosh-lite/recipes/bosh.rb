@@ -46,7 +46,7 @@ end
 
 %w(bosh-director bosh-monitor).each do |gem|
   rbenv_gem gem do
-    version '>=1.5.0.pre.1113'
+    version '>= 1.2005.0'
   end
 end
 
