@@ -45,9 +45,7 @@ postgresql_database 'bosh' do
 end
 
 %w(bosh-director bosh-monitor).each do |gem|
-  rbenv_gem gem do
-    version '>= 1.2005.0'
-  end
+  rbenv_gem gem
 end
 
 rbenv_gem 'bosh_warden_cpi' do
