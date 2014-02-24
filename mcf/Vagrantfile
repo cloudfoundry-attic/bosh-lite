@@ -1,6 +1,6 @@
 VM_MEMORY = 6*1024
 VM_CORES = 4
-BOX_VERSION = 67
+BOX_VERSION = 75
 
 Vagrant.configure('2') do |config|
   config.vm.hostname='mcf'
@@ -19,6 +19,8 @@ Vagrant.configure('2') do |config|
     v.vmx["memsize"] = VM_MEMORY
   end
 
-config.vm.provision :shell, :inline => "echo Please run bosh cck cf-warden to get Cloud Foundry deployment restored."
-
+  config.vm.provision :shell do |s|
+    s.inline = "echo $1"
+    s.args = ['Please wait a few minutes for BOSH to restore Cloud Foundry deployment. Run \'bosh vms cf-warden\' to see the status.']
+  end
 end
