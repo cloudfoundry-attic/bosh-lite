@@ -261,8 +261,9 @@ environment variable to something other than its default value of ~/workspace]. 
     b.  Run yeti as normal from cf-release/src/tests.. e.g. (Make sure you are logged in via cf before running these commands)
 
     ```
+    bundle
     rake config:clear_bvt # clear the BVT from previous runs
-    bundle; bundle exec rake prepare; # create initial users/assets
+    bundle exec rake prepare; # create initial users/assets
     bundle exec rspec # run!
 
     ./warden_rspec # Run tests in parallel
