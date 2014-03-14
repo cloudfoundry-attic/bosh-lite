@@ -61,10 +61,11 @@ a license.
 1. Bosh target (login with admin/admin)
 
     ```
-    bosh target 192.168.50.4
+    $ bosh target 192.168.50.4
     Target set to `Bosh Lite Director'
+    $ bosh login
     Your username: admin
-    Enter password: admin
+    Enter password: *****
     Logged in as `admin'
     ```
 
@@ -86,11 +87,11 @@ a license.
 1. Bosh target (login with admin/admin)
 
     ```
-    bosh target 192.168.50.4
+    $ bosh target 192.168.50.4
     Target set to `Bosh Lite Director'
-	bosh login
+    $ bosh login
     Your username: admin
-    Enter password: admin
+    Enter password: *****
     Logged in as `admin'
     ```
 
@@ -129,10 +130,11 @@ a license.
 1. Bosh target (login with admin/admin)
 
     ```
-    bosh target <IP of the box>
+    $ bosh target 192.168.50.4
     Target set to `Bosh Lite Director'
+    $ bosh login
     Your username: admin
-    Enter password: admin
+    Enter password: *****
     Logged in as `admin'
     ```
 
