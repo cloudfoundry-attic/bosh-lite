@@ -117,7 +117,7 @@ a license.
     vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
     ```
 
-1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values.  If you've followed along with other documentation such as [these steps to deploy Cloud Foundry on AWS](http://docs.cloudfoundry.com/docs/running/deploying-cf/ec2/index.html#deployment-env-prep), you may simply need to source your `bosh_environment` file.
+1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values.  If you've followed along with other documentation such as [these steps to deploy Cloud Foundry on AWS](http://docs.cloudfoundry.org/deploying/ec2/bootstrap-aws-vpc.html), you may simply need to source your `bosh_environment` file.
 1. Make sure the EC2 security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
 1. Run Vagrant from the `aws` folder:
 
@@ -126,11 +126,13 @@ a license.
     vagrant up --provider=aws
     cd ..
     ```
+1. find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config` under `aws` folder.
+
 
 1. Bosh target (login with admin/admin)
 
     ```
-    $ bosh target 192.168.50.4
+    $ bosh target <public_ip_of_the_box>
     Target set to `Bosh Lite Director'
     $ bosh login
     Your username: admin
