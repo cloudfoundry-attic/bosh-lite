@@ -1,4 +1,4 @@
-# Set up sudo - base careful to set the file attribue before copying to
+# Set up sudo - base careful to set the file attribute before copying to
 # sudoers.d
 
 apt-get -y update
