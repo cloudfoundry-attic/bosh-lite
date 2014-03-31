@@ -41,6 +41,8 @@ Fusion is faster, more reliable and we test against it more frequently. Both fus
 
 Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion version 2.2.0 .
 
+1. Install and Launch VMWare fusion. You need to accept the VMWare license agreement if you haven't done so already.
+
 1. Install vagrant Fusion Plugin and license
 
     This requires a license file for Fusion. If you don't have one visit http://www.vagrantup.com to purchase
