@@ -236,9 +236,21 @@ environment variable to something other than its default value of ~/workspace]. 
 
 1.  Upload final release
 
+Use the <version> that matches the tag. For c149 you would use: releases/cf-149.yml
+
     ```
     cd ~/workspace/cf-release
-    bosh upload release releases/cf-149.yml
+    bosh upload release releases/cf-<version>.yml
+    ```
+
+If the Bosh binary was not found and you use RVM, Bosh was most likely installed into the bosh-lite gemset.
+Switch to the gemset before uploading:
+
+    ```
+    cd ~/workspace/cf-release
+    rvm gemset use bosh-lite
+    bundle
+    bosh upload release releases/cf-<version>.yml
     ```
 
 1.  Deploy CF to bosh-lite
