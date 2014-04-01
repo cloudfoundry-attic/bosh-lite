@@ -248,30 +248,22 @@ environment variable to something other than its default value of ~/workspace]. 
     # enter yes to confirm
     ```
 
-1.  Run the yeti tests against your new deployment to make sure it's working correctly.
+1.  Run the cf-acceptance-tests against your new deployment to make sure it's working correctly.
 
-    a.  Set the environment variables VCAP_BVT_API_ENDPOINT, VCAP_BVT_ADMIN_USER, VCAP_BVT_ADMIN_USER_PASSWD
-
-    Might look like this:
+    a.  Install [Go](http://golang.org/) version 1.2.1 64-bit and setup the Go environment.
 
     ```
-    # This is the HA Proxy ip in bosh vms (not the cc)
-    export VCAP_BVT_API_ENDPOINT=http://api.10.244.0.34.xip.io
-    export VCAP_BVT_ADMIN_USER=admin
-    export VCAP_BVT_ADMIN_USER_PASSWD=admin
+    mkdir -p ~/go
+    export GOPATH=~/go
+    export PATH=$PATH:/usr/local/go/bin
     ```
-    If you do not want to use xip.io or are going to be offline, you can [try the custom DNS and offline instructions for OSX](docs/offline_dns.md).
-
-    b.  Run yeti as normal from cf-release/src/tests.. e.g. (Make sure you are logged in via cf before running these commands)
+    b.  Download the cf-acceptance-test repository
 
     ```
-    bundle
-    rake config:clear_bvt # clear the BVT from previous runs
-    bundle exec rake prepare; # create initial users/assets
-    bundle exec rspec # run!
-
-    ./warden_rspec # Run tests in parallel
+    go get github.com/cloudfoundry/cf-acceptance-tests ...
+    cd $GOPATH/src/github.com/cloudfoundry/cf-acceptance-tests
     ```
+    c.  Follow the [cats](https://github.com/cloudfoundry/cf-acceptance-tests) instructions on Running the tests.
 
 
 ## SSH into deployment jobs
