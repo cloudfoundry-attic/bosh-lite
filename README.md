@@ -248,7 +248,7 @@ environment variable to something other than its default value of ~/workspace]. 
     # enter yes to confirm
     ```
 
-1.  Run the cf-acceptance-tests against your new deployment to make sure it's working correctly.
+1.  Run the [cf-acceptance-tests](https://github.com/cloudfoundry/cf-acceptance-tests) against your new deployment to make sure it's working correctly.
 
     a.  Install [Go](http://golang.org/) version 1.2.1 64-bit and setup the Go environment.
 
@@ -257,7 +257,7 @@ environment variable to something other than its default value of ~/workspace]. 
     export GOPATH=~/go
     export PATH=$PATH:/usr/local/go/bin
     ```
-    b.  Download the cf-acceptance-test repository
+    b.  Download the cf-acceptance-tests repository
 
     ```
     go get github.com/cloudfoundry/cf-acceptance-tests ...
