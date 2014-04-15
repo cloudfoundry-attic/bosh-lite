@@ -1,14 +1,17 @@
-# bosh-lite
+# BOSH Lite
 
 A local development environment for BOSH using warden containers in a Vagrant box.
 
-This readme walks through deploying Cloud Foundry with bosh-lite.  Bosh and bosh-lite can be used to deploy just about anything once you've got the hang of it.
+This ReadMe walks through deploying Cloud Foundry with BOSH Lite.
+Bosh and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
 
-## Installation
+## Install
+
+### Prepare the Environment
 
 For all use cases, first prepare this project with `bundler` .
 
-1. Install [Vagrant](http://www.vagrantup.com/downloads.html)
+1. Install [Vagrant](http://www.vagrantup.com/downloads.html).
 
     Known working version:
 
@@ -17,36 +20,37 @@ For all use cases, first prepare this project with `bundler` .
     Vagrant 1.4.3
     ```
 
-    See [this blog](http://aliwahaj.blogspot.de/2014/01/installing-cloud-foundry-on-vagrant.html) for special instructures for Windows users of bosh-lite.
+    See [this blog](http://aliwahaj.blogspot.de/2014/01/installing-cloud-foundry-on-vagrant.html) for special instructions for Windows users of BOSH Lite.
 
-1. Install Ruby + RubyGems + Bundler
+1. Install Ruby + RubyGems + Bundler.
 
-1. Run Bundler from the base directory of this repository
+1. Run Bundler from the base directory of this repository.
 
     ```
     bundle
     ```
 
+### Install and Boot a Virtual Machine
 
-Below are installation insructions for different Vagrant providers.
+Below are installation instructions for different Vagrant providers.
 
 * VMWare Fusion
 * Virtualbox
 * AWS
 
 
-### Using the VMWare Fusion Provider (preferred)
+#### Using the VMWare Fusion Provider (preferred)
 
-Fusion is faster, more reliable and we test against it more frequently. Both Fusion and the Vagrant Fusion provider require a license.
+Fusion is faster, more reliable and we test against it more frequently.
+Both Fusion and the Vagrant Fusion provider require a license.
 
 Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion version 2.2.0 .
 
 1. Install and launch VMWare Fusion. You need to accept the VMWare license agreement if you haven't done so already.
 
-1. Install Vagrant Fusion Plugin and license
+1. Install Vagrant Fusion Plugin and license.
 
-    This requires a license file for Fusion. If you don't have one visit http://www.vagrantup.com to purchase
-a license. 
+    This requires a license file for Fusion. If you don't have one visit http://www.vagrantup.com to purchase a license.
 
     ```
     vagrant plugin install vagrant-vmware-fusion
@@ -54,13 +58,13 @@ a license.
     ```
 
 
-1. Start Vagrant from the base directory of this repository (which uses the Vagrantfile)
+1. Start Vagrant from the base directory of this repository. This uses the Vagrantfile.
 
     ```
     vagrant up --provider vmware_fusion
     ```
 
-1. Bosh target (login with admin/admin)
+1. Target the BOSH Director and login with admin/admin.
 
     ```
     $ bosh target 192.168.50.4
@@ -71,22 +75,22 @@ a license.
     Logged in as `admin'
     ```
 
-1. Add a set of route entries to your local route table to enable direct warden container access. Your sudo password may be required.
+1. Add a set of route entries to your local route table to enable direct Warden container access. Your sudo password may be required.
 
     ```
     scripts/add-route
     ```
 
-### Using the Virtualbox Provider
+#### Using the Virtualbox Provider
 
 
-1. Start Vagrant from the base directory of this repository (which uses the Vagrantfile)
+1. Start Vagrant from the base directory of this repository. This uses the Vagrantfile.
 
     ```
     vagrant up
     ```
 
-1. Bosh target (login with admin/admin)
+1. Target the BOSH Director and login with admin/admin.
 
     ```
     $ bosh target 192.168.50.4
@@ -97,13 +101,13 @@ a license.
     Logged in as `admin'
     ```
 
-1. Add a set of route entries to your local route table to enable direct warden container access every time your networking gets reset (eg. reboot or connect to a different network). Your sudo password may be required.
+1. Add a set of route entries to your local route table to enable direct Warden container access every time your networking gets reset (e.g. reboot or connect to a different network). Your sudo password may be required.
 
     ```
     scripts/add-route
     ```
 
-### Using the AWS Provider
+#### Using the AWS Provider
 
 1. Install Vagrant AWS provider
 
@@ -119,7 +123,7 @@ a license.
     vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
     ```
 
-1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values.  If you've followed along with other documentation such as [these steps to deploy Cloud Foundry on AWS](http://docs.cloudfoundry.org/deploying/ec2/bootstrap-aws-vpc.html), you may simply need to source your `bosh_environment` file.
+1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values. If you've followed along with other documentation such as [these steps to deploy Cloud Foundry on AWS](http://docs.cloudfoundry.org/deploying/ec2/bootstrap-aws-vpc.html), you may simply need to source your `bosh_environment` file.
 1. Make sure the EC2 security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
 1. Run Vagrant from the `aws` folder:
 
@@ -131,7 +135,7 @@ a license.
 1. Find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config` under `aws` folder.
 
 
-1. Bosh target (login with admin/admin)
+1. Target the BOSH Director and login with admin/admin.
 
     ```
     $ bosh target <public_ip_of_the_box>
@@ -152,21 +156,21 @@ sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 4
 sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 4443 -j DNAT --to 10.244.0.34:4443
 ```
 
-These rules are cleared on restart. They can be saved and configured to be reloaded on startup if so desired (granted the internal ip remains the same).
+These rules are cleared on restart. They can be saved and configured to be reloaded on startup if so desired, assuming granted the internal IP address remains the same.
 
-## Restart the director
+## Restart the Director
 
-Occasionally you need to restart the bosh-lite director to avoid https://github.com/cloudfoundry/bosh-lite/issues/82;(troubleshooting ...) so perhaps always run the following after booting up bosh-lite:
+Occasionally you need to restart the BOSH Lite Director to avoid https://github.com/cloudfoundry/bosh-lite/issues/82;(troubleshooting ...) so perhaps always run the following after booting up BOSH Lite:
 
 ```
 vagrant ssh -c "sudo sv restart director"
 ```
 
-## Upload Warden stemcell
+## Upload the Warden stemcell
 
-bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will be the root file system for all Linux Containers created by the Warden CPI.
+A stemcell is a VM template with an embedded BOSH Agent. BOSH Lite uses the Warden CPI, so we need to use the Warden Stemcell which will be the root file system for all Linux Containers created by the Warden CPI.
 
-1. Download latest warden stemcell
+1. Download latest Warden stemcell
 
     ```
     wget http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
@@ -178,13 +182,13 @@ bosh-lite uses the Warden CPI, so we need to use the Warden Stemcell which will 
     bosh upload stemcell latest-bosh-stemcell-warden.tgz
     ```
 
-NB: It is possible to do this in one command instead of two, but doing this in two steps avoids having to download the stemcell again when you bring up a new bosh-lite box.
+NOTE: It is possible to do this in one command instead of two, but doing this in two steps avoids having to download the stemcell again when you bring up a new BOSH Lite box.
 
-Note: You can also use 'bosh public stemcells' to list and download the latest warden stemcell
+You can also use 'bosh public stemcells' to list and download the latest Warden stemcell
 
-example (the versions you see will be different from these):
+Example (the versions you see will be different from these):
 ```
-$ bosh public stemcells 
+$ bosh public stemcells
 +---------------------------------------------+
 | Name                                        |
 +---------------------------------------------+
@@ -203,8 +207,7 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 
 ## Deploy Cloud Foundry
 
-
-1.  Install [Spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest binary of Spiff](https://github.com/cloudfoundry-incubator/spiff/releases) extract it and make sure that `spiff` is in your `$PATH`.
+1.  Install [Spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest binary of Spiff](https://github.com/cloudfoundry-incubator/spiff/releases), extract it, and make sure that `spiff` is in your `$PATH`.
 
 1. Clone a copy of cf-release:
     ```
@@ -212,7 +215,7 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 	git clone https://github.com/cloudfoundry/cf-release
     ```
 
-1. Decide which final release of Cloud Foundry you wish to deploy, by looking at in the [releases directory of cf-release](https://github.com/cloudfoundry/cf-release/tree/master/releases).  At the time of this writing, cf-149 is the most recent.  We will use that as the example, but you are free to substitute any future release.
+1. Decide which final release of Cloud Foundry you wish to deploy by looking at in the [releases directory of cf-release](https://github.com/cloudfoundry/cf-release/tree/master/releases).  At the time of this writing, cf-149 is the most recent. We will use that as the example, but you are free to substitute any future release.
 
 1. Check out the desired revision of cf-release, (eg, 149)
 
@@ -222,26 +225,26 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
     git checkout v149
     ````
 
-1.  Use the make_manifest_spiff script to create a cf manifest.  This step
-assumes you have cf-release checked out to ~/workspace [note that you can have
-it checked out to somewhere else, you just have to set the BOSH_RELEASES_DIR
-environment variable to something other than its default value of ~/workspace].  It requires that cf-release is checked out the tag matching the final release you wish to deploy so tha the templates used by make_manifest_spiff match the code you are deploying.
+1.  Use the make_manifest_spiff script to create a cf manifest. This step
+assumes you have cf-release checked out to ~/workspace. Note that you can have
+it checked out to somewhere else, but you have to set the BOSH_RELEASES_DIR
+environment variable to something other than its default value of ~/workspace.  It requires that cf-release is checked out the tag matching the final release you wish to deploy so that the templates used by make_manifest_spiff match the code you are deploying.
 
-    make_manifest_spiff will target your bosh-lite director, find the uuid, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. (If this fails, try updating Spiff)
+    make_manifest_spiff will target your BOSH Lite Director, find the UUID, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. (If this fails, try updating Spiff)
 
     ```
     cd ~/workspace/bosh-lite
     ./scripts/make_manifest_spiff
     ```
 
-1.  Upload final release  
+1.  Upload final release
 Use the version that matches the tag. For c149 you would use: releases/cf-149.yml
 
     ```
     cd ~/workspace/cf-release
     bosh upload release releases/cf-<version>.yml
     ```
-If the Bosh binary was not found and you use RVM, Bosh was most likely installed into the bosh-lite gemset.
+If the BOSH binary was not found and you use RVM, BOSH was most likely installed into the bosh-lite gemset.
 Switch to the gemset before uploading:
 
     ```
@@ -280,7 +283,7 @@ Switch to the gemset before uploading:
 
 ## SSH into deployment jobs
 
-To use `bosh ssh` to SSH into running jobs of a deployment, to run the following command:
+Use `bosh ssh` to SSH into running jobs of a deployment and run the following command:
 
 ```
 scripts/add-route
@@ -306,12 +309,12 @@ Choose an instance:
 
 ## Restore your deployment
 
-The warden container will be lost after a vm reboot; but you can restore your deployment with `bosh cck`, Bosh's command for recovering from unexpected errors.
+The Warden container will be lost after a vm reboot, but you can restore your deployment with `bosh cck`, BOSH's command for recovering from unexpected errors.
 ```
 $ bosh cck
 ```
 
-Choose `2` to recreate each missing vm:
+Choose `2` to recreate each missing VM:
 ```
 Problem 1 of 13: VM with cloud ID `vm-74d58924-7710-4094-86f2-2f38ff47bb9a' missing.
   1. Ignore problem
@@ -334,11 +337,11 @@ Done                    13/13 00:03:48
 ## Troubleshooting
 
 1. Starting over again is often the quickest path to success; you can use `vagrant destroy` from the base directory of this project to remove the VM.
-1. To start with a new VM; just execute the appropriate `vagrant up` command, optionally passing in the provider as shown in the earlier sections.
+1. To start with a new VM, just execute the appropriate `vagrant up` command, optionally passing in the provider as shown in the earlier sections.
 
 ## Manage your local boxes
 
-We publish pre-built Vagrant boxes on Amazon S3. It is recommened to use the latest boxes.
+We publish pre-built Vagrant boxes on Amazon S3. It is recommended to use the latest boxes.
 
 ### Download latest boxes
 
@@ -356,5 +359,3 @@ Free some disk space by deleting the old boxes.
 
     $ vagrant box remove boshlite-ubuntu1204-build55 virtualbox
     Removing box 'boshlite-ubuntu1204-build55' with provider 'virtualbox'...
-
-
