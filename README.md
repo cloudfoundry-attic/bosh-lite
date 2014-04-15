@@ -1,6 +1,6 @@
 # bosh-lite
 
-A local development environment for BOSH using warden containers in a vagrant box.
+A local development environment for BOSH using warden containers in a Vagrant box.
 
 This readme walks through deploying Cloud Foundry with bosh-lite.  Bosh and bosh-lite can be used to deploy just about anything once you've got the hang of it.
 
@@ -8,7 +8,7 @@ This readme walks through deploying Cloud Foundry with bosh-lite.  Bosh and bosh
 
 For all use cases, first prepare this project with `bundler` .
 
-1. Install [vagrant](http://www.vagrantup.com/downloads.html)
+1. Install [Vagrant](http://www.vagrantup.com/downloads.html)
 
     Known working version:
 
@@ -37,13 +37,13 @@ Below are installation insructions for different Vagrant providers.
 
 ### Using the VMWare Fusion Provider (preferred)
 
-Fusion is faster, more reliable and we test against it more frequently. Both fusion and the vagrant fusion provider require a license.
+Fusion is faster, more reliable and we test against it more frequently. Both Fusion and the Vagrant Fusion provider require a license.
 
-Known to work with Fusion version 6.0.2 and vagrant plugin vagrant-vmware-fusion version 2.2.0 .
+Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion version 2.2.0 .
 
-1. Install and Launch VMWare fusion. You need to accept the VMWare license agreement if you haven't done so already.
+1. Install and launch VMWare Fusion. You need to accept the VMWare license agreement if you haven't done so already.
 
-1. Install vagrant Fusion Plugin and license
+1. Install Vagrant Fusion Plugin and license
 
     This requires a license file for Fusion. If you don't have one visit http://www.vagrantup.com to purchase
 a license. 
@@ -54,7 +54,7 @@ a license.
     ```
 
 
-1. Start vagrant from the base directory of this repository (which uses the Vagrantfile)
+1. Start Vagrant from the base directory of this repository (which uses the Vagrantfile)
 
     ```
     vagrant up --provider vmware_fusion
@@ -80,7 +80,7 @@ a license.
 ### Using the Virtualbox Provider
 
 
-1. Start vagrant from the base directory of this repository (which uses the Vagrantfile)
+1. Start Vagrant from the base directory of this repository (which uses the Vagrantfile)
 
     ```
     vagrant up
@@ -128,7 +128,7 @@ a license.
     vagrant up --provider=aws
     cd ..
     ```
-1. find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config` under `aws` folder.
+1. Find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config` under `aws` folder.
 
 
 1. Bosh target (login with admin/admin)
@@ -204,9 +204,9 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 ## Deploy Cloud Foundry
 
 
-1.  Install [spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest binary of spiff](https://github.com/cloudfoundry-incubator/spiff/releases) extract it and make sure that `spiff` is in your `$PATH`.
+1.  Install [Spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest binary of Spiff](https://github.com/cloudfoundry-incubator/spiff/releases) extract it and make sure that `spiff` is in your `$PATH`.
 
-1. clone a copy of cf-release:
+1. Clone a copy of cf-release:
     ```
 	cd ~/workspace
 	git clone https://github.com/cloudfoundry/cf-release
@@ -227,22 +227,20 @@ assumes you have cf-release checked out to ~/workspace [note that you can have
 it checked out to somewhere else, you just have to set the BOSH_RELEASES_DIR
 environment variable to something other than its default value of ~/workspace].  It requires that cf-release is checked out the tag matching the final release you wish to deploy so tha the templates used by make_manifest_spiff match the code you are deploying.
 
-    make_manifest_spiff will target your bosh-lite director, find the uuid, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. (If this fails, try updating spiff)
+    make_manifest_spiff will target your bosh-lite director, find the uuid, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. (If this fails, try updating Spiff)
 
     ```
     cd ~/workspace/bosh-lite
     ./scripts/make_manifest_spiff
     ```
 
-1.  Upload final release
-
-Use the <version> that matches the tag. For c149 you would use: releases/cf-149.yml
+1.  Upload final release  
+Use the version that matches the tag. For c149 you would use: releases/cf-149.yml
 
     ```
     cd ~/workspace/cf-release
     bosh upload release releases/cf-<version>.yml
     ```
-
 If the Bosh binary was not found and you use RVM, Bosh was most likely installed into the bosh-lite gemset.
 Switch to the gemset before uploading:
 
@@ -308,10 +306,11 @@ Choose an instance:
 
 ## Restore your deployment
 
-The warden container will be lost after vm reboot, but you can restore your deployment with bosh cck, bosh's command for recovering from unepexted errors.
+The warden container will be lost after a vm reboot; but you can restore your deployment with `bosh cck`, Bosh's command for recovering from unexpected errors.
 ```
 $ bosh cck
 ```
+
 Choose `2` to recreate each missing vm:
 ```
 Problem 1 of 13: VM with cloud ID `vm-74d58924-7710-4094-86f2-2f38ff47bb9a' missing.
@@ -321,7 +320,7 @@ Problem 1 of 13: VM with cloud ID `vm-74d58924-7710-4094-86f2-2f38ff47bb9a' miss
 Please choose a resolution [1 - 3]: 2
 ...
 ```
-Typing yes to confirm at the end:
+Type yes to confirm at the end:
 ```
 Apply resolutions? (type 'yes' to continue): yes
 
@@ -334,8 +333,8 @@ Done                    13/13 00:03:48
 
 ## Troubleshooting
 
-1. Starting over again is often the quickest path to success, you can use `vagrant destroy` from the base directory of this project to remove the VM.
-1. To start with a new VM just execute the appropriate `vagrant up` command optionally with the provider option as shown in the earlier sections.
+1. Starting over again is often the quickest path to success; you can use `vagrant destroy` from the base directory of this project to remove the VM.
+1. To start with a new VM; just execute the appropriate `vagrant up` command, optionally passing in the provider as shown in the earlier sections.
 
 ## Manage your local boxes
 
