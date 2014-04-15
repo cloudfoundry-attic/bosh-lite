@@ -23,7 +23,8 @@ bosh -u admin -p admin -n upload stemcell /tmp/latest-bosh-stemcell-warden.tgz
   $cmd || (sleep 120; bosh -u admin -p admin releases | grep cf ) || $cmd
 )
 
-wget  -r --tries=10 https://github.com/cloudfoundry-incubator/spiff/releases/download/v0.2/spiff_linux_amd64 -O /usr/local/bin/spiff
+wget  -r --tries=10 https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0/spiff_linux_amd64.zip -O /usr/local/bin/spiff.zip
+unzip /usr/local/bin/spiff.zip -d /usr/local/bin/
 chmod +x /usr/local/bin/spiff
 mkdir -p tmp
 CF_RELEASE_DIR=cf-release ./scripts/make_manifest_spiff
