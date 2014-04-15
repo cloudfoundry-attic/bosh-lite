@@ -233,6 +233,9 @@ environment variable to something other than its default value of ~/workspace]. 
     cd ~/workspace/bosh-lite
     ./scripts/make_manifest_spiff
     ```
+    
+    If you want to change the jobs properties for this bosh-lite deployment, e.g. number of nats servers, you can change it in the template located under cf-release/templates/cf-infrastructure-warden.yml.
+   
 
 1.  Upload final release  
 Use the version that matches the tag. For c149 you would use: releases/cf-149.yml
