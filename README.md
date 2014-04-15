@@ -2,7 +2,7 @@
 
 A local development environment for BOSH using warden containers in a Vagrant box.
 
-This ReadMe walks through deploying Cloud Foundry with BOSH Lite.
+This readme walks through deploying Cloud Foundry with BOSH Lite.
 Bosh and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
 
 ## Install
