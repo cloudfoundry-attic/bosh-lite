@@ -151,9 +151,10 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 1. Direct future traffic received on the instance to another ip (the HAProxy):
 
 ```
-sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 80 -j DNAT --to 10.244.0.34:80
-sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 443 -j DNAT --to 10.244.0.34:443
-sudo iptables -t nat -A PREROUTING -p tcp -d <internal IP of instance> --dport 4443 -j DNAT --to 10.244.0.34:4443
+INTERNAL_IP=<internal IP of instance>
+sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 80 -j DNAT --to 10.244.0.34:80
+sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 443 -j DNAT --to 10.244.0.34:443
+sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 4443 -j DNAT --to 10.244.0.34:4443
 ```
 
 These rules are cleared on restart. They can be saved and configured to be reloaded on startup if so desired, assuming granted the internal IP address remains the same.
@@ -236,9 +237,9 @@ environment variable to something other than its default value of ~/workspace.  
     cd ~/workspace/bosh-lite
     ./scripts/make_manifest_spiff
     ```
-    
+
     If you want to change the jobs properties for this bosh-lite deployment, e.g. number of nats servers, you can change it in the template located under cf-release/templates/cf-infrastructure-warden.yml.
-   
+
 
 1.  Upload final release
 Use the version that matches the tag. For c149 you would use: releases/cf-149.yml
