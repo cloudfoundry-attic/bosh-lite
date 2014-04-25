@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -xe
+
+stemcell_file=latest-bosh-stemcell-warden.tgz
+
+if [[ ! -e $stemcell_file ]]
+then
+  wget http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
+fi
+
+bosh upload stemcell $stemcell_file
+
+cd $HOME/workspace/bosh-lite
+./scripts/make_manifest_spiff
+
+cd $HOME/workspace/cf-release
+./update
+most_recent_release=$(ls -s releases/cf-1*.yml | awk 'END { print $2 }')
+bosh upload release $most_recent_release
+bosh -n deploy
