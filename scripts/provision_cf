@@ -11,7 +11,7 @@ then
 fi
 
 bosh target $BOSH_LITE_IP
-bosh upload stemcell $STEMCELL_FILE
+bosh upload stemcell --skip-if-exists $STEMCELL_FILE
 
 cd $HOME/workspace/bosh-lite
 ./scripts/make_manifest_spiff
