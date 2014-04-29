@@ -228,13 +228,12 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 
 1.  Upload final release
 
-Use the version that matches the tag you checked out. For v169 you would use: releases/cf-169.yml
+    Use the version that matches the tag you checked out. For v169 you would use: releases/cf-169.yml
 
     ```
     bosh upload release releases/cf-<version>.yml
     ```
-If the BOSH binary was not found and you use RVM, BOSH was most likely installed into the bosh-lite gemset.
-Switch to the gemset before uploading:
+    If the BOSH binary was not found and you use RVM, BOSH was most likely installed into the bosh-lite gemset. Switch to the gemset before uploading:
 
     ```
     rvm gemset use bosh-lite
