@@ -13,11 +13,13 @@ fi
 bosh target $BOSH_LITE_IP
 bosh upload stemcell --skip-if-exists $STEMCELL_FILE
 
+cd $HOME/workspace/cf-release
+./update
+
 cd $HOME/workspace/bosh-lite
 ./scripts/make_manifest_spiff
 
 cd $HOME/workspace/cf-release
-./update
 MOST_RECENT_CF_RELEASE=$(ls releases/cf-*.yml | sort | grep -v "\-release" | tail -n 1)
 bosh upload release $MOST_RECENT_CF_RELEASE
 bosh -n deploy
