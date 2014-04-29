@@ -216,22 +216,36 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 	git clone https://github.com/cloudfoundry/cf-release
     ```
 
-1. Decide which final release of Cloud Foundry you wish to deploy by looking at in the [releases directory of cf-release](https://github.com/cloudfoundry/cf-release/tree/master/releases).  At the time of this writing, cf-149 is the most recent. We will use that as the example, but you are free to substitute any future release.
+1. Decide which final release of Cloud Foundry you wish to deploy by looking at in the [releases directory of cf-release](https://github.com/cloudfoundry/cf-release/tree/master/releases).  At the time of this writing, cf-169 is the most recent. We will use that as the example, but you are free to substitute any future release.
 
-1. Check out the desired revision of cf-release, (eg, 149)
+1. Check out the desired revision of cf-release, (eg, 169)
 
     ````
     cd ~/workspace/cf-release
     ./update
-    git checkout v149
+    git checkout v169
     ````
 
-1.  Use the make_manifest_spiff script to create a cf manifest. This step
-assumes you have cf-release checked out to ~/workspace. Note that you can have
-it checked out to somewhere else, but you have to set the BOSH_RELEASES_DIR
-environment variable to something other than its default value of ~/workspace.  It requires that cf-release is checked out the tag matching the final release you wish to deploy so that the templates used by make_manifest_spiff match the code you are deploying.
+1.  Upload final release
 
-    make_manifest_spiff will target your BOSH Lite Director, find the UUID, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. (If this fails, try updating Spiff)
+Use the version that matches the tag you checked out. For v169 you would use: releases/cf-169.yml
+
+    ```
+    bosh upload release releases/cf-<version>.yml
+    ```
+If the BOSH binary was not found and you use RVM, BOSH was most likely installed into the bosh-lite gemset.
+Switch to the gemset before uploading:
+
+    ```
+    rvm gemset use bosh-lite
+    bundle
+    bosh upload release releases/cf-<version>.yml
+    ```
+
+1.  Use the `make_manifest_spiff` script to create a cf manifest.  This step assumes you have cf-release checked out in ~/workspace. If you have cf-release checked out to somewhere else, you have to update the `BOSH_RELEASES_DIR`
+ +environment variable.  The script also requires that cf-release is checked out with the tag matching the final release you wish to deploy so that the templates used by `make_manifest_spiff` match the code you are deploying.
+
+    `make_manifest_spiff` will target your BOSH Lite Director, find the UUID, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. If this fails, try updating Spiff.
 
     ```
     cd ~/workspace/bosh-lite
@@ -241,28 +255,10 @@ environment variable to something other than its default value of ~/workspace.  
     If you want to change the jobs properties for this bosh-lite deployment, e.g. number of nats servers, you can change it in the template located under cf-release/templates/cf-infrastructure-warden.yml.
 
 
-1.  Upload final release
-Use the version that matches the tag. For c149 you would use: releases/cf-149.yml
-
-    ```
-    cd ~/workspace/cf-release
-    bosh upload release releases/cf-<version>.yml
-    ```
-If the BOSH binary was not found and you use RVM, BOSH was most likely installed into the bosh-lite gemset.
-Switch to the gemset before uploading:
-
-    ```
-    cd ~/workspace/cf-release
-    rvm gemset use bosh-lite
-    bundle
-    bosh upload release releases/cf-<version>.yml
-    ```
-
 1.  Deploy CF to bosh-lite
 
     ```
-    cd ~/workspace/bosh-lite
-    bosh deployment manifests/cf-manifest.yml
+    bosh deployment manifests/cf-manifest.yml # This will be done for you by make_manifest_spiff
     bosh deploy
     # enter yes to confirm
     ```
