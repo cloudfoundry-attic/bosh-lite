@@ -2,24 +2,26 @@
 
 set -xe
 
+STEMCELL_SOURCE=http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells
 STEMCELL_FILE=latest-bosh-stemcell-warden.tgz
-BOSH_LITE_IP=$(cat Vagrantfile | awk -F"'" '/private_network/ { print $2 }')
+BOSH_LITE_DIR="${HOME}/workspace/bosh-lite"
+CF_DIR="${HOME}/workspace/cf-release"
+BOSH_LITE_IP=$(cat "${BOSH_LITE_DIR}/Vagrantfile" | awk -F"'" '/private_network/ { print $2 }')
 
 if [[ ! -e $STEMCELL_FILE ]]
 then
-  curl --progress-bar http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz > $STEMCELL_FILE
+  curl --progress-bar "${STEMCELL_SOURCE}/${STEMCELL_FILE}" > "$STEMCELL_FILE"
 fi
 
 bosh target $BOSH_LITE_IP
 bosh upload stemcell --skip-if-exists $STEMCELL_FILE
 
-cd $HOME/workspace/cf-release
+cd $CF_DIR
 ./update
 
-cd $HOME/workspace/bosh-lite
+cd $BOSH_LITE_DIR
 ./scripts/make_manifest_spiff
 
-cd $HOME/workspace/cf-release
-MOST_RECENT_CF_RELEASE=$(ls releases/cf-*.yml | sort | grep -v "\-release" | tail -n 1)
+MOST_RECENT_CF_RELEASE=$(ls "${CF_DIR}/releases/cf-*.yml" | sort | grep -v "\-release" | tail -n 1)
 bosh upload release $MOST_RECENT_CF_RELEASE
 bosh -n deploy
