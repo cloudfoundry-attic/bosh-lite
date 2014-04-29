@@ -2,20 +2,22 @@
 
 set -xe
 
-stemcell_file=latest-bosh-stemcell-warden.tgz
+STEMCELL_FILE=latest-bosh-stemcell-warden.tgz
+BOSH_LITE_IP=$(cat Vagrantfile | awk -F"'" '/private_network/ { print $2 }')
 
-if [[ ! -e $stemcell_file ]]
+if [[ ! -e $STEMCELL_FILE ]]
 then
-  wget http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
+  curl --progress-bar http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz > $STEMCELL_FILE
 fi
 
-bosh upload stemcell $stemcell_file
+bosh target $BOSH_LITE_IP
+bosh upload stemcell $STEMCELL_FILE
 
 cd $HOME/workspace/bosh-lite
 ./scripts/make_manifest_spiff
 
 cd $HOME/workspace/cf-release
 ./update
-most_recent_release=$(ls -s releases/cf-1*.yml | awk 'END { print $2 }')
-bosh upload release $most_recent_release
+MOST_RECENT_CF_RELEASE=$(ls releases/cf-*.yml | sort | grep -v "\-release" | tail -n 1)
+bosh upload release $MOST_RECENT_CF_RELEASE
 bosh -n deploy
