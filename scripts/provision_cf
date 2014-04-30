@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -xe
+
+STEMCELL_SOURCE=http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells
+STEMCELL_FILE=latest-bosh-stemcell-warden.tgz
+WORKSPACE_DIR="$(cd $(dirname ${BASH_SOURCE[0]})/../../ && pwd)"
+BOSH_LITE_DIR="${WORKSPACE_DIR}/bosh-lite"
+CF_DIR="${WORKSPACE_DIR}/cf-release"
+BOSH_LITE_IP=$(cat "${BOSH_LITE_DIR}/Vagrantfile" | awk -F"'" '/private_network/ { print $2 }')
+
+main() {
+  fetch_stemcell
+  upload_stemcell
+  build_manifest
+  deploy_release
+}
+
+fetch_stemcell() {
+  if [[ ! -e $STEMCELL_FILE ]]
+  then
+    curl --progress-bar "${STEMCELL_SOURCE}/${STEMCELL_FILE}" > "$STEMCELL_FILE"
+  fi
+}
+
+upload_stemcell() {
+  bosh target $BOSH_LITE_IP
+  bosh upload stemcell --skip-if-exists $STEMCELL_FILE
+}
+
+build_manifest() {
+  cd $CF_DIR
+  ./update
+
+  cd $BOSH_LITE_DIR
+  export CF_RELEASE_DIR=$CF_DIR
+  ./scripts/make_manifest_spiff
+}
+
+deploy_release() {
+  MOST_RECENT_CF_RELEASE=$(find ${CF_DIR}/releases -regex ".*cf-[0-9]\{3\}.yml" | sort | tail -n 1)
+  bosh upload release --skip-if-exists $MOST_RECENT_CF_RELEASE
+  bosh -n deploy
+}
+
+main
