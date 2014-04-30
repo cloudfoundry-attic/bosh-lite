@@ -280,6 +280,14 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
     c.  Follow the [cats](https://github.com/cloudfoundry/cf-acceptance-tests) instructions on Running the tests.
 
 
+### Single command deploy
+
+Alternatively to the above steps, you can also run this script to deploy the latest version of CloudFoundry:
+
+```
+$ ./scripts/provision_cf
+```
+
 ## SSH into deployment jobs
 
 Use `bosh ssh` to SSH into running jobs of a deployment and run the following command:
