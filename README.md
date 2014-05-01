@@ -356,4 +356,4 @@ Just get a latest copy of the Vagrantfile from this repo and run `vagrant up`.
 
 ## Working offline
 
-See the [offline documentation](docs/offline_nds.md)
+See the [offline documentation](docs/offline_dns.md)
