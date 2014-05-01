@@ -11,8 +11,14 @@ If you would like your bosh-lite instance to run disconnected from the internet,
     sudo iptables -t nat -D warden-postrouting -s 10.244.0.0/19 ! -d 10.244.0.0/19  -j MASQUERADE
     sudo iptables -t nat -A warden-postrouting -s 10.244.0.0/19 -d 192.168.21.2 -j MASQUERADE
 ```
-
 The above rules create iptables rules to remove masquerading, except when accessing the NAT interface of VMware Fusion (vmnet8) for DNS calls on the .2 address.
+
+To undo this, reverse the commands:
+
+```
+    sudo iptables -t nat -A warden-postrouting -s 10.244.0.0/19 ! -d 10.244.0.0/19  -j MASQUERADE
+    sudo iptables -t nat -D warden-postrouting -s 10.244.0.0/19 -d 192.168.21.2 -j MASQUERADE
+```
 
 ## Install dnsmasq
 
