@@ -3,6 +3,17 @@ Running bosh-lite and cloudfoundry using a custom dns and offline
 
 by Vinicius Carvalho
 
+## Emulating Offline usage of BOSH
+
+If you would like your bosh-lite instance to run disconnected from the internet, you can turn add some iptables configuration to your bosh-lite VM. Here is an example:
+
+```
+    sudo iptables -t nat -D warden-postrouting -s 10.244.0.0/19 ! -d 10.244.0.0/19  -j MASQUERADE
+    sudo iptables -t nat -A warden-postrouting -s 10.244.0.0/19 -d 192.168.21.2 -j MASQUERADE
+```
+
+The above rules create iptables rules to remove masquerading, except when accessing the NAT interface of VMware Fusion (vmnet8) for DNS calls on the .2 address.
+
 ## Install dnsmasq
 
 A simple dns proxy for mac, its really easy to install if you have homebrew on your system

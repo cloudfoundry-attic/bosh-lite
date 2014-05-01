@@ -354,15 +354,6 @@ We publish pre-built Vagrant boxes on Amazon S3. It is recommended to use the la
 
 Just get a latest copy of the Vagrantfile from this repo and run `vagrant up`.
 
-### Delete old boxes
+## Working offline
 
-Free some disk space by deleting the old boxes.
-
-    $ vagrant box list
-    boshlite-ubuntu1204-build55 (virtualbox)
-    boshlite-ubuntu1204-build55 (vmware_desktop)
-    boshlite-ubuntu1204-build74 (virtualbox)
-    boshlite-ubuntu1204-build83 (virtualbox)
-
-    $ vagrant box remove boshlite-ubuntu1204-build55 virtualbox
-    Removing box 'boshlite-ubuntu1204-build55' with provider 'virtualbox'...
+See the [offline documentation](docs/offline_nds.md)
