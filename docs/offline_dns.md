@@ -5,22 +5,13 @@ by Vinicius Carvalho
 
 ## Emulating Offline usage of BOSH
 
-If you would like your bosh-lite instance to run disconnected from the internet, you can turn add some iptables configuration to your bosh-lite VM. Here is an example:
+Run `scripts/disable_container_internet` to disable Internet on containers except for DNS.
 
-```
-    sudo iptables -t nat -D warden-postrouting -s 10.244.0.0/19 ! -d 10.244.0.0/19  -j MASQUERADE
-    sudo iptables -t nat -A warden-postrouting -s 10.244.0.0/19 -d 192.168.21.2 -j MASQUERADE
-```
-The above rules create iptables rules to remove masquerading, except when accessing the NAT interface of VMware Fusion (vmnet8) for DNS calls on the .2 address.
+To re-enable Internet, run `scripts/enable_container_internet`.
 
-To undo this, reverse the commands:
+## Using custom DNS
 
-```
-    sudo iptables -t nat -A warden-postrouting -s 10.244.0.0/19 ! -d 10.244.0.0/19  -j MASQUERADE
-    sudo iptables -t nat -D warden-postrouting -s 10.244.0.0/19 -d 192.168.21.2 -j MASQUERADE
-```
-
-## Install dnsmasq
+### Install dnsmasq
 
 A simple dns proxy for mac, its really easy to install if you have homebrew on your system
 
@@ -48,7 +39,7 @@ Will add a wildcard domain pointing to my HA-PROXY machine in cloudfoundry.
 
 Go to your network preferences and add `127.0.0.1` as your first DNS server.
 
-## Modify cf-release
+### Modify cf-release
 
 Next step, edit `cf-releases/cf-release.yml`, replace any occurrence of xxx.xxx.xxx.xxx.xip.io with your own custom domain, you may end up with something like this:
 
@@ -80,7 +71,7 @@ Next step, edit `cf-releases/cf-release.yml`, replace any occurrence of xxx.xxx.
 
 you can now use `cf target http://api.<YOURDOMAIN>` instead of the xip.io version.
 
-## Running offline
+### Running offline
 
 You may not have network connectivity sometimes. I had a hard time getting OSX to use the nameserver once my network was down, thanks to [this serverfault post](http://serverfault.com/questions/22419/set-dns-server-on-os-x-even-when-without-internet-connection/164215#164215)
 
