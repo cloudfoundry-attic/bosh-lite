@@ -5,4 +5,4 @@ cookbooks
 .vagrant
 pkg/
 manifests/cf-manifest.yml
-bosh-stemcell-*-warden-boshlite-ubuntu.tgz
+bosh-stemcell-*-warden-boshlite-*.tgz
