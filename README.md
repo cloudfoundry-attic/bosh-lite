@@ -288,6 +288,21 @@ Alternatively to the above steps, you can also run this script to deploy the lat
 $ ./scripts/provision_cf
 ```
 
+## Try your Cloud Foundry deployment
+
+Install the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) and run the following:
+
+```
+cf api http://api.10.244.0.34.xip.io
+cf auth admin admin
+cf create-org me
+cf target -o me
+cf create-space development
+cf target -s development
+```
+	
+Now you are ready to run commands such as `cf push`.	
+
 ## SSH into deployment jobs
 
 Use `bosh ssh` to SSH into running jobs of a deployment and run the following command:
