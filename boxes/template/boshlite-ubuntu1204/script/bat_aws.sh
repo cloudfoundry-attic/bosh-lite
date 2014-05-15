@@ -37,7 +37,7 @@ properties:
   uuid: $DIRECTOR_UUID
   pool_size: 1
   stemcell:
-    name: bosh-warden-boshlite-ubuntu
+    name: bosh-warden-boshlite-ubuntu-go_agent
     version: latest
   instances: 1
   mbus: nats://nats:0b450ada9f830085e2cdeff6@10.42.49.80:4222
