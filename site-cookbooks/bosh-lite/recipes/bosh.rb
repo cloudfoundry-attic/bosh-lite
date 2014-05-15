@@ -10,6 +10,7 @@ include_recipe 'nginx::repo'
   nginx
   libcurl4-openssl-dev
   redis-server
+  libmysqlclient-dev
 ).each do |package_name|
   package package_name
 end
