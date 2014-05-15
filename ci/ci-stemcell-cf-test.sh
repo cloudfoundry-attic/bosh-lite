@@ -38,7 +38,7 @@ git clone https://github.com/cloudfoundry/bosh-lite.git
   vagrant up
   sleep 30
 
-  bundle exec bosh -n target 192.168.50.4:25555
+  bundle exec bosh -n target 192.168.100.4:25555
 
   bosh -u admin -p admin -n upload stemcell ../bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu.tgz
   CF_RELEASE_DIR=../ ./scripts/make_manifest_spiff
@@ -59,7 +59,7 @@ git clone https://github.com/cloudfoundry/nyet.git
 (
   cd nyet
   bundle install
-  export NYET_TARGET="http://api.10.244.0.34.xip.io"
+  export NYET_TARGET="http://api.10.245.0.34.xip.io"
   export NYET_ADMIN_USERNAME="admin"
   export NYET_ADMIN_PASSWORD="admin"
   export NYET_REGULAR_USERNAME="admin"

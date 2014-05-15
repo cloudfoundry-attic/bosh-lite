@@ -3,12 +3,12 @@ set -e
 set -x
 PATH=/opt/rbenv/shims:/opt/rbenv/bin:$PATH
 
-ifconfig lo:1 192.168.50.4 netmask 255.255.255.0
+ifconfig lo:1 192.168.100.4 netmask 255.255.255.0
 
 cd /tmp/bosh-lite/
 bundle install
 rbenv rehash
-bosh -n target 192.168.50.4
+bosh -n target 192.168.100.4
 
 wget -r --tries=10 http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz -O /tmp/latest-bosh-stemcell-warden.tgz
 bosh -u admin -p admin -n upload stemcell /tmp/latest-bosh-stemcell-warden.tgz

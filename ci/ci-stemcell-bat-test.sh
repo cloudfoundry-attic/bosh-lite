@@ -32,7 +32,7 @@ rm -rf /var/lib/jenkins/.bosh_cache/* || true
 
 sleep 30
 
-bundle exec bosh -n target 192.168.50.4:25555
+bundle exec bosh -n target 192.168.100.4:25555
 
 # a pre upload so we stopped early when director dies etc.
 bundle exec bosh -u admin -p admin -n upload stemcell ./bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu.tgz || sleep 30
@@ -45,7 +45,7 @@ cat > bat.spec << EOF
 ---
 cpi: warden
 properties:
-  static_ip: 10.244.0.2
+  static_ip: 10.245.0.2
   uuid: $DIRECTOR_UUID
   pool_size: 1
   stemcell:
@@ -57,8 +57,8 @@ EOF
 
 
 export BAT_DEPLOYMENT_SPEC=$CUD/bat.spec
-export BAT_DIRECTOR=192.168.50.4
-export BAT_DNS_HOST=192.168.50.4
+export BAT_DIRECTOR=192.168.100.4
+export BAT_DNS_HOST=192.168.100.4
 export BAT_STEMCELL=$CUD/bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu.tgz
 export BAT_VCAP_PASSWORD=c1oudc0w
 

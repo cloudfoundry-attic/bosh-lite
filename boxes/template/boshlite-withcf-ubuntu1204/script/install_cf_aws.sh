@@ -26,7 +26,7 @@ function start_service {
 PATH=/opt/rbenv/shims:/opt/rbenv/bin:$PATH
 export TMPDIR=/mnt
 
-ifconfig lo:1 192.168.50.4 netmask 255.255.255.0
+ifconfig lo:1 192.168.100.4 netmask 255.255.255.0
 
 stop_service
 cp -a /opt/bosh /mnt/bosh

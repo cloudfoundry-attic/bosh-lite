@@ -67,7 +67,7 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 1. Target the BOSH Director and login with admin/admin.
 
     ```
-    $ bosh target 192.168.50.4
+    $ bosh target 192.168.100.4
     Target set to `Bosh Lite Director'
     $ bosh login
     Your username: admin
@@ -93,7 +93,7 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 1. Target the BOSH Director and login with admin/admin.
 
     ```
-    $ bosh target 192.168.50.4
+    $ bosh target 192.168.100.4
     Target set to `Bosh Lite Director'
     $ bosh login
     Your username: admin
@@ -152,9 +152,9 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 
 ```
 INTERNAL_IP=<internal IP of instance>
-sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 80 -j DNAT --to 10.244.0.34:80
-sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 443 -j DNAT --to 10.244.0.34:443
-sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 4443 -j DNAT --to 10.244.0.34:4443
+sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 80 -j DNAT --to 10.245.0.34:80
+sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 443 -j DNAT --to 10.245.0.34:443
+sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 4443 -j DNAT --to 10.245.0.34:4443
 ```
 
 These rules are cleared on restart. They can be saved and configured to be reloaded on startup if so desired, assuming granted the internal IP address remains the same.
@@ -293,7 +293,7 @@ $ ./scripts/provision_cf
 Install the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) and run the following:
 
 ```
-cf api http://api.10.244.0.34.xip.io
+cf api http://api.10.245.0.34.xip.io
 cf auth admin admin
 cf create-org me
 cf target -o me
