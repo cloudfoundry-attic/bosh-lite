@@ -33,7 +33,7 @@ Then to load dnsmasq now:
 
 Modify the dnsmasq configuration file to add an entry for your custom DNS, for example:
 
-`address=/.vincloud.com/10.245.0.34`
+`address=/.vincloud.com/10.244.0.34`
 
 Will add a wildcard domain pointing to my HA-PROXY machine in cloudfoundry.
 
@@ -52,20 +52,20 @@ Next step, edit `cf-releases/cf-release.yml`, replace any occurrence of xxx.xxx.
 +------------------------------------+---------+---------------+-------------+
 | Job/index                          | State   | Resource Pool | IPs         |
 +------------------------------------+---------+---------------+-------------+
-| api_z1/0                           | running | large_z1      | 10.245.1.10 |
-| ha_proxy_z1/0                      | running | router_z1     | 10.245.0.34 |
-| hm_z1/0                            | running | medium_z1     | 10.245.1.14 |
-| loggregator_trafficcontroller_z1/0 | running | small_z1      | 10.245.0.10 |
-| loggregator_trafficcontroller_z2/0 | running | small_z2      | 10.245.2.10 |
-| loggregator_z1/0                   | running | large_z1      | 10.245.0.14 |
-| loggregator_z2/0                   | running | large_z2      | 10.245.2.14 |
-| login_z1/0                         | running | medium_z1     | 10.245.1.6  |
-| nats_z1/0                          | running | medium_z1     | 10.245.0.6  |
-| postgres_z1/0                      | running | large_z1      | 10.245.0.30 |
-| router_z1/0                        | running | router_z1     | 10.245.0.22 |
-| runner_z1/0                        | running | runner_z1     | 10.245.0.26 |
-| taskmaster_z1/0                    | running | runner_z1     | 10.245.1.18 |
-| uaa_z1/0                           | running | large_z1      | 10.245.1.2  |
+| api_z1/0                           | running | large_z1      | 10.244.1.10 |
+| ha_proxy_z1/0                      | running | router_z1     | 10.244.0.34 |
+| hm_z1/0                            | running | medium_z1     | 10.244.1.14 |
+| loggregator_trafficcontroller_z1/0 | running | small_z1      | 10.244.0.10 |
+| loggregator_trafficcontroller_z2/0 | running | small_z2      | 10.244.2.10 |
+| loggregator_z1/0                   | running | large_z1      | 10.244.0.14 |
+| loggregator_z2/0                   | running | large_z2      | 10.244.2.14 |
+| login_z1/0                         | running | medium_z1     | 10.244.1.6  |
+| nats_z1/0                          | running | medium_z1     | 10.244.0.6  |
+| postgres_z1/0                      | running | large_z1      | 10.244.0.30 |
+| router_z1/0                        | running | router_z1     | 10.244.0.22 |
+| runner_z1/0                        | running | runner_z1     | 10.244.0.26 |
+| taskmaster_z1/0                    | running | runner_z1     | 10.244.1.18 |
+| uaa_z1/0                           | running | large_z1      | 10.244.1.2  |
 +------------------------------------+---------+---------------+-------------+
 ```
 

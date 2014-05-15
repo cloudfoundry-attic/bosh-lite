@@ -13,7 +13,7 @@ vagrant up || vagrant provision
 
 wget -N http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
 sleep 30
-bundle exec bosh -n target 192.168.100.4:25555
+bundle exec bosh -n target 192.168.50.4:25555
 bundle exec bosh -u admin -p admin -n upload stemcell ./latest-bosh-stemcell-warden.tgz
 
 #rm -rf ./cf-release
@@ -38,6 +38,6 @@ CF_RELEASE_DIR=`pwd`/cf-release ./scripts/make_manifest_spiff
 )
 
 scripts/add-route ||true
-curl http://ccng.10.245.0.254.xip.io/info | grep vcap
+curl http://ccng.10.244.0.254.xip.io/info | grep vcap
 
 vagrant destroy -f

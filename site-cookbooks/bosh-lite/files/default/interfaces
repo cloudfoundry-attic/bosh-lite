@@ -7,7 +7,7 @@ iface lo inet loopback
 
 auto lo:1
 iface lo:1 inet static
-  address 192.168.100.4
+  address 192.168.50.4
   network 192.168.50.0
   netmask 255.255.255.0
 

@@ -13,7 +13,7 @@ networks:
     - 10.10.16.255 - 10.10.16.255
     static:
     <% (0..30).each_with_index do |i| %>
-    - 10.245.0.<%= i*4 + 2 %> - 10.245.0.<%= i*4 + 2 %>
+    - 10.244.0.<%= i*4 + 2 %> - 10.244.0.<%= i*4 + 2 %>
     <% end %>
     gateway: 10.10.16.1
     dns:
@@ -30,11 +30,11 @@ properties:
       - admin|admin|scim.write,scim.read,openid,cloud_controller.admin
       - services|services|scim.write,scim.read,openid,cloud_controller.admin
 
-  domain: 10.245.0.254.xip.io
-  system_domain: 10.245.0.254.xip.io
+  domain: 10.244.0.254.xip.io
+  system_domain: 10.244.0.254.xip.io
   system_domain_organization: system_domain
   app_domains:
-  - 10.245.0.254.xip.io
+  - 10.244.0.254.xip.io
 
   template_only:
     aws:
@@ -47,7 +47,7 @@ properties:
 
   ccdb: &ccdb
     db_scheme: postgres
-    address: 10.245.0.250
+    address: 10.244.0.250
     port: 5524
     roles:
       - tag: admin
@@ -62,7 +62,7 @@ properties:
 
   uaadb:
     db_scheme: postgresql
-    address:  10.245.0.250
+    address:  10.244.0.250
     port: 5524
     roles:
       - tag: admin

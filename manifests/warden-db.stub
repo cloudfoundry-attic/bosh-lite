@@ -8,14 +8,14 @@ jobs:
     networks:
     - name: cf1
       static_ips:
-      - 10.245.0.250
+      - 10.244.0.250
     properties:
       db: databases
 
 properties:
   databases: &databases
     db_scheme: postgres
-    address: 10.245.0.250
+    address: 10.244.0.250
     port: 5524
     roles:
       - tag: admin

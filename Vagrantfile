@@ -4,9 +4,9 @@ BOX_VERSION = 186
 
 Vagrant.configure('2') do |config|
 
-  config.vm.hostname='other-bosh-lite'
+  config.vm.hostname='bosh-lite'
   config.vm.box = "boshlite-ubuntu1204-build#{BOX_VERSION}"
-  config.vm.network :private_network, ip: '192.168.100.4'
+  config.vm.network :private_network, ip: '192.168.50.4'
 
   config.vm.provider :virtualbox do |v, override|
     override.vm.box_url = "http://bosh-lite-build-artifacts.s3.amazonaws.com/bosh-lite/#{BOX_VERSION}/boshlite-virtualbox-ubuntu1204.box"

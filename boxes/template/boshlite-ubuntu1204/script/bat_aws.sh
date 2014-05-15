@@ -10,14 +10,14 @@ git clone https://github.com/cloudfoundry/bosh.git
 cd bosh
 git checkout origin/warden-cpi -b warden-cpi
 
-ifconfig lo:1 192.168.100.4 netmask 255.255.255.0
+ifconfig lo:1 192.168.50.4 netmask 255.255.255.0
 
 #work around the "No source for ruby-1.9.3-p484 provided with debugger-ruby_core_source gem" issue
 bundle update debugger
 
 bundle
 wget -nv -N http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
-bundle exec bosh -n target 192.168.100.4:25555
+bundle exec bosh -n target 192.168.50.4:25555
 
 
 # a pre upload so we stopped early when director dies etc.
@@ -33,7 +33,7 @@ cat > bat.spec << EOF
 ---
 cpi: warden
 properties:
-  static_ip: 10.245.0.2
+  static_ip: 10.244.0.2
   uuid: $DIRECTOR_UUID
   pool_size: 1
   stemcell:
@@ -44,8 +44,8 @@ properties:
 EOF
 
 export BAT_DEPLOYMENT_SPEC=$(pwd)/bat.spec
-export BAT_DIRECTOR=192.168.100.4
-export BAT_DNS_HOST=192.168.100.4
+export BAT_DIRECTOR=192.168.50.4
+export BAT_DNS_HOST=192.168.50.4
 export BAT_STEMCELL=$(pwd)/latest-bosh-stemcell-warden.tgz
 export BAT_VCAP_PASSWORD=c1oudc0w
 cd bat
