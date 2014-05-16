@@ -24,7 +24,7 @@ For all use cases, first prepare this project with `bundler` .
 
 1. Install Ruby + RubyGems + Bundler.
 
-1. Run Bundler from the base directory of this repository.
+1. Clone this repository and run Bundler from the base directory.
 
     ```
     bundle
