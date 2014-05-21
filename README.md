@@ -67,7 +67,7 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 1. Target the BOSH Director and login with admin/admin.
 
     ```
-    $ bosh target 192.168.50.4
+    $ bosh target 192.168.50.4 lite
     Target set to `Bosh Lite Director'
     $ bosh login
     Your username: admin
@@ -93,7 +93,7 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 1. Target the BOSH Director and login with admin/admin.
 
     ```
-    $ bosh target 192.168.50.4
+    $ bosh target 192.168.50.4 lite
     Target set to `Bosh Lite Director'
     $ bosh login
     Your username: admin
@@ -161,7 +161,7 @@ These rules are cleared on restart. They can be saved and configured to be reloa
 
 ## Restart the Director
 
-Occasionally you need to restart the BOSH Lite Director to avoid https://github.com/cloudfoundry/bosh-lite/issues/82;(troubleshooting ...) so perhaps always run the following after booting up BOSH Lite:
+Occasionally you need to restart the BOSH Lite Director to avoid [this bug](https://github.com/cloudfoundry/bosh-lite/issues/82) so perhaps always run the following after booting up BOSH Lite:
 
 ```
 vagrant ssh -c "sudo sv restart director"
@@ -188,6 +188,7 @@ NOTE: It is possible to do this in one command instead of two, but doing this in
 You can also use 'bosh public stemcells' to list and download the latest Warden stemcell
 
 Example (the versions you see will be different from these):
+
 ```
 $ bosh public stemcells
 +---------------------------------------------+
@@ -208,12 +209,22 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 
 ## Deploy Cloud Foundry
 
+### Single command deploy
+
+Alternatively to the steps below, you can also run this script to deploy the latest version of CloudFoundry:
+
+```
+$ ./scripts/provision_cf
+```
+
+### Manual deploy
+
 1.  Install [Spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest binary of Spiff](https://github.com/cloudfoundry-incubator/spiff/releases), extract it, and make sure that `spiff` is in your `$PATH`.
 
 1. Clone a copy of cf-release:
     ```
-	cd ~/workspace
-	git clone https://github.com/cloudfoundry/cf-release
+    cd ~/workspace
+    git clone https://github.com/cloudfoundry/cf-release
     ```
 
 1. Decide which final release of Cloud Foundry you wish to deploy by looking at in the [releases directory of cf-release](https://github.com/cloudfoundry/cf-release/tree/master/releases).  At the time of this writing, cf-169 is the most recent. We will use that as the example, but you are free to substitute any future release.
@@ -279,14 +290,6 @@ $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
     ```
     c.  Follow the [cats](https://github.com/cloudfoundry/cf-acceptance-tests) instructions on Running the tests.
 
-
-### Single command deploy
-
-Alternatively to the above steps, you can also run this script to deploy the latest version of CloudFoundry:
-
-```
-$ ./scripts/provision_cf
-```
 
 ## Try your Cloud Foundry deployment
 
