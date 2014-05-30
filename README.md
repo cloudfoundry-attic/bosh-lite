@@ -109,6 +109,19 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 
 #### Using the AWS Provider
 
+##### EC2 Classic or VPC
+
+The default mode provisions the BOSH-lite VM in EC2 classic. If you set the `BOSH_LITE_SUBNET_ID` environment
+variable, vagrant will provision the bosh-lite VM in that subnet in whichever VPC it lives.
+
+When deploying to a VPC, the security group must be specified as an ID of the form `sg-abcd1234`, as
+opposed to a name like `default`.
+
+NOTE: You can only deploy into a VPC if the instance can be accessed by the machine doing the deploying. If
+not, Vagrant will fail to use SSH to provision the instance further. This similarly applies to steps 7-9, below.
+
+##### Steps
+
 1. Install Vagrant AWS provider
 
     ```
@@ -158,6 +171,18 @@ sudo iptables -t nat -A PREROUTING -p tcp -d $INTERNAL_IP --dport 4443 -j DNAT -
 ```
 
 These rules are cleared on restart. They can be saved and configured to be reloaded on startup if so desired, assuming granted the internal IP address remains the same.
+
+##### AWS Environment Variables
+
+|Name|Description|Default|
+|---|---|---|
+|BOSH_AWS_ACCESS_KEY_ID         |AWS access key ID                    | |
+|BOSH_AWS_SECRET_ACCESS_KEY     |AWS secret access key                | |
+|BOSH_LITE_KEYPAIR              |AWS keypair name                     |bosh|
+|BOSH_LITE_NAME                 |AWS instance name                    |Vagrant|
+|BOSH_LITE_SECURITY_GROUP       |AWS security group                   |inception|
+|BOSH_LITE_PRIVATE_KEY          |path to private key matching keypair |~/.ssh/id_rsa_bosh|
+|[VPC only] BOSH_LITE_SUBNET_ID |AWS VPC subnet ID                    | |
 
 ## Restart the Director
 
