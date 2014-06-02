@@ -87,7 +87,7 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 1. Start Vagrant from the base directory of this repository. This uses the Vagrantfile.
 
     ```
-    vagrant up
+    vagrant up --provider virtualbox
     ```
 
 1. Target the BOSH Director and login with admin/admin.
