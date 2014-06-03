@@ -49,10 +49,7 @@ end
   rbenv_gem gem
 end
 
-rbenv_gem 'bosh_warden_cpi' do
-  version '1.2311.0'
-  source 'https://s3.amazonaws.com/bosh-jenkins-gems-warden/'
-end
+rbenv_gem 'bosh_warden_cpi'
 
 %w(config blobstore blobstore/tmp blobstore/tmp/upload director db).each do |dir|
   directory "/opt/bosh/#{dir}" do
