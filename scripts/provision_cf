@@ -38,7 +38,7 @@ build_manifest() {
 }
 
 deploy_release() {
-  MOST_RECENT_CF_RELEASE=$(find ${CF_DIR}/releases -regex ".*cf-[0-9]\{3\}.yml" | sort | tail -n 1)
+  MOST_RECENT_CF_RELEASE=$(find ${CF_DIR}/releases -regex ".*cf-[0-9]*.yml" | sort | tail -n 1)
   bosh upload release --skip-if-exists $MOST_RECENT_CF_RELEASE
   bosh -n deploy
 }
