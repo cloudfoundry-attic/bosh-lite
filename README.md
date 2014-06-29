@@ -331,18 +331,43 @@ cf target -s development
 	
 Now you are ready to run commands such as `cf push`.	
 
+
 ## SSH into deployment jobs
 
-Use `bosh ssh` to SSH into running jobs of a deployment and run the following command:
+Use `bosh ssh` to SSH into running jobs of a deployment.
+
+### For local providers:
+
+Run the following command:
 
 ```
 scripts/add-route
 ```
 
-Now you can now SSH into any VM with `bosh ssh`:
+Now you can SSH into any VM with `bosh ssh`:
 
 ```
 $ bosh ssh
+1. nats/0
+2. syslog_aggregator/0
+3. postgres/0
+4. uaa/0
+5. login/0
+6. cloud_controller/0
+7. loggregator/0
+8. loggregator-router/0
+9. health_manager/0
+10. dea_next/0
+11. router/0
+Choose an instance:
+```
+
+### For AWS provider:
+
+SSH into any VM with `bosh ssh` providing `--gateway_identity_file, --gateway_host and --gateway_user`
+
+```
+$  bosh ssh --gateway_identity_file=~/.ssh/id_rsa_bosh  --gateway_host=AWS_IP --gateway_user=ubuntu
 1. nats/0
 2. syslog_aggregator/0
 3. postgres/0
