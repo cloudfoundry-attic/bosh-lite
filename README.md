@@ -362,6 +362,8 @@ $ bosh ssh
 Choose an instance:
 ```
 
+Note: `bosh shh` automatically finds and uses the first key from your ssh keychain. If you do not have any RSA keys, you must create one. In a unix environment, this can be accomplished using `ssh-keygen`. You can then and add it to your keychain or you can pass the public key file to the command `bosh ssh --public_key /path/of/public/key`.
+
 ### For AWS provider:
 
 SSH into any VM with `bosh ssh` providing `--gateway_identity_file, --gateway_host and --gateway_user`
