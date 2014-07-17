@@ -76,6 +76,9 @@
       ]
     }
   ],
+  "variables": {
+    "warden_revision": "master"
+  },
   "provisioners": [{
     "type": "shell",
     "scripts": [
@@ -96,7 +99,14 @@
      "type": "chef-solo",
      "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
      "run_list": ["bosh-lite::warden", "bosh-lite::bosh"],
-     "json": { "boshlite": { "enable_compiled_package_cache": true} }
+     "json": {
+       "boshlite": {
+         "enable_compiled_package_cache": true
+       },
+       "warden": {
+         "revision": "{{user `warden_revision`}}"
+       }
+     }
   },
   {
     "type": "shell",
