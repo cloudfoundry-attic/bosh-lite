@@ -1,6 +1,7 @@
 {
   "variables": {
-    "cf_version": ""
+    "cf_version": "",
+    "warden_revision": "master"
   },
   "builders": [
     {
@@ -96,7 +97,12 @@
   {
      "type": "chef-solo",
      "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
-     "run_list": ["bosh-lite::warden", "bosh-lite::bosh", "bosh-lite::bosh_cli", "bosh-lite::repos"]
+     "run_list": ["bosh-lite::warden", "bosh-lite::bosh", "bosh-lite::bosh_cli", "bosh-lite::repos"],
+     "json": {
+       "warden": {
+         "revision": "{{user `warden_revision`}}"
+       }
+     }
   },
   {
     "type": "shell",
