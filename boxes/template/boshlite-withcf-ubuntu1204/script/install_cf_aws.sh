@@ -22,6 +22,16 @@ function start_service {
   sleep 10
 }
 
+function set_env {
+  service="bosh-monitor
+    director
+    worker-0
+    worker-1"
+  for s in $service; do
+    echo '/mnt' > /etc/sv/$s/env/TMPDIR
+  done
+}
+
 
 PATH=/opt/rbenv/shims:/opt/rbenv/bin:$PATH
 export TMPDIR=/mnt
@@ -33,6 +43,7 @@ cp -a /opt/bosh /mnt/bosh
 cp -a /opt/warden /mnt/warden
 mount --bind /mnt/bosh /opt/bosh
 mount --bind /mnt/warden /opt/warden
+set_env
 start_service
 
 mv /tmp/bosh-lite /mnt
