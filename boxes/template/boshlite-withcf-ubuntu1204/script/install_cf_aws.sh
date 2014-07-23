@@ -87,7 +87,7 @@ rm -rf /opt/warden/disks/ephemeral_mount_point/*
 stop_service
 lsof |grep /opt || true
 umount /opt/bosh || (sleep 10; umount /opt/bosh)
-umount /opt/warden || (sleep 10; umount /opt/warden) || (sleep 10; umount -f /opt/warden)
+umount /opt/warden || (sleep 10; umount /opt/warden) || (sleep 10; umount -f -l /opt/warden)
 cp -a -f /mnt/bosh /opt
 cp -a -f /mnt/warden /opt
 start_service
