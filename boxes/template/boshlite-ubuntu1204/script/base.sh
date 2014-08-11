@@ -12,6 +12,10 @@ apt-get -y update
 #apt-get -y install curl
 apt-get clean
 
+# libpq is required by the pg gem which is required by the postgresql chef recipe
+# This is a workaround to avoid forking the postgresql cookbook
+apt-get -y install libpq-dev
+
 ( cat  <<'EOP'
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "0";
