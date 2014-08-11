@@ -1,3 +1,5 @@
+set -x
+
 # Set up sudo - base careful to set the file attribute before copying to
 # sudoers.d
 ( cat <<'EOP'
