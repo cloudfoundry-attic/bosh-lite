@@ -20,6 +20,13 @@ APT::Periodic::Unattended-Upgrade "0";
 EOP
 ) >  /etc/apt/apt.conf.d/20auto-upgrades
 
+( cat  <<'EOP'
+Unattended-Upgrade::Package-Blacklist {
+    "libpq-dev";
+};
+EOP
+) >  /etc/apt/apt.conf.d/50unattended-upgrades
+
 # libpq is required by the pg gem which is required by the postgresql chef recipe
 # This is a workaround to avoid forking the postgresql cookbook
 apt-get -y install libpq-dev
