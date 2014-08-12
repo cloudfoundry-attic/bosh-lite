@@ -37,7 +37,7 @@ properties:
   uuid: $DIRECTOR_UUID
   pool_size: 1
   stemcell:
-    name: bosh-warden-boshlite-ubuntu-lucid-go_agent
+    name: bosh-warden-boshlite-ubuntu-trusty-go_agent
     version: latest
   instances: 1
   mbus: nats://nats:0b450ada9f830085e2cdeff6@10.42.49.80:4222
@@ -51,5 +51,5 @@ export BAT_VCAP_PASSWORD=c1oudc0w
 cd bat
 bundle exec rake bat
 
-ver=`bundle exec bosh -n -u admin -p admin stemcells |grep bosh-warden-boshlite-ubuntu-lucid-go_agent |cut -d\| -f3`
-bundle exec bosh -n -u admin -p admin delete stemcell bosh-warden-boshlite-ubuntu-lucid-go_agent $ver
+ver=`bundle exec bosh -n -u admin -p admin stemcells |grep bosh-warden-boshlite-ubuntu-trusty-go_agent |cut -d\| -f3`
+bundle exec bosh -n -u admin -p admin delete stemcell bosh-warden-boshlite-ubuntu-trusty-go_agent $ver

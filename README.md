@@ -199,7 +199,7 @@ A stemcell is a VM template with an embedded BOSH Agent. BOSH Lite uses the Ward
 1. Download latest Warden stemcell
 
     ```
-    wget http://bosh-jenkins-gems-warden.s3.amazonaws.com/stemcells/latest-bosh-stemcell-warden.tgz
+    wget http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
     ```
 
 1. Upload the stemcell
