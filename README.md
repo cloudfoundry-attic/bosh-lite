@@ -22,7 +22,7 @@ For all use cases, first prepare this project with `bundler` .
 
     See [this blog](http://aliwahaj.blogspot.de/2014/01/installing-cloud-foundry-on-vagrant.html) for special instructions for Windows users of BOSH Lite.
 
-1. Install Ruby + RubyGems + Bundler.
+1. Install Ruby 1.9.3 + Bundler.
 
 1. Clone this repository and run Bundler from the base directory.
 
