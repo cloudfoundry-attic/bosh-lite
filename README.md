@@ -11,6 +11,8 @@ Bosh and BOSH Lite can be used to deploy just about anything once you've got the
 
 For all use cases, first prepare this project with `bundler` .
 
+1. Install [Spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest binary of Spiff](https://github.com/cloudfoundry-incubator/spiff/releases), extract it, and make sure that `spiff` is in your `$PATH`. Windows users can perform the Prepare Warden Stemcell and Deploy Cloud Foundry steps within the Ubuntu VM created by Vagrant if no Windows release of Spiff is available, or see [this blog](http://aliwahaj.blogspot.de/2014/01/installing-cloud-foundry-on-vagrant.html) for tips on building Spiff on Windows.
+
 1. Install [Vagrant](http://www.vagrantup.com/downloads.html).
 
     Known working version:
@@ -20,11 +22,11 @@ For all use cases, first prepare this project with `bundler` .
     Vagrant 1.4.3
     ```
 
-    See [this blog](http://aliwahaj.blogspot.de/2014/01/installing-cloud-foundry-on-vagrant.html) for special instructions for Windows users of BOSH Lite.
+    
 
 1. Install Ruby 1.9.3 + Bundler.
 
-1. Clone this repository and run Bundler from the base directory.
+1. Clone this repository and run Bundler from the base directory. This will install the BOSH command line interface.
 
     ```
     bundle
@@ -112,7 +114,7 @@ Known to work with Fusion version 6.0.2 and Vagrant plugin vagrant-vmware-fusion
 ##### EC2 Classic or VPC
 
 The default mode provisions the BOSH-lite VM in EC2 classic. If you set the `BOSH_LITE_SUBNET_ID` environment
-variable, vagrant will provision the bosh-lite VM in that subnet in whichever VPC it lives.
+variable, vagrant will provision the BOSH Lite VM in that subnet in whichever VPC it lives.
 
 When deploying to a VPC, the security group must be specified as an ID of the form `sg-abcd1234`, as
 opposed to a name like `default`.
@@ -192,7 +194,21 @@ Occasionally you need to restart the BOSH Lite Director to avoid [this bug](http
 vagrant ssh -c "sudo sv restart director"
 ```
 
-## Upload the Warden stemcell
+## Prepare Warden Stemcell and Deploy Cloud Foundry
+
+Windows users can perform the following steps inside the Vagrant VM. In that case, use ```vagrant ssh``` to log in to the VM and prepare the environment in the VM as before (install Ruby 1.9.3 and Bundler in it, clone this repository and run Bundler from the base directory, download the latest Spiff release and add it to the PATH).
+
+### Single command deploy
+
+Alternatively to the steps below, you can also run this script to prepare the Warden stemcell and deploy the latest version of Cloud Foundry:
+
+```
+$ ./scripts/provision_cf
+```
+
+### Manual deploy
+
+#### Upload the Warden stemcell
 
 A stemcell is a VM template with an embedded BOSH Agent. BOSH Lite uses the Warden CPI, so we need to use the Warden Stemcell which will be the root file system for all Linux Containers created by the Warden CPI.
 
@@ -232,19 +248,7 @@ $ bosh public stemcells
 $ bosh download public stemcell bosh-stemcell-24-warden-boshlite-ubuntu.tgz
 ```
 
-## Deploy Cloud Foundry
-
-### Single command deploy
-
-Alternatively to the steps below, you can also run this script to deploy the latest version of CloudFoundry:
-
-```
-$ ./scripts/provision_cf
-```
-
-### Manual deploy
-
-1.  Install [Spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest binary of Spiff](https://github.com/cloudfoundry-incubator/spiff/releases), extract it, and make sure that `spiff` is in your `$PATH`.
+#### Deploy Cloud Foundry
 
 1. Clone a copy of cf-release:
     ```
@@ -277,7 +281,7 @@ $ ./scripts/provision_cf
     bosh upload release releases/cf-<version>.yml
     ```
 
-1.  Use the `make_manifest_spiff` script to create a cf manifest.  This step assumes you have cf-release checked out in ~/workspace. If you have cf-release checked out to somewhere else, you have to update the `CF_RELEASE_DIR`
+1.  Use the `make_manifest_spiff` script to create a cf manifest.  This step assumes you have cf-release and bosh-lite checked out in ~/workspace. If you have cf-release checked out to somewhere else, you have to update the `CF_RELEASE_DIR`
  +environment variable.  The script also requires that cf-release is checked out with the tag matching the final release you wish to deploy so that the templates used by `make_manifest_spiff` match the code you are deploying.
 
     `make_manifest_spiff` will target your BOSH Lite Director, find the UUID, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. If this fails, try updating Spiff.
@@ -290,7 +294,7 @@ $ ./scripts/provision_cf
     If you want to change the jobs properties for this bosh-lite deployment, e.g. number of nats servers, you can change it in the template located under cf-release/templates/cf-infrastructure-warden.yml.
 
 
-1.  Deploy CF to bosh-lite
+1.  Deploy CF to BOSH Lite
 
     ```
     bosh deployment manifests/cf-manifest.yml # This will be done for you by make_manifest_spiff
