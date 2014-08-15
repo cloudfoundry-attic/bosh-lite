@@ -6,3 +6,5 @@ cookbooks
 pkg/
 manifests/cf-manifest.yml
 bosh-stemcell-*-warden-boshlite-*.tgz
+bin/*
+.bundle/config
