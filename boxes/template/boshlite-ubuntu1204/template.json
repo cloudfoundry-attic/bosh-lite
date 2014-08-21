@@ -97,6 +97,7 @@
   },
   {
      "type": "chef-solo",
+     "install_command": "curl -L https://www.opscode.com/chef/install.sh | {{if .Sudo}}sudo{{end}} bash  -s -- -v 11.12.8",
      "cookbook_paths": ["../../../cookbooks", "../../../site-cookbooks"],
      "run_list": ["bosh-lite::warden", "bosh-lite::bosh"],
      "json": {
