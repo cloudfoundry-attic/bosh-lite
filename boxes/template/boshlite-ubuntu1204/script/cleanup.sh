@@ -19,3 +19,12 @@ if [ -d "/var/lib/dhcp" ]; then
 fi
 
 apt-get clean
+
+echo "cleaning up chef"
+dpkg -P chef
+rm -rf /var/chef
+rm -rf /opt/chef
+rm -rf /etc/chef
+
+echo "cleaning up logs"
+find /var/log -type f | xargs rm -f
