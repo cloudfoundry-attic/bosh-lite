@@ -1,2 +1,0 @@
-#!/bin/bash
-ifconfig lo:1 192.168.50.4 netmask 255.255.255.0

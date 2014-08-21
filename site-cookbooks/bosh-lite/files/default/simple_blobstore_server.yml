@@ -1,5 +1,0 @@
----
-path: /opt/bosh/blobstore
-port: 21081
-users:
-  bs_admin: bs_pass
