@@ -5,9 +5,9 @@ by Vinicius Carvalho
 
 ## Emulating Offline usage of BOSH
 
-Run `scripts/disable_container_internet` to disable Internet on containers except for DNS.
+Run `bin/disable_container_internet` to disable Internet on containers except for DNS.
 
-To re-enable Internet, run `scripts/enable_container_internet`.
+To re-enable Internet, run `bin/enable_container_internet`.
 
 ## Using custom DNS
 

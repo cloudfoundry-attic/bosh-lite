@@ -1,0 +1,23 @@
+BOSH_RELEASE_VERSION=$1
+BOSH_RELEASE_BUILD_NUMBER=$2
+WARDEN_RELEASE_VERSION=$3
+
+function valid_arguments() {
+  [ -n "$BOSH_RELEASE_VERSION" -a -n "$BOSH_RELEASE_BUILD_NUMBER" -a -n "$WARDEN_RELEASE_VERSION" ]
+}
+
+function main() {
+  if valid_arguments; then
+    template_path=$(dirname $0)/../templates/bosh_lite_manifest_template.yml
+    rendered_template_path=$(dirname $0)/../bosh_lite_manifest.yml
+    sed -e "s/BOSH_RELEASE_VERSION/$BOSH_RELEASE_VERSION/" $template_path > $rendered_template_path
+    sed -i '' -e "s/BOSH_RELEASE_BUILD_NUMBER/$BOSH_RELEASE_BUILD_NUMBER/" $rendered_template_path
+    sed -i '' -e "s/WARDEN_RELEASE_VERSION/$WARDEN_RELEASE_VERSION/" $rendered_template_path
+  else
+    echo "usage: $0 <bosh_release_version> <bosh_release_build_number> <warden_release_version>"
+    echo "example: $0 100 2690 6"
+    exit 1
+  fi
+}
+
+main

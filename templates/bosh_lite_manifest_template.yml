@@ -1,0 +1,196 @@
+---
+name: bosh-lite
+
+releases:
+- name: bosh
+  version: BOSH_RELEASE_VERSION
+  url: https://s3.amazonaws.com/bosh-jenkins-artifacts/release/bosh-BOSH_RELEASE_BUILD_NUMBER.tgz
+- name: bosh-warden-cpi
+  version: WARDEN_RELEASE_VERSION
+  url: https://s3.amazonaws.com/bosh-jenkins-artifacts/bosh-warden-cpi-release/bosh-warden-cpi-WARDEN_RELEASE_VERSION.tgz
+
+networks:
+- name: default
+  type: dynamic
+
+update:
+  canary_watch_time: 5000 - 60000
+  update_watch_time: 5000 - 60000
+
+compilation:
+  network: default
+
+jobs:
+- name: bosh
+  instances: 1
+
+  networks:
+  - name: default
+
+  templates:
+  - name: nats
+    release: bosh
+  - name: redis
+    release: bosh
+  - name: blobstore
+    release: bosh
+  - name: postgres
+    release: bosh
+  - name: director
+    release: bosh
+  - name: health_monitor
+    release: bosh
+  - name: cpi
+    release: bosh-warden-cpi
+  - name: warden
+    release: bosh-warden-cpi
+
+properties:
+  ntp: ["0.us.pool.ntp.org"]
+
+  nats:
+    user: nats
+    password: nats-password
+    address: 127.0.0.1
+    port: 4222
+
+  blobstore:
+    address: 127.0.0.1
+    port: 25251
+    backend_port: 25552
+    agent:
+      user: agent
+      password: agent-password
+    director:
+      user: director
+      password: director-password
+
+  postgres:
+    user: bosh
+    password: bosh-password
+    host: 127.0.0.1
+    port: 5432
+    database: bosh
+
+  redis:
+    password: redis-password
+    address: 127.0.0.1
+    port: 25255
+
+  director:
+    name: "Bosh Lite Director"
+    address: 127.0.0.1
+    port: 25555
+    encryption: false
+    enable_snapshots: true
+    max_tasks: 100
+    db:
+      user: bosh
+      password: bosh-password
+      host: 127.0.0.1
+      port: 5432
+      database: bosh
+    ssl:
+      key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEogIBAAKCAQEAutrdgjHQ7o8txCwcBdsXMnJ7Uz8CbeAIxxfkFO6L4ju9/Ixc
+        bjAXJcct/2VbB7bfKm8/hzX4s1OrtRNNm6J2udp2UAOB0Od53QLT1s4q/k3OTjrp
+        dNF83IETLFpnMdAtr1KYMuCrUZS6fygSzFn65eEyrqSKRG7ksEIKG1UJbovMb8UT
+        WqaNJIfqJo7CTbJDEpWpQo09/PU+q1GBpQGNVauHb5Z/bYrM5M5Gi4E6tJ93F6nU
+        KPOVBa3ZbmXTl29/a9lOVqoMKTw8EXfoVY+XCZnFGwcYAJW5ySXfInr2Mhpr6L6Y
+        reRx+LTllp9Z4XCbbVqGrPAr+QawrWh88crETwIDAQABAoIBAFh3DrB5TWXku9JI
+        3+uV0uG7ec/r4QaMLxuzn/SZC/lMN6K+AXTZp9vm9UwZfIOmfPnmObmWP+0HDCBq
+        xy+MN5G+cI1pW6jALt4IXKsyaQCFbctz8Nux4t+y7JTvKDRZT4fWHuDXpcS2GaXi
+        HyRI5ZS4jfpJRH0p03PvkEFofVKsZfLAlwnx7HhPqztyc6huu7njjP6XUYbvrhOS
+        otE/wyyLyT36rQvUVLHfrco2Ib1r58sWb1hL84/5HnbxwsEelBAAGL5VGu2f0zLP
+        qxmy4XWJg9U/UKzG9gXmbcpDUn1pUcZV1rSSJ/wfbdvBSLF+dQaE6QdjGeAyrt7M
+        I7gCViECgYEA5ui1aXomHIwqbzll/qotebYNL8AOcpgRJTtzODcnzoe/5aA7yVox
+        vOFTD9rODaVRhtdC/ZHsU6rID+tx9gQdjLUEXUqS3KsPXSiwbYBPXnEtpgWz/RAu
+        qpxpMn3kfVbQgJjkfksWvlHNzLj5q4ZhZyL/WV3P9DON8vuP/hwwQLMCgYEAzyiv
+        rXx/ERnEQOpXEvPtCj04QUGCyW2o4nYIrN3OfO3PM8PnNfB8Z2LKDyuzX9qvWghg
+        z81KSNByW4OLdvrnX5natfxdu/6qAl18N+z/DFXuTgXi8nG9/2R5c3Gn5CQ5yab7
+        S4G4Pt7YwfoiqFv9j2b0DE3e5UVicGQIuWmaQ/UCgYBf61swraUXRsJ54YYU++xY
+        Gt/vbgCSacj1hnSebYsDqDB22tD7G5R9ubwfYe0mjf4H3XPekbdyKgdhVZTJdXww
+        7yEY/9lyAT0onbZsRliyCqHDzaqu/QHlrYOljdZUmrOSN/Dy5Y5VEPZEjLJqJjBf
+        /5HDNc0kzCWzQfzWui7xMQKBgGNA8ysEAz2GQul3XdDO3juRqWpaoPcxe0FFnFJ2
+        04A30JbUveqyFmjShE1QetjqRim06e2mRnksph4CoMeY31KGvKuFBsQT+BC6CdIh
+        0vFuGod3eoz+wjGjSi1tvysn0Cg1wSEkPcqhqukFl6VirdIPWc6rYKgo3klLJILx
+        feAhAoGABC0apuKQD2IZZXZtDuUI9I4AemPPh0yKvFfTJxmxQ0fTlWjqdcG5nYdh
+        tSMBlZwsd6DRlK7dWJ/WHZXuXNeOX6ehSQFmql5/XPNd7INa5My6DDPZr1chh0WJ
+        QgK94NXJDoDd1OZjpUBMPLVa8d20/RdGNW8OMolJpzEPhg0r7Ac=
+        -----END RSA PRIVATE KEY-----
+
+      cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIC3zCCAcegAwIBAgIBADANBgkqhkiG9w0BAQUFADAzMQswCQYDVQQGEwJVUzEQ
+        MA4GA1UECgwHUGl2b3RhbDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTEzMTIwMTIy
+        MTEzMloXDTE2MTIwMTIyMTEzMlowMzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+        dm90YWwxEjAQBgNVBAMMCWxvY2FsaG9zdDCCASIwDQYJKoZIhvcNAQEBBQADggEP
+        ADCCAQoCggEBALra3YIx0O6PLcQsHAXbFzJye1M/Am3gCMcX5BTui+I7vfyMXG4w
+        FyXHLf9lWwe23ypvP4c1+LNTq7UTTZuidrnadlADgdDned0C09bOKv5Nzk466XTR
+        fNyBEyxaZzHQLa9SmDLgq1GUun8oEsxZ+uXhMq6kikRu5LBCChtVCW6LzG/FE1qm
+        jSSH6iaOwk2yQxKVqUKNPfz1PqtRgaUBjVWrh2+Wf22KzOTORouBOrSfdxep1Cjz
+        lQWt2W5l05dvf2vZTlaqDCk8PBF36FWPlwmZxRsHGACVuckl3yJ69jIaa+i+mK3k
+        cfi05ZafWeFwm21ahqzwK/kGsK1ofPHKxE8CAwEAATANBgkqhkiG9w0BAQUFAAOC
+        AQEAD1VzwtWCx32pQi5l0oFfjWqktnqfhs/Rr0ZpwacBBXHBvKuz9ENXmblt5pZu
+        JP7je+uXQD+da/oVhl0US2L0upIdMmD1utVXYHfRji5r/tIPl2SEKTrFiNZR1Wp6
+        J0nE/BW7nm41dXRBIAZR71yproaQrt1tFDFZvdfhwHGLC51L6toOhk/7S604sxbk
+        qV0tzT+VaR4hh09FEt9xGmB/3yFh329Yib8ScT94nKzSzoNoDp4Ms/smFhF4lUio
+        7SD2+b2/nt8Mcz7q58nYvZteipRrmkOFszlNF5dU31FjvRLITn0bhiOOFRD3qAou
+        cSOr1qwsAKuu6MzYNh2ubsLvfg==
+        -----END CERTIFICATE-----
+
+  hm:
+    http:
+      port: 25923
+      user: admin
+      password: admin-password
+    director_account:
+      user: admin
+      password: admin-password
+    intervals:
+      poll_director: 60
+      poll_grace_period: 30
+      log_stats: 300
+      analyze_agents: 60
+      agent_timeout: 180
+      rogue_agent_alert: 180
+    loglevel: info
+    email_notifications: false
+    tsdb_enabled: false
+    cloud_watch_enabled: false
+    resurrector_enabled: true
+
+  external_cpi:
+    enabled: true
+    name: cpi
+
+  # Control some remote vCenter
+  vcenter:
+    address: fake-address
+    user: fake-user
+    password: fake-password
+    datacenters: []
+
+  # cpi job template
+  cpi:
+    host_ip: 10.254.50.4
+    warden:
+      connect_network: tcp
+      connect_address: 127.0.0.1:7777
+    agent:
+      mbus: nats://nats:nats-password@10.254.50.4:4222
+      blobstore:
+        provider: dav
+        options:
+          endpoint: http://10.254.50.4:25251
+          user: agent
+          password: agent-password
+
+  # warden job template
+  warden:
+    listen_network: tcp
+    listen_address: 0.0.0.0:7777
+    network_pool: 10.244.0.0/16 # bosh-lite v1 used this pool
+    disk_quota_enabled: false
+    kernel_network_tuning_enabled: false

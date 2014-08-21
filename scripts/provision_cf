@@ -34,7 +34,7 @@ build_manifest() {
 
   cd $BOSH_LITE_DIR
   export CF_RELEASE_DIR=$CF_DIR
-  ./scripts/make_manifest_spiff
+  ./bin/make_manifest_spiff
 }
 
 deploy_release() {
