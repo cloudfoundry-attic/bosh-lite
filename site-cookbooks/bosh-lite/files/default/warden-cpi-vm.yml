@@ -45,6 +45,12 @@ logging:
   level: debug2
 
 network:
+  # Containers access the director
+  allow_host_access: true
+
+  allow_networks:
+    - 0.0.0.0/0
+
   # Use this /30 network as offset for the network pool.
   pool_start_address: 10.244.0.0
 
