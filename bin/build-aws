@@ -26,7 +26,7 @@ function packer_build() {
 
   rm -rf $(dirname $0)/../output-amazon-ebs
 
-  packer build $args $template_path
+  sh -c "packer build $args $template_path"
 }
 
 function main() {
