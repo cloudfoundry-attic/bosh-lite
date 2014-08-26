@@ -1,38 +1,31 @@
-Templates and scripts are based on <https://github.com/misheska/basebox-packer>
+## How to build the Vagrant boxes
 
-##Build the Vagrant boxes
+First, download and install Packer from <http://www.packer.io/docs/installation.html>.
 
-1. Install Ruby + RubyGems + Bundler
+Binaries for creating VirtualBox, VMWare Fusion, and Amazon EC2 boxes are provided in bin/.
 
-1. Run Bundler from the base directory of this repository
+Binary           | Host Environment
+---------------- | ----------------
+bin/build-vbox   | VirtualBox
+bin/build-fusion | VMWare Fusion
+bin/build-aws    | Amazon EC2
 
-    ```
-    bundle
-    ```
+Each binary takes a required set of arguments:
 
-1. Run Librarian
+Argument                  | Purpose
+------------------------- | -------
+bosh_release_version      | the BOSH release manifest version for the specific BOSH release
+bosh_release_build_number | the specific BOSH release
+warden_release_version    | the BOSH release manifest version for the BOSH Warden CPI release
 
-    ```
-    librarian-chef install
-    ```
+Example: `bin/build-vbox 100 2690 6`
 
-1. Download and install Packer from <http://www.packer.io/docs/installation.html>
+Each binary also takes an optional build number, to be included in the output filename, defaults to 0.
 
+### Amazon EC2 Only
 
-1. Build the boxes
+`build-aws` requires `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to be set
 
- A GNU Make makefile is provided to support automated builds.  It assumes that GNU Make is in the PATH.
+Additionally, `bin/build-aws` takes optional arguments for base_ami (e.g. ami-864d84ee) and region (e.g. us-east-1) which are to be passed after the required arguments.
 
- To build all boxes:
-
-        cd boxes
-        make
-
- Or, to build one box:
-
-        cd boxes
-        make list
-        # Choose a definition, like 'virtualbox/boshlite-ubuntu1204.box'
-        make virtualbox/boshlite-ubuntu1204.box
-
-
+Please see usage for each binary for more details by running any of the binaries without any arguments.
