@@ -1,9 +1,0 @@
-packer_cache
-output-*
-*.box
-*.tar.gz
-virtualbox
-vmware
-iso
-
-.DS_Store
