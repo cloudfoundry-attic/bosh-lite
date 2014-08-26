@@ -37,7 +37,8 @@ function main() {
     packer_build
   else
     echo "usage: $0 <bosh_release_version> <bosh_release_build_number> <warden_release_version> [<build_number>] [<base_ami>] [<region>]"
-    echo "       The AWS_ACCESS_KEY and AWS_SECRET_KEY environment variables must be present."
+    echo "       Additionally, the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables must be set"
+    echo "example: $0 100 2690 6 2 ami-864d84ee us-east-1"
     exit 1
   fi
 }
