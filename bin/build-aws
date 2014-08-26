@@ -8,7 +8,7 @@ BASE_AMI=$5
 REGION=$6
 
 function valid_arguments() {
-  [ -n "$BOSH_RELEASE_VERSION" -a -n "$BOSH_RELEASE_BUILD_NUMBER" -a -n "$WARDEN_RELEASE_VERSION" -a -n "$AWS_ACCESS_KEY" -a -n "$AWS_SECRET_KEY" ]
+  [ -n "$BOSH_RELEASE_VERSION" -a -n "$BOSH_RELEASE_BUILD_NUMBER" -a -n "$WARDEN_RELEASE_VERSION" -a -n "$AWS_ACCESS_KEY_ID" -a -n "$AWS_SECRET_ACCESS_KEY" ]
 }
 
 function packer_build() {
