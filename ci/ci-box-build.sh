@@ -12,7 +12,7 @@ if [ -f '/var/lib/jenkins/VirtualBox VMs/packer-virtualbox-iso/packer-virtualbox
   rm -f '/var/lib/jenkins/VirtualBox VMs/packer-virtualbox-iso/packer-virtualbox-iso.vbox'
 fi
 
-./bin/build-vbox ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION}
+./bin/build-vbox ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION} ${BUILD_NUMBER}
 
 vagrant box add bosh-lite-virtualbox-ubuntu-14-04-0.box --name boshlite-ubuntu1404 --force
 
