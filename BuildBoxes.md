@@ -28,4 +28,6 @@ Each binary also takes an optional build number, to be included in the output fi
 
 Additionally, `bin/build-aws` takes optional arguments for base_ami (e.g. ami-864d84ee) and region (e.g. us-east-1) which are to be passed after the required arguments.
 
+The default AMI, ami-d2ff23ba (us-east-1) is a public Ubuntu Trusty amd64 ebs AMI, found at http://cloud-images.ubuntu.com/locator/ec2/.
+
 Please see usage for each binary for more details by running any of the binaries without any arguments.
