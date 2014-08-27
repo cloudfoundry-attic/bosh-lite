@@ -9,7 +9,11 @@ Bosh and BOSH Lite can be used to deploy just about anything once you've got the
 
 ### Prepare the Environment
 
-For all use cases, first prepare this project with `bundler` .
+1. Install latest version of `bosh_cli`.
+
+```
+gem install bosh_cli
+```
 
 1. Install [Spiff](https://github.com/cloudfoundry-incubator/spiff). Use the [latest binary of Spiff](https://github.com/cloudfoundry-incubator/spiff/releases), extract it, and make sure that `spiff` is in your `$PATH`. Windows users can perform the Prepare Warden Stemcell and Deploy Cloud Foundry steps within the Ubuntu VM created by Vagrant if no Windows release of Spiff is available, or see [this blog](http://aliwahaj.blogspot.de/2014/01/installing-cloud-foundry-on-vagrant.html) for tips on building Spiff on Windows.
 
