@@ -318,7 +318,7 @@ Use `bosh ssh` to SSH into running jobs of a deployment.
 Run the following command:
 
 ```
-scripts/add-route
+bin/add-route
 ```
 
 Now you can SSH into any VM with `bosh ssh`:
