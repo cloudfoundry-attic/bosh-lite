@@ -71,13 +71,15 @@ Vagrant.configure('2') do |config|
     end
 
     PORT_FORWARDING = <<-IP_SCRIPT
-ip=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
-echo "The IP for this instance is $ip"
-echo "You can bosh target $ip, or run vagrant ssh and then bosh target 127.0.0.1"
+public_ip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
+echo "The public IP for this instance is $public_ip"
+echo "You can bosh target $public_ip, or run vagrant ssh and then bosh target 127.0.0.1"
+
+local_ip=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 echo "Setting up port forwarding for the CF Cloud Controller..."
-sudo iptables -t nat -A PREROUTING -p tcp -d $ip --dport 80 -j DNAT --to 10.244.0.34:80
-sudo iptables -t nat -A PREROUTING -p tcp -d $ip --dport 443 -j DNAT --to 10.244.0.34:443
-sudo iptables -t nat -A PREROUTING -p tcp -d $ip --dport 4443 -j DNAT --to 10.244.0.34:4443
+sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 80 -j DNAT --to 10.244.0.34:80
+sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 443 -j DNAT --to 10.244.0.34:443
+sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 4443 -j DNAT --to 10.244.0.34:4443
     IP_SCRIPT
     remote.vm.provision :shell, :inline => PORT_FORWARDING
   end
