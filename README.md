@@ -244,7 +244,8 @@ Follow the [cats](https://github.com/cloudfoundry/cf-acceptance-tests) instructi
 Install the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) and run the following:
 
 ```
-cf api http://api.10.244.0.34.xip.io # for AWS use public IP http://api.BOSH_LITE_PUBLIC_IP.xip.io
+# for AWS use public IP https://api.BOSH_LITE_PUBLIC_IP.xip.io
+cf api --skip-ssl-validation https://api.10.244.0.34.xip.io
 cf auth admin admin
 cf create-org me
 cf target -o me
