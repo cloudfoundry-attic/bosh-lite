@@ -44,6 +44,7 @@ Vagrant.configure('2') do |config|
     remote.vm.synced_folder '.', '/vagrant', disabled: true
     remote.vm.box_url = 'https://github.com/mitchellh/vagrant-aws/blob/master/dummy.box?raw=true'
 
+    remote.vm.provision :shell, :inline => "chmod 777 /tmp", :upload_path => '/opt/bosh-provisioner/packer-shell.sh'
     remote.vm.provider :aws do |v, override|
       v.access_key_id =       env.fetch('BOSH_AWS_ACCESS_KEY_ID')
       v.secret_access_key =   env.fetch('BOSH_AWS_SECRET_ACCESS_KEY')
@@ -78,6 +79,6 @@ sudo iptables -t nat -A PREROUTING -p tcp -d $ip --dport 80 -j DNAT --to 10.244.
 sudo iptables -t nat -A PREROUTING -p tcp -d $ip --dport 443 -j DNAT --to 10.244.0.34:443
 sudo iptables -t nat -A PREROUTING -p tcp -d $ip --dport 4443 -j DNAT --to 10.244.0.34:4443
     IP_SCRIPT
-    remote.vm.provision :shell, :inline => PORT_FORWARDING, :upload_path => '/opt/bosh-provisioner/packer-shell.sh'
+    remote.vm.provision :shell, :inline => PORT_FORWARDING
   end
 end
