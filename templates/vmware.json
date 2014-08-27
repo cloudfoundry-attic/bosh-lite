@@ -1,0 +1,93 @@
+{
+  "variables": {
+    "build_number": "0"
+  },
+  "builders": [{
+    "type": "vmware-iso",
+
+    "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04-server-amd64.iso",
+    "iso_checksum": "4d94f6111b8fe47da94396180ce499d8c0bb44f3",
+    "iso_checksum_type": "sha1",
+
+    "guest_os_type": "ubuntu-64",
+    "headless": true,
+
+    "tools_upload_flavor": "linux",
+    "tools_upload_path": "/home/vagrant/linux.iso",
+
+    "boot_wait": "10s",
+    "boot_command": [
+      "<esc><esc><enter><wait>",
+      "/install/vmlinuz auto",
+      " console-setup/ask_detect=false",
+      " console-setup/layoutcode=us",
+      " console-setup/modelcode=pc105",
+      " debconf/frontend=noninteractive",
+      " debian-installer=en_US",
+      " fb=false",
+      " initrd=/install/initrd.gz",
+      " kbd-chooser/method=us",
+      " keyboard-configuration/layout=USA",
+      " keyboard-configuration/variant=USA",
+      " locale=en_US",
+      " netcfg/get_domain=vm",
+      " netcfg/get_hostname=vagrant",
+      " noapic" ,
+      " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+      " -- ",
+      "<enter>"
+    ],
+
+    "http_directory": "http",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_wait_timeout": "60m",
+
+    "disk_size": 81920,
+
+    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+
+    "vmx_data": {
+      "memsize": "2048",
+      "numvcpus": "4",
+      "cpuid.coresPerSocket": "1"
+    }
+  }],
+
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'vagrant'|{{.Vars}} sudo -E -S bash '{{.Path}}'",
+    "scripts": [
+      "scripts/update-trusty-kernel.sh",
+      "scripts/vmware-tools.sh",
+      "scripts/kernel-cleanup.sh",
+      "scripts/admin-sudoers.sh"
+    ]
+  },{
+    "type": "shell",
+    "scripts": [ "scripts/vagrant-pub-key.sh" ]
+  },{
+    "type": "shell",
+    "inline": "echo 'vagrant' | sudo -S usermod -a -G admin vagrant"
+  },{
+    "type": "packer-bosh",
+    "assets_dir": "packer-bosh/assets",
+    "manifest_path": "bosh_lite_manifest.yml",
+    "ssh_password": "vagrant"
+  },{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E {{ .Path }}",
+    "remote_path": "/opt/bosh-provisioner/packer-shell.sh",
+    "scripts": [
+      "scripts/clean-up.sh",
+      "scripts/shrink-disk.sh"
+    ]
+  }],
+
+  "post-processors": [{
+    "type": "vagrant",
+    "keep_input_artifact": true,
+    "output": "bosh-lite-{{ .Provider }}-ubuntu-14-04.1-{{user `build_number`}}.box"
+  }]
+}
