@@ -168,27 +168,27 @@ $ ./bin/provision_cf
 
 * Upload the Warden stemcell
 
-A stemcell is a VM template with an embedded BOSH Agent. BOSH Lite uses the Warden CPI, so we need to use the Warden Stemcell which will be the root file system for all Linux Containers created by the Warden CPI.
+ A stemcell is a VM template with an embedded BOSH Agent. BOSH Lite uses the Warden CPI, so we need to use the Warden Stemcell which will be the root file system for all Linux Containers created by the Warden CPI.
 
-Download latest Warden stemcell:
+ Download latest Warden stemcell:
 
-    ```
-    wget http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
-    ```
+ ```
+ wget http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
+ ```
 
-Upload the stemcell:
+ Upload the stemcell:
 
-    ```
-    bosh upload stemcell latest-bosh-stemcell-warden.tgz
-    ```
+ ```
+ bosh upload stemcell latest-bosh-stemcell-warden.tgz
+ ```
 
-NOTE: It is possible to do this in one command instead of two, but doing this in two steps avoids having to download the stemcell again when you bring up a new BOSH Lite box.
+ NOTE: It is possible to do this in one command instead of two, but doing this in two steps avoids having to download the stemcell again when you bring up a new BOSH Lite box.
 
-You can also use 'bosh public stemcells' to list and download the latest Warden stemcell
+ You can also use 'bosh public stemcells' to list and download the latest Warden stemcell
 
-Example (the versions you see will be different from these):
+ Example (the versions you see will be different from these):
 
-```
+ ```
 $ bosh public stemcells
 +-------------------------------------------------------------+
 | Name                                                        |
@@ -200,20 +200,20 @@ $ bosh public stemcells
 | ...                                                         |
 +-------------------------------------------------------------+
 
-$ bosh download public stemcell bosh-stemcell-21-warden-boshlite-ubuntu-trusty-go_agent.tgz
+ $ bosh download public stemcell bosh-stemcell-21-warden-boshlite-ubuntu-trusty-go_agent.tgz
 ```
 
 *  Use the `make_manifest_spiff` script to create a cf manifest.  This step assumes you have cf-release checked out in ~/workspace. If you have cf-release checked out to somewhere else, you have to update the `CF_RELEASE_DIR`
- +environment variable.  The script also requires that cf-release is checked out with the tag matching the final release you wish to deploy so that the templates used by `make_manifest_spiff` match the code you are deploying.
+ environment variable.  The script also requires that cf-release is checked out with the tag matching the final release you wish to deploy so that the templates used by `make_manifest_spiff` match the code you are deploying.
 
-    `make_manifest_spiff` will target your BOSH Lite Director, find the UUID, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. If this fails, try updating Spiff.
+ `make_manifest_spiff` will target your BOSH Lite Director, find the UUID, create a manifest stub and run spiff to generate a manifest at manifests/cf-manifest.yml. If this fails, try updating Spiff.
 
-    ```
-    cd ~/workspace/bosh-lite
-    ./bin/make_manifest_spiff
-    ```
+ ```
+ cd ~/workspace/bosh-lite
+ ./bin/make_manifest_spiff
+ ```
 
-    If you want to change the jobs properties for this bosh-lite deployment, e.g. number of nats servers, you can change it in the template located under cf-release/templates/cf-infrastructure-warden.yml.
+ If you want to change the jobs properties for this bosh-lite deployment, e.g. number of nats servers, you can change it in the template located under cf-release/templates/cf-infrastructure-warden.yml.
 
 
 *  Deploy CF to bosh-lite
@@ -226,19 +226,19 @@ $ bosh download public stemcell bosh-stemcell-21-warden-boshlite-ubuntu-trusty-g
 
 * Run the [cf-acceptance-tests](https://github.com/cloudfoundry/cf-acceptance-tests) against your new deployment to make sure it's working correctly.
 
-Install [Go](http://golang.org/) version 1.2.1 64-bit and setup the Go environment:
+ Install [Go](http://golang.org/) version 1.2.1 64-bit and setup the Go environment:
 
-    ```
-    mkdir -p ~/go
-    export GOPATH=~/go
-    ```
-Download the cf-acceptance-tests repository:
+ ```
+ mkdir -p ~/go
+ export GOPATH=~/go
+ ```
+ Download the cf-acceptance-tests repository:
 
-    ```
-    go get github.com/cloudfoundry/cf-acceptance-tests ...
-    cd $GOPATH/src/github.com/cloudfoundry/cf-acceptance-tests
-    ```
-Follow the [cats](https://github.com/cloudfoundry/cf-acceptance-tests) instructions on Running the tests.
+ ```
+ go get github.com/cloudfoundry/cf-acceptance-tests ...
+ cd $GOPATH/src/github.com/cloudfoundry/cf-acceptance-tests
+ ```
+ Follow the [cats](https://github.com/cloudfoundry/cf-acceptance-tests) instructions on Running the tests.
 
 
 ## Try your Cloud Foundry deployment
