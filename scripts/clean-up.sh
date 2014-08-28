@@ -11,9 +11,13 @@ rm -rf /dev/.udev/
 echo "Cleaning up BOSH provisioner left-overs"
 rm -rf /opt/bosh-provisioner/{repos,blobstore,tmp,assets}
 rm -rf /var/vcap/data/compile
+rm -rf /var/vcap/data/tmp/*blobstore*
 
 echo "Cleaning up /tmp"
 rm -rf /tmp/*
+
+echo "Cleaning up /home/vagrant"
+rm -rf /home/vagrant/*
 
 if [ -d "/var/lib/dhcp" ]; then
 	echo "Removing DHCP leases"
