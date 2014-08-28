@@ -55,6 +55,8 @@ Below are installation instructions for different Vagrant providers.
 1. Target the BOSH Director and login with admin/admin.
 
     ```
+    # if behind a proxy, exclude this IP by setting no_proxy (xip.io is introduced later)
+    $ export no_proxy=192.168.50.4,xip.io
     $ bosh target 192.168.50.4 lite
     Target set to `Bosh Lite Director'
     $ bosh login
@@ -245,6 +247,8 @@ Install the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) and run the
 
 ```
 # for AWS use public IP https://api.BOSH_LITE_PUBLIC_IP.xip.io
+# else, and if behind a proxy, exclude this domain by setting no_proxy
+# export no_proxy=192.168.50.4,xip.io
 cf api --skip-ssl-validation https://api.10.244.0.34.xip.io
 cf auth admin admin
 cf create-org me
