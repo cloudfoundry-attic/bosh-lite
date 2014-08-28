@@ -4,11 +4,11 @@ First, download and install Packer from <http://www.packer.io/docs/installation.
 
 Binaries for creating VirtualBox, VMWare Fusion, and Amazon EC2 boxes are provided in bin/.
 
-Binary           | Host Environment
----------------- | ----------------
-bin/build-vbox   | VirtualBox
-bin/build-vmware | VMWare Fusion
-bin/build-aws    | Amazon EC2
+Binary               | Host Environment
+-------------------- | ----------------
+bin/build-virtualbox | VirtualBox
+bin/build-vmware     | VMWare Fusion
+bin/build-aws        | Amazon EC2
 
 Each binary takes a required set of arguments:
 

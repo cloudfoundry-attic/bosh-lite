@@ -10,7 +10,7 @@ function valid_arguments() {
 }
 
 function packer_build() {
-  template_path=$(dirname $0)/../templates/vbox.json
+  template_path=$(dirname $0)/../templates/virtualbox.json
   args=""
   if [ -n "$BUILD_NUMBER" ]; then
     args="$args -var 'build_number=$BUILD_NUMBER'"
