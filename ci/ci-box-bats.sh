@@ -22,7 +22,7 @@ echo $CANDIDATE_BUILD_NUMBER
 vagrant destroy local -f
 rm -rf /var/lib/jenkins/.bosh_cache/* || true
 
-vagrant box add bosh-lite-virtualbox-ubuntu-14-04-0.box --name boshlite-ubuntu1404 --force || true
+vagrant box add bosh-lite-virtualbox-ubuntu-trusty-0.box --name bosh-lite-virtualbox-ubuntu-trusty --force || true
 vagrant up local --provider=virtualbox
 
 ./bin/add-route || true

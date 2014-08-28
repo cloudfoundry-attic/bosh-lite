@@ -91,6 +91,6 @@
   "post-processors": [{
     "type": "vagrant",
     "keep_input_artifact": true,
-    "output": "bosh-lite-{{ .Provider }}-ubuntu-14-04-{{user `build_number`}}.box"
+    "output": "bosh-lite-{{ .Provider }}-ubuntu-trusty-{{user `build_number`}}.box"
   }]
 }
