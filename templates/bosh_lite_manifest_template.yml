@@ -83,6 +83,10 @@ properties:
     port: 25555
     encryption: false
     enable_snapshots: true
+    compiled_package_cache:
+      provider: local
+      options:
+        blobstore_path: /vagrant/tmp/compiled_package_cache
     max_tasks: 100
     db:
       user: bosh

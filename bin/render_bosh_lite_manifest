@@ -13,6 +13,9 @@ function main() {
     sed -e "s/BOSH_RELEASE_VERSION/$BOSH_RELEASE_VERSION/" $template_path > $rendered_template_path
     sed -i '' -e "s/BOSH_RELEASE_BUILD_NUMBER/$BOSH_RELEASE_BUILD_NUMBER/" $rendered_template_path
     sed -i '' -e "s/WARDEN_RELEASE_VERSION/$WARDEN_RELEASE_VERSION/" $rendered_template_path
+    if [ -z "$COMPILED_PACKAGE_CACHE_ENABLED" ]; then
+      sed -i '' -e "/compiled_package_cache/,/compiled_package_cache/ d" $rendered_template_path
+    fi
   else
     echo "usage: $0 <bosh_release_version> <bosh_release_build_number> <warden_release_version>"
     echo "example: $0 100 2690 6"
