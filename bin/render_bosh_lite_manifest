@@ -10,11 +10,17 @@ function main() {
   if valid_arguments; then
     template_path=$(dirname $0)/../templates/bosh_lite_manifest_template.yml
     rendered_template_path=$(dirname $0)/../bosh_lite_manifest.yml
-    sed -e "s/BOSH_RELEASE_VERSION/$BOSH_RELEASE_VERSION/" $template_path > $rendered_template_path
-    sed -i '' -e "s/BOSH_RELEASE_BUILD_NUMBER/$BOSH_RELEASE_BUILD_NUMBER/" $rendered_template_path
-    sed -i '' -e "s/WARDEN_RELEASE_VERSION/$WARDEN_RELEASE_VERSION/" $rendered_template_path
+    sed -e "s/BOSH_RELEASE_VERSION/$BOSH_RELEASE_VERSION/" \
+        -e "s/BOSH_RELEASE_BUILD_NUMBER/$BOSH_RELEASE_BUILD_NUMBER/" \
+        -e "s/WARDEN_RELEASE_VERSION/$WARDEN_RELEASE_VERSION/" \
+        $template_path > $rendered_template_path
+
     if [ -z "$COMPILED_PACKAGE_CACHE_ENABLED" ]; then
-      sed -i '' -e "/compiled_package_cache/,/compiled_package_cache/ d" $rendered_template_path
+      # Workaround for lack of `sed -i`
+      tmpdir=`mktemp -d -t bosh-lite`
+      sed -e "/compiled_package_cache/,/compiled_package_cache/ d" $rendered_template_path > $tmpdir/tmp_template.yml
+      cat $tmpdir/tmp_template.yml > $rendered_template_path
+      rm -r $tmpdir
     fi
   else
     echo "usage: $0 <bosh_release_version> <bosh_release_build_number> <warden_release_version>"
