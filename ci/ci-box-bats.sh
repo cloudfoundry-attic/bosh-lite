@@ -28,7 +28,7 @@ vagrant up local --provider=virtualbox
 ./bin/add-route || true
 
 rm -rf bosh || true
-git clone --depth=1 --branch=develop https://github.com/cloudfoundry/bosh.git
+git clone --depth=1 https://github.com/cloudfoundry/bosh.git
 
 (
   cd bosh
