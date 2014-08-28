@@ -32,9 +32,11 @@ Vagrant.configure('2') do |config|
       v.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
     end
 
-    local.vm.provider :vmware_fusion do |v, override|
-      v.vmx["numvcpus"] = VM_CORES
-      v.vmx["memsize"] = VM_MEMORY
+    [:vmware_fusion, :vmware_desktop, :vmware_workstation].each do |provider|
+      local.vm.provider provider do |v, override|
+        v.vmx["numvcpus"] = VM_CORES
+        v.vmx["memsize"] = VM_MEMORY
+      end
     end
   end
 
