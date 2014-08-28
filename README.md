@@ -256,8 +256,8 @@ cf target -o me
 cf create-space development
 cf target -s development
 ```
-	
-Now you are ready to run commands such as `cf push`.	
+Now you are ready to run commands such as `cf push`.
+If your Cloud Foundry deployment needs to go through an HTTP proxy to reach the Internet, specify `http_proxy`, `https_proxy` and `no_proxy` environment variables using `cf create-env` or add them to the `env:` section of your application's `manifest.yaml`. This ensures the buildpacks can download required libraries, gems, etc. during application staging and running.
 
 
 ## SSH into deployment jobs
