@@ -19,7 +19,7 @@ cleanup() {
   set +e
 
   cd $CUD
-  vagrant destroy local -f
+  vagrant destroy -f
 
   # Reset any changes made for this test
   git checkout Vagrantfile bin/add-route
@@ -28,13 +28,13 @@ cleanup() {
 trap cleanup EXIT
 
 set +e
-vagrant destroy local -f
+vagrant destroy -f
 set -e
 
 rm -rf /var/lib/jenkins/.bosh_cache/* || true
 
 vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${CANDIDATE_BUILD_NUMBER}.box --name bosh-lite-ubuntu-trusty --force
-vagrant up local --provider=${PROVIDER}
+vagrant up --provider=${PROVIDER}
 
 ./bin/add-route || true
 

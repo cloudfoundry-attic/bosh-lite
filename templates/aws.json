@@ -50,6 +50,7 @@
   "post-processors": [{
     "type": "vagrant",
     "keep_input_artifact": true,
+    "vagrantfile_template": "templates/vagrant-aws.tpl",
     "output": "bosh-lite-{{ .Provider }}-ubuntu-trusty-{{user `build_number`}}.box"
   }]
 }

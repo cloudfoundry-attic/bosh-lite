@@ -56,7 +56,7 @@ Below are installation instructions for different Vagrant providers.
 1. Start Vagrant from the base directory of this repository. This uses the Vagrantfile.
 
     ```
-    vagrant up local --provider=virtualbox
+    vagrant up --provider=virtualbox
     ```
 
 1. Target the BOSH Director and login with admin/admin.
@@ -104,7 +104,7 @@ Below are installation instructions for different Vagrant providers.
 1. Start Vagrant from the base directory of this repository. This uses the Vagrantfile.
 
     ```
-    vagrant up local --provider=vmware_fusion
+    vagrant up --provider=vmware_fusion
     ```
 
 1. Target the BOSH Director and login with admin/admin.
@@ -166,7 +166,7 @@ AWS Environment Variables:
 * Run vagrant up with provider `aws`:
 
     ```
-    vagrant up remote --provider=aws
+    vagrant up --provider=aws
     ```
 
 * Find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config remote`.
@@ -184,7 +184,7 @@ AWS Environment Variables:
     ```
 
 * As part of vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another ip (the HAProxy). These rules are cleared on restart.
-In case of restart they can be created by running `vagrant provision remote`.
+In case of restart they can be created by running `vagrant provision`.
 
 ## Deploy Cloud Foundry
 
