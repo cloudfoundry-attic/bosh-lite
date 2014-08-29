@@ -18,6 +18,3 @@ fi
 ./bin/build-${BOX_TYPE} ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION} ${BUILD_NUMBER}
 
 vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${BUILD_NUMBER}.box --name bosh-lite-virtualbox-ubuntu-trusty --force
-
-s3cmd put -P bosh-lite-${BOX_TYPE}-ubuntu-trusty-${BUILD_NUMBER}.box s3://bosh-lite-build-artifacts/${BUILD_NUMBER}/
-s3cmd cp -P --recursive s3://bosh-lite-build-artifacts/${BUILD_NUMBER}/ s3://bosh-lite-build-artifacts/current/

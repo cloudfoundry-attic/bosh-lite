@@ -73,5 +73,4 @@ EOF
   bundle exec rake bat || bundle exec rake bat # remove after monit issue is fixed
 )
 
-s3cmd put -P ./*.box s3://bosh-lite-build-artifacts/bosh-lite/${CANDIDATE_BUILD_NUMBER}/
-s3cmd put -P ./*.box s3://bosh-lite-build-artifacts/bosh-lite/latest/
+s3cmd put -P bosh-lite-${BOX_TYPE}-ubuntu-trusty-${BUILD_NUMBER}.box s3://bosh-lite-build-artifacts/
