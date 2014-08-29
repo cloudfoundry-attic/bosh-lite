@@ -6,6 +6,9 @@ git submodule update --init --recursive
 
 PACKER_LOG=1
 
+# Clean up old box files
+rm -rf *.box
+
 if [ -f '/var/lib/jenkins/VirtualBox VMs/packer-virtualbox-iso/packer-virtualbox-iso.vbox' ] ; then
   VBoxManage modifyvm packer-virtualbox-iso --natpf1 delete packerssh || true
   VBoxManage unregistervm packer-virtualbox-iso --delete || true
