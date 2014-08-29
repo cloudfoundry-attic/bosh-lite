@@ -17,7 +17,7 @@ function main() {
 
     if [ -z "$COMPILED_PACKAGE_CACHE_ENABLED" ]; then
       # Workaround for lack of `sed -i`
-      tmpdir=`mktemp -d -t bosh-lite-XXXXXXXX`
+      tmpdir=`mktemp -d bosh-lite-XXXXXXXX`
       sed -e "/compiled_package_cache/,/compiled_package_cache/ d" $rendered_template_path > $tmpdir/tmp_template.yml
       cat $tmpdir/tmp_template.yml > $rendered_template_path
       rm -r $tmpdir
