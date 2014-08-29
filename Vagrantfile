@@ -41,7 +41,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.define :remote do |remote|
-    remote.vm.box = 'bosh-lite-aws-ubuntu-trusty'
+    remote.vm.box = 'bosh-lite-ubuntu-trusty'
     remote.vm.synced_folder '.', '/vagrant', disabled: true
     remote.vm.box_url = 'https://github.com/mitchellh/vagrant-aws/blob/master/dummy.box?raw=true'
 
