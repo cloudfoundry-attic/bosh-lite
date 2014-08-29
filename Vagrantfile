@@ -63,7 +63,7 @@ Vagrant.configure('2') do |config|
       # use SG-names when deploying to EC2 classic but SG-IDs when deploying to a VPC
       v.security_groups = [   env.fetch('BOSH_LITE_SECURITY_GROUP', 'inception') ]
 
-      #v.subnet_id =           env.fetch('BOSH_LITE_SUBNET_ID') if env.include?('BOSH_LITE_SUBNET_ID')
+      v.subnet_id =           env.fetch('BOSH_LITE_SUBNET_ID') if env.include?('BOSH_LITE_SUBNET_ID')
 
       override.ssh.username = 'ubuntu'
       override.ssh.private_key_path = env.fetch('BOSH_LITE_PRIVATE_KEY', '~/.ssh/id_rsa_bosh')
