@@ -20,6 +20,7 @@
     "type": "shell",
     "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E {{ .Path }}",
     "scripts": [
+      "scripts/quiet-tty-warning.sh",
       "scripts/update-sources-list.sh",
       "scripts/update-trusty-kernel.sh",
       "scripts/kernel-cleanup.sh",

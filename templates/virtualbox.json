@@ -62,6 +62,7 @@
     "type": "shell",
     "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E {{ .Path }}",
     "scripts": [
+      "scripts/quiet-tty-warning.sh",
       "scripts/apt-update.sh",
       "scripts/update-trusty-kernel.sh",
       "scripts/vbox-guest-additions.sh", 
