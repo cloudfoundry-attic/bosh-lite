@@ -9,5 +9,4 @@ bosh_lite_manifest.yml
 /output-vmware-iso/
 /packer_cache/
 /pkg/
-/tmp/
 /packer-bosh/
