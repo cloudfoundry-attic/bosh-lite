@@ -5,6 +5,8 @@
 manifests/cf-manifest.yml
 bosh_lite_manifest.yml
 
+latest-bosh-stemcell-warden.tgz
+
 /output-virtualbox-iso/
 /output-vmware-iso/
 /packer_cache/
