@@ -188,11 +188,11 @@ In case of restart they can be created by running `vagrant provision remote`.
 
 ### Single command deploy
 
-Alternatively to the steps below, you can also run this script to deploy the latest version of CloudFoundry:
+Note: This process is an alternative to the manual steps below to deploy the latest version of CloudFoundry.
 
-```
-$ ./bin/provision_cf
-```
+1. Clone the [cf-release](https://github.com/cloudfoundry/cf-release) repository into the same directory that you cloned this repository into.
+
+2. Run `./bin/provision_cf`
 
 ### Manual deploy
 
