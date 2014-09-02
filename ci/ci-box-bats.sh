@@ -23,7 +23,7 @@ vagrant destroy local -f
 rm -rf /var/lib/jenkins/.bosh_cache/* || true
 
 vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${CANDIDATE_BUILD_NUMBER}.box --name bosh-lite-ubuntu-trusty --force
-vagrant up local --provider=${BOX_TYPE}
+vagrant up local --provider=${PROVIDER}
 
 ./bin/add-route || true
 
