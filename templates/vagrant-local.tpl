@@ -2,7 +2,7 @@ VM_MEMORY = ENV.fetch('VM_MEMORY', 6*1024).to_i
 VM_CORES = ENV.fetch('VM_CORES', 4).to_i
 
 Vagrant.configure('2') do |config|
-  config.vm.network :private_network, ip: '192.168.50.4'
+  config.vm.network :private_network, ip: '192.168.50.4', id: :local
   config.vm.hostname = 'bosh-lite'
 
   config.vm.provider :virtualbox do |vbox, override|
