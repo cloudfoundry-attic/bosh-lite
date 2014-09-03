@@ -9,8 +9,7 @@ export RBENV_VERSION=1.9.3-p547
 CUD=$(pwd)
 export TMPDIR=$CUD
 
-cleanup()
-{
+cleanup() {
   cd $CUD
   vagrant destroy local -f
 }
