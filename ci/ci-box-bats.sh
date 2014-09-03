@@ -19,7 +19,10 @@ trap cleanup EXIT
 
 echo $CANDIDATE_BUILD_NUMBER
 
+set +e
 vagrant destroy local -f
+set -e
+
 rm -rf /var/lib/jenkins/.bosh_cache/* || true
 
 vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${CANDIDATE_BUILD_NUMBER}.box --name bosh-lite-ubuntu-trusty --force
