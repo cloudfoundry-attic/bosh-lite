@@ -34,6 +34,7 @@ Vagrant.configure('2') do |config|
 
     [:vmware_fusion, :vmware_desktop, :vmware_workstation].each do |provider|
       local.vm.provider provider do |v, override|
+        override.vm.box_url = 'https://d3a4sadvqj176z.cloudfront.net/bosh-lite-vmware-ubuntu-trusty-0.box'
         v.vmx["numvcpus"] = VM_CORES
         v.vmx["memsize"] = VM_MEMORY
       end
