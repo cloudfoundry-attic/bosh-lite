@@ -5,6 +5,5 @@ releases:
   - name: cf
     version: latest
 properties:
-  domain: BOSH_LITE_PUBLIC_IP.xip.io
   loggregator_endpoint:
     shared_secret: PLACEHOLDER-LOGGREGATOR-SECRET
