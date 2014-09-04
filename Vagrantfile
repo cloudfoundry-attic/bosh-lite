@@ -46,6 +46,7 @@ Vagrant.configure('2') do |config|
     remote.vm.synced_folder '.', '/vagrant', disabled: true
     remote.vm.box_url = 'https://github.com/mitchellh/vagrant-aws/blob/master/dummy.box?raw=true'
 
+    remote.vm.provision :shell, :inline => "chmod 777 /tmp", :upload_path => '/opt/bosh-provisioner/packer-shell.sh'
     remote.vm.provider :aws do |v, override|
       v.access_key_id =       env.fetch('BOSH_AWS_ACCESS_KEY_ID')
       v.secret_access_key =   env.fetch('BOSH_AWS_SECRET_ACCESS_KEY')
