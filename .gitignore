@@ -5,10 +5,11 @@
 manifests/cf-manifest.yml
 bosh_lite_manifest.yml
 
-latest-bosh-stemcell-warden.tgz
+latest-bosh-stemcell-warden.*
 
 /output-virtualbox-iso/
 /output-vmware-iso/
 /packer_cache/
 /pkg/
 /packer-bosh/
+/tmp/compiled_package_cache/*
