@@ -74,8 +74,6 @@ Below are installation instructions for different Vagrant providers.
 
 #### Using the VMware Fusion Provider
 
-VMware boxes are not currently published and will need to be built locally.
-
 1. Install licensed VMware Fusion
 
     Known working version:
