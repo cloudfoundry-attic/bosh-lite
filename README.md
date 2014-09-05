@@ -182,7 +182,7 @@ In case of restart they can be created by running `vagrant provision remote`.
 
 ## Deploy Cloud Foundry
 
-1. Edit manifests/cf-stub-spiff.yml to include a 'domain' key under 'properties' that corresponds to a domain you've set up for this Cloud Foundry instance, or if you want to use xip.io, it can be {your.public.ip}.xip.io.
+1. If you are using BOSH Lite with AWS provider edit `manifests/cf-stub-spiff.yml` to include a `domain` key under `properties` that corresponds to a domain you've set up for this Cloud Foundry instance, or if you want to use xip.io, it can be `{your.public.ip}.xip.io`.
 
 ### Single command deploy
 
