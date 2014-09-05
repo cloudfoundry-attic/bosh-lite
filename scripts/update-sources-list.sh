@@ -6,3 +6,4 @@ sed -i -e 's/http.*\.archive\.ubuntu\.com/http:\/\/us.archive.ubuntu.com/' /etc/
 rm -rf /etc/apt/sources.list.d/multiverse-trusty*
 
 apt-get -y update
+apt-get -y clean

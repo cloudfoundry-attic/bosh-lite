@@ -59,6 +59,7 @@
     "type": "shell",
     "execute_command": "echo 'vagrant'|{{.Vars}} sudo -E -S bash '{{.Path}}'",
     "scripts": [
+      "scripts/apt-update.sh",
       "scripts/update-trusty-kernel.sh",
       "scripts/vmware-tools.sh",
       "scripts/kernel-cleanup.sh",
