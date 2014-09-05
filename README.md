@@ -1,9 +1,15 @@
 # BOSH Lite
 
-A local development environment for BOSH using warden containers in a Vagrant box.
+* IRC: `#bosh` on freenode
+* Google groups:
+  [bosh-users](https://groups.google.com/a/cloudfoundry.org/group/bosh-users/topics) &
+  [bosh-dev](https://groups.google.com/a/cloudfoundry.org/group/bosh-dev/topics) &
+  [vcap-dev](https://groups.google.com/a/cloudfoundry.org/group/vcap-dev/topics) (for CF)
+
+A local development environment for BOSH using Warden containers in a Vagrant box.
 
 This readme walks through deploying Cloud Foundry with BOSH Lite.
-Bosh and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
+BOSH and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
 
 ## Install
 
