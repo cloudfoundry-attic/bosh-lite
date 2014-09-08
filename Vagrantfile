@@ -23,5 +23,7 @@ Vagrant.configure('2') do |config|
 
     # To turn off CF port forwarding, uncomment this line:
     # override.vm.provision :shell, id: "port_forwarding", run: "always", inline: "/bin/true"
+
+    v.ami = `curl -s https://bosh-lite-build-artifacts.s3.amazonaws.com/ami/bosh-lite-ami.list |tail -1`.chop
   end
 end
