@@ -12,14 +12,16 @@ export TMPDIR=$CUD
 env
 
 PRIVATE_NETWORK_IP=${PRIVATE_NETWORK_IP:-192.168.50.4}
-sed -i'' -e "s/192.168.50.4/$PRIVATE_NETWORK_IP/" Vagrantfile
+sed -i'' -e "s/# override\.vm\.network :private_network, ip: '192\.168\.54\.4', id: :local/override.vm.network :private_network, ip: '$PRIVATE_NETWORK_IP', id: :local/" Vagrantfile
+cat Vagrantfile
 sed -i'' -e "s/192.168.50.4/$PRIVATE_NETWORK_IP/" bin/add-route
+cat bin/add-route
 
 cleanup() {
   set +e
 
   cd $CUD
-  vagrant destroy local -f
+  vagrant destroy -f
 
   # Reset any changes made for this test
   git checkout Vagrantfile bin/add-route
@@ -28,13 +30,13 @@ cleanup() {
 trap cleanup EXIT
 
 set +e
-vagrant destroy local -f
+vagrant destroy -f
 set -e
 
 rm -rf /var/lib/jenkins/.bosh_cache/* || true
 
 vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${CANDIDATE_BUILD_NUMBER}.box --name bosh-lite-ubuntu-trusty --force
-vagrant up local --provider=${PROVIDER}
+vagrant up --provider=${PROVIDER}
 
 ./bin/add-route || true
 

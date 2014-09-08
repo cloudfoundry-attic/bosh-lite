@@ -56,7 +56,7 @@ Below are installation instructions for different Vagrant providers.
 1. Start Vagrant from the base directory of this repository. This uses the Vagrantfile.
 
     ```
-    vagrant up local --provider=virtualbox
+    vagrant up --provider=virtualbox
     ```
 
 1. Target the BOSH Director and login with admin/admin.
@@ -104,7 +104,7 @@ Below are installation instructions for different Vagrant providers.
 1. Start Vagrant from the base directory of this repository. This uses the Vagrantfile.
 
     ```
-    vagrant up local --provider=vmware_fusion
+    vagrant up --provider=vmware_fusion
     ```
 
 1. Target the BOSH Director and login with admin/admin.
@@ -123,6 +123,17 @@ Below are installation instructions for different Vagrant providers.
     ```
     bin/add-route
     ```
+
+#### Customizing the local VM IP
+
+The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4`. To change this IP, uncomment the `private_network` line in the appropriate provider and change the IP address.
+
+```
+  config.vm.provider :virtualbox do |v, override|
+    # To use a different IP address for the bosh-lite director, uncomment this line:
+    # override.vm.network :private_network, ip: '192.168.59.4', id: :local
+  end
+```
 
 #### Using the AWS Provider
 
@@ -166,7 +177,7 @@ AWS Environment Variables:
 * Run vagrant up with provider `aws`:
 
     ```
-    vagrant up remote --provider=aws
+    vagrant up --provider=aws
     ```
 
 * Find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config remote`.
@@ -184,11 +195,32 @@ AWS Environment Variables:
     ```
 
 * As part of vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another ip (the HAProxy). These rules are cleared on restart.
-In case of restart they can be created by running `vagrant provision remote`.
+In case of restart they can be created by running `vagrant provision`.
+
+#### Customizing AWS provisioning
+
+The AWS bosh-lite VM will echo its private IP on provisioning so that you can target it. You can disable this by uncommenting the `public_ip` provisioner in the `aws` provider.
+
+```
+  config.vm.provider :aws do |v, override|
+    # To turn off public IP echoing, uncomment this lines:
+    # override.vm.provision :shell, id: "public_ip", run: "always", inline: "/bin/true"
+  end
+```
+
+Port forwarding on HTTP/S ports is set up for the cloud controller on the AWS VM. If you are not going to deploy cloud contorller (or just don't want this), you can disable this by uncommenting the `port_forwarding` provisioner in the `aws` provider.
+
+```
+  config.vm.provider :aws do |v, override|
+    # To turn off CF port forwarding, uncomment this line:
+    # override.vm.provision :shell, id: "port_forwarding", run: "always", inline: "/bin/true"
+  end
+```
 
 ## Deploy Cloud Foundry
 
 1. If you are using BOSH Lite with AWS provider edit `manifests/cf-stub-spiff.yml` to include a `domain` key under `properties` that corresponds to a domain you've set up for this Cloud Foundry instance, or if you want to use xip.io, it can be `{your.public.ip}.xip.io`.
+
 
 ### Single command deploy
 
