@@ -13,7 +13,9 @@ env
 
 PRIVATE_NETWORK_IP=${PRIVATE_NETWORK_IP:-192.168.50.4}
 sed -i'' -e "s/192.168.50.4/$PRIVATE_NETWORK_IP/" Vagrantfile
+cat Vagrantfile
 sed -i'' -e "s/192.168.50.4/$PRIVATE_NETWORK_IP/" bin/add-route
+cat bin/add-route
 
 cleanup() {
   set +e
