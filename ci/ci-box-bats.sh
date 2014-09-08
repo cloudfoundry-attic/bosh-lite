@@ -12,7 +12,7 @@ export TMPDIR=$CUD
 env
 
 PRIVATE_NETWORK_IP=${PRIVATE_NETWORK_IP:-192.168.50.4}
-sed -i'' -e "s/192.168.50.4/$PRIVATE_NETWORK_IP/" Vagrantfile
+sed -i'' -e "s/# override\.vm\.network :private_network, ip: '192\.168\.54\.4', id: :local/override.vm.network :private_network, ip: '$PRIVATE_NETWORK_IP', id: :local/" Vagrantfile
 cat Vagrantfile
 sed -i'' -e "s/192.168.50.4/$PRIVATE_NETWORK_IP/" bin/add-route
 cat bin/add-route
