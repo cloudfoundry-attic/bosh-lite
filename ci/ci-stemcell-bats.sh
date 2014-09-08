@@ -27,7 +27,7 @@ rm -rf /var/lib/jenkins/.bosh_cache/* || true
   cd bosh-lite
   git checkout switch-to-packer-bosh
   vagrant box remove boshlite-ubuntu1404 || true
-  vagrant up local --provider=virtualbox
+  vagrant up --provider=virtualbox
 )
 
 
