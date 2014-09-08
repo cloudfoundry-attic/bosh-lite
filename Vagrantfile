@@ -18,12 +18,11 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.provider :aws do |v, override|
+    override.vm.box_url = 'https://d3a4sadvqj176z.cloudfront.net/bosh-lite-aws-ubuntu-trusty-173.box'
     # To turn off public IP echoing, uncomment this line:
     # override.vm.provision :shell, id: "public_ip", run: "always", inline: "/bin/true"
 
     # To turn off CF port forwarding, uncomment this line:
     # override.vm.provision :shell, id: "port_forwarding", run: "always", inline: "/bin/true"
-
-    v.ami = `curl -s https://bosh-lite-build-artifacts.s3.amazonaws.com/ami/bosh-lite-ami.list |tail -1`.chop
   end
 end
