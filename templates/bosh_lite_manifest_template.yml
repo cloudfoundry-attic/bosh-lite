@@ -20,11 +20,6 @@ update:
 compilation:
   network: default
 
-compiled_package_cache:
-  provider: local
-  options:
-    blobstore_path: /vagrant/tmp/compiled_package_cache
-
 jobs:
 - name: bosh
   instances: 1
@@ -52,6 +47,11 @@ jobs:
 
 properties:
   ntp: ["0.us.pool.ntp.org"]
+
+  compiled_package_cache:
+    provider: local
+    options:
+      blobstore_path: /vagrant/tmp/compiled_package_cache
 
   nats:
     user: nats
