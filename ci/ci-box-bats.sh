@@ -11,6 +11,7 @@ export TMPDIR=$CUD
 
 env
 
+sed -i'' -e "s/\.box = .*/.box = 'bosh-lite-ubuntu-trusty-$BOX_TYPE-$CANDIDATE_BUILD_NUMBER'/" Vagrantfile
 PRIVATE_NETWORK_IP=${PRIVATE_NETWORK_IP:-192.168.50.4}
 sed -i'' -e "s/# override\.vm\.network :private_network, ip: '192\.168\.54\.4', id: :local/override.vm.network :private_network, ip: '$PRIVATE_NETWORK_IP', id: :local/" Vagrantfile
 cat Vagrantfile
@@ -35,7 +36,7 @@ set -e
 
 rm -rf /var/lib/jenkins/.bosh_cache/* || true
 
-vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${CANDIDATE_BUILD_NUMBER}.box --name bosh-lite-ubuntu-trusty --force
+vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${CANDIDATE_BUILD_NUMBER}.box --name bosh-lite-ubuntu-trusty-$BOX_TYPE-$CANDIDATE_BUILD_NUMBER --force
 vagrant up --provider=${PROVIDER}
 
 ./bin/add-route || true
