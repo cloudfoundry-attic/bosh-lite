@@ -4,7 +4,7 @@ Vagrant.configure('2') do |config|
     override.vm.box_url = 'http://d3a4sadvqj176z.cloudfront.net/bosh-lite-virtualbox-ubuntu-trusty-293.box'
 
     # To use a different IP address for the bosh-lite director, uncomment this line:
-    # override.vm.network :private_network, ip: '192.168.59.4', id: :local
+    override.vm.network :private_network, ip: '192.168.59.4', auto_config: false, id: :local
   end
 
   [:vmware_fusion, :vmware_desktop, :vmware_workstation].each do |provider|
