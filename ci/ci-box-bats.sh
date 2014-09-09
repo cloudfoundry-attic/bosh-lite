@@ -53,16 +53,16 @@ fi
   git submodule update --init --recursive
   bundle install
 
-  bundle exec bosh -n target $PRIVATE_NETWORK_IP
+  bundle exec bosh -c $JOB_NAME.yml -n target $PRIVATE_NETWORK_IP
   wget -nv -N https://s3.amazonaws.com/bosh-jenkins-artifacts/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
-  bundle exec bosh -u admin -p admin -n upload stemcell ./latest-bosh-stemcell-warden.tgz
+  bundle exec bosh -c $JOB_NAME.yml -u admin -p admin -n upload stemcell ./latest-bosh-stemcell-warden.tgz
 
   cat > bat.spec << EOF
 ---
 cpi: warden
 properties:
   static_ip: 10.244.0.2
-  uuid: $(bundle exec bosh -u admin -p admin status --uuid | tail -n 1)
+  uuid: $(bundle exec bosh -c $JOB_NAME.yml -u admin -p admin status --uuid | tail -n 1)
   pool_size: 1
   stemcell:
     name: bosh-warden-boshlite-ubuntu-trusty-go_agent
