@@ -78,7 +78,14 @@ run_bats() {
   git submodule update --init --recursive
   bundle install
 
+  rm -f $config_file
+  # the director may not be running yet, so allow one failure
+  set +e
   bundle exec bosh -c $config_file -n target $director_ip
+  set -e
+  if [ $? -ne 0 ]; then
+    bundle exec bosh -c $config_file -n target $director_ip
+  fi
 
   if [ -z "$BAT_STEMCELL" ]; then
     wget -nv -N https://s3.amazonaws.com/bosh-jenkins-artifacts/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
