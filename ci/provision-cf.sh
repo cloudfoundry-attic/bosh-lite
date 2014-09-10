@@ -11,7 +11,9 @@ trap cleanup EXIT
 
 vagrant up --provider=virtualbox
 
+set +e
 bin/add-route
+set -e
 
 bin/provision_cf
 
