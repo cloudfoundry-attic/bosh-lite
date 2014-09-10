@@ -29,7 +29,7 @@ box_add_and_vagrant_up() {
   provider=$2
   candidate_build_number=$3
 
-  vagrant box add bosh-lite-$box_type-ubuntu-trusty-$candidate_build_number.box --name bosh-lite-ubuntu-trusty-$box_type-$candidate_build_number --provider=$provider --force
+  vagrant box add bosh-lite-$box_type-ubuntu-trusty-$candidate_build_number.box --name bosh-lite-ubuntu-trusty-$box_type-$candidate_build_number --force
   vagrant up --provider=$provider
 }
 
