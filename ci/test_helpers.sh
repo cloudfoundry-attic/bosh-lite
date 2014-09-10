@@ -56,15 +56,8 @@ run_bats() {
     gem install bundler --no-ri --no-rdoc
   fi
 
-  if [ ! -d 'bosh' ]; then
-    git clone --depth=1 https://github.com/cloudfoundry/bosh.git
-  fi
-
+  fetch_latest_bosh
   cd bosh
-  git checkout master
-  git pull
-  git submodule update --init --recursive
-  bundle install
 
   rm -f $config_file
   # the director may not be running yet, so allow one failure
@@ -113,7 +106,7 @@ run_bats_against() {
 }
 
 run_bats_on_vm() {
-  vagrant ssh -c "$(declare -f nofail); $(declare -f run_bats); run_bats 127.0.0.1"
+  vagrant ssh -c "$(declare -f fetch_latest_bosh); $(declare -f nofail); $(declare -f run_bats); run_bats 127.0.0.1"
 }
 
 publish_vagrant_box() {
@@ -128,4 +121,18 @@ nofail() {
   status=$?
   set -e
   echo $status
+}
+
+fetch_latest_bosh() {
+  if [ ! -d 'bosh' ]; then
+    git clone --depth=1 https://github.com/cloudfoundry/bosh.git
+  fi
+
+  (
+    cd bosh
+    git checkout master
+    git pull
+    git submodule update --init --recursive
+    bundle install
+  )
 }
