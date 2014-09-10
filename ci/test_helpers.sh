@@ -125,10 +125,6 @@ run_bats_against() {
 
   director_ip=$1
 
-  if [ ! -d 'bosh' ]; then
-    git clone --depth=1 https://github.com/cloudfoundry/bosh.git
-  fi
-
   ( run_bats $director_ip )
 }
 
