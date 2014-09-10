@@ -115,7 +115,7 @@ EOF
   export BAT_INFRASTRUCTURE=warden
 
   cd bat
-  bundle exec rake bat || bundle exec rake bat # remove after monit issue is fixed
+  bundle exec rake bat
 
   rm -f $config_file
 }
