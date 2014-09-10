@@ -8,7 +8,7 @@ export RBENV_VERSION=1.9.3-p547
 CUD=$(pwd)
 export TMPDIR=$CUD
 
-env
+env | sort
 
 cleanup() {
   cd $CUD
