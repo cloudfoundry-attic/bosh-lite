@@ -11,26 +11,20 @@ export TMPDIR=$CUD
 env
 
 cleanup() {
-  set +e
-
   cd $CUD
-  vagrant destroy -f
+  nofail vagrant destroy -f
 
   # Reset any changes made for this test
   git checkout .
 }
 
 clean_vagrant() {
-  set +e
-  vagrant destroy -f
-  set -e
+  nofail vagrant destroy -f
 
-  rm -rf /var/lib/jenkins/.bosh_cache/* || true
+  rm -rf /var/lib/jenkins/.bosh_cache/*
 }
 
 box_add_and_vagrant_up() {
-  set -e
-
   box_type=$1
   provider=$2
   candidate_build_number=$3
@@ -40,8 +34,6 @@ box_add_and_vagrant_up() {
 }
 
 run_bats() {
-  set -e
-
   director_ip=$1
   config_file=bosh-$RANDOM.yml
 
@@ -50,19 +42,15 @@ run_bats() {
     ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
   fi
 
-  set +e
-  dpkg-query -l git libmysqlclient-dev libpq-dev libsqlite3-dev > /dev/null 2>&1
-  set -e
-  if [ $? -ne 0 ]; then
+  status=$(nofail dpkg-query -l git libmysqlclient-dev libpq-dev libsqlite3-dev > /dev/null 2>&1)
+  if [ $status -ne 0 ]; then
     sudo apt-get -y update
     sudo apt-get -y clean
     sudo apt-get install -y git libmysqlclient-dev libpq-dev libsqlite3-dev
   fi
 
-  set +e
-  sudo which gem > /dev/null 2>&1
-  set -e
-  if [ $? -eq 0 ]; then
+  status=$(nofail sudo which gem > /dev/null 2>&1)
+  if [ $status -eq 0 ]; then
     sudo gem install bundler --no-ri --no-rdoc
   else
     gem install bundler --no-ri --no-rdoc
@@ -80,10 +68,8 @@ run_bats() {
 
   rm -f $config_file
   # the director may not be running yet, so allow one failure
-  set +e
-  bundle exec bosh -c $config_file -n target $director_ip
-  set -e
-  if [ $? -ne 0 ]; then
+  status=$(nofail bundle exec bosh -c $config_file -n target $director_ip)
+  if [ $status -ne 0 ]; then
     bundle exec bosh -c $config_file -n target $director_ip
   fi
 
@@ -121,22 +107,25 @@ EOF
 }
 
 run_bats_against() {
-  set -e
-
   director_ip=$1
 
   ( run_bats $director_ip )
 }
 
 run_bats_on_vm() {
-  set -e
-  vagrant ssh -c "$(declare -f run_bats); run_bats 127.0.0.1"
+  vagrant ssh -c "$(declare -f nofail); $(declare -f run_bats); run_bats 127.0.0.1"
 }
 
 publish_vagrant_box() {
-  set -e
-
   box_type=$1
   candidate_build_number=$2
   s3cmd put -P bosh-lite-$box_type-ubuntu-trusty-$candidate_build_number.box s3://bosh-lite-build-artifacts/
+}
+
+nofail() {
+  set +e
+  $@
+  status=$?
+  set -e
+  echo $status
 }
