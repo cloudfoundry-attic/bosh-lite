@@ -1,5 +1,6 @@
-#!/bin/bash -l
-set -e
+#!/usr/bin/env bash
+set -ex
+
 . ~/.bashrc
 PATH=/var/lib/jenkins/.rbenv/shims:/var/lib/jenkins/.rbenv/bin:$PATH
 export STEMCELL_BUILD_NUMBER=${BUILD_NUMBER}

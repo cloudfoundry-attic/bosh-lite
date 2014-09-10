@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-set -x
-set -e
+set -ex
 
 export TERM=xterm
 export PATH=/var/lib/jenkins/.rbenv/shims:/var/lib/jenkins/.rbenv/bin:/usr/local/bin:/usr/bin:/bin
