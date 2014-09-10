@@ -1,53 +1,48 @@
-#!/bin/bash -l
+#!/usr/bin/env bash
 set -x
 set -e
 
-CUD=$(pwd)
+export TERM=xterm
+export PATH=/var/lib/jenkins/.rbenv/shims:/var/lib/jenkins/.rbenv/bin:/usr/local/bin:/usr/bin:/bin
 
-cleanup()
-{
-  cd $CUD/bosh-lite
+env
+
+rm -rf /var/lib/jenkins/.bosh_cache/*
+
+cleanup() {
+  set +e
+  cd bosh-lite
   vagrant destroy -f
 }
 
 trap cleanup EXIT
 
-rm $CUD/output/*.tgz || true
+vagrant up --provider=virtualbox
 
-bundle install
-
-rm -rf bosh-lite || true
-git clone https://github.com/cloudfoundry/bosh-lite.git
-
-echo $CANDIDATE_BUILD_NUMBER
-
-rm -rf /var/lib/jenkins/.bosh_cache/* || true
+rm -rf output
 
 (
-  cd bosh-lite
-  git checkout switch-to-packer-bosh
-  vagrant box remove boshlite-ubuntu1404 || true
-  vagrant up --provider=virtualbox
-)
+  set -ex
 
+  if [ ! -d 'bosh' ]; then
+    git clone --depth=1 https://github.com/cloudfoundry/bosh.git
+  fi
 
-sleep 30
+  cd bosh
+  git checkout master
+  git pull
+  git submodule update --init --recursive
+  bundle install
 
-bundle exec bosh -n target 192.168.50.4:25555
+  bundle exec bosh -c stemcell-bat-test-ubuntu-trusty.yml -n target 192.168.50.4
+  bundle exec bosh -c stemcell-bat-test-ubuntu-trusty.yml -u admin -p admin -n upload stemcell ../bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu-trusty-go_agent.tgz
 
-# a pre upload so we stopped early when director dies etc.
-bundle exec bosh -u admin -p admin -n upload stemcell ./bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu-trusty-go_agent.tgz || sleep 30
-
-DIRECTOR_UUID=$(bosh -u admin -p admin status | grep UUID | awk '{print $2}')
-echo $DIRECTOR_UUID
-
-# Create bat.spec
-cat > bat.spec << EOF
+  cat > bat.spec << EOF
 ---
 cpi: warden
 properties:
   static_ip: 10.244.0.2
-  uuid: $DIRECTOR_UUID
+  uuid: $(bundle exec bosh -c stemcell-bat-test-ubuntu-trusty.yml -u admin -p admin status --uuid | tail -n 1)
   pool_size: 1
   stemcell:
     name: bosh-warden-boshlite-ubuntu-trusty-go_agent
@@ -55,20 +50,18 @@ properties:
   instances: 1
   mbus: nats://nats:0b450ada9f830085e2cdeff6@10.42.49.80:4222
 EOF
+  cat bat.spec
 
+  export BAT_DEPLOYMENT_SPEC=$(pwd)/bat.spec
+  export BAT_DIRECTOR=192.168.50.4
+  export BAT_DNS_HOST=192.168.50.4
+  export BAT_STEMCELL=$(pwd)/../bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu-trusty-go_agent.tgz
+  export BAT_VCAP_PASSWORD=c1oudc0w
+  export BAT_INFRASTRUCTURE=warden
 
-export BAT_DEPLOYMENT_SPEC=$CUD/bat.spec
-export BAT_DIRECTOR=192.168.50.4
-export BAT_DNS_HOST=192.168.50.4
-export BAT_STEMCELL=$CUD/bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu-trusty-go_agent.tgz
-export BAT_VCAP_PASSWORD=c1oudc0w
-export BAT_INFRASTRUCTURE=warden
-
-(
   cd bat
-  bundle exec rake bat || bundle exec rake bat
+  bundle exec rake bat
 )
 
-cd $CUD
-mkdir output || true
-mv $CUD/bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu-trusty-go_agent.tgz $CUD/output/
+mkdir -p output
+mv bosh-stemcell-$CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu-trusty-go_agent.tgz output/
