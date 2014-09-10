@@ -1,6 +1,5 @@
-#!/bin/bash -l
-set -x
-set -e
+#!/usr/bin/env bash
+set -ex
 
 source $(dirname $0)/test_helpers.sh
 

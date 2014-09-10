@@ -1,6 +1,5 @@
-#!/bin/bash -l
-set -x
-set -e
+#!/usr/bin/env bash
+set -ex
 
 git submodule update --init --recursive
 
