@@ -79,8 +79,12 @@ run_bats() {
   bundle install
 
   bundle exec bosh -c $config_file -n target $director_ip
-  wget -nv -N https://s3.amazonaws.com/bosh-jenkins-artifacts/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
-  bundle exec bosh -c $config_file -u admin -p admin -n upload stemcell ./latest-bosh-stemcell-warden.tgz
+
+  if [ -z "$BAT_STEMCELL" ]; then
+    wget -nv -N https://s3.amazonaws.com/bosh-jenkins-artifacts/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
+    export BAT_STEMCELL=`pwd`/latest-bosh-stemcell-warden.tgz
+  fi
+  bundle exec bosh -c $config_file -u admin -p admin -n upload stemcell $BAT_STEMCELL
 
   cat > bat.spec << EOF
 ---
@@ -100,12 +104,13 @@ EOF
   export BAT_DEPLOYMENT_SPEC=`pwd`/bat.spec
   export BAT_DIRECTOR=$director_ip
   export BAT_DNS_HOST=$director_ip
-  export BAT_STEMCELL=`pwd`/latest-bosh-stemcell-warden.tgz
   export BAT_VCAP_PASSWORD=c1oudc0w
   export BAT_INFRASTRUCTURE=warden
 
   cd bat
   bundle exec rake bat || bundle exec rake bat # remove after monit issue is fixed
+
+  rm -f $config_file
 }
 
 run_bats_against() {
