@@ -10,7 +10,7 @@ clean_vagrant
 sed -i'' -e "s/\.box = .*/.box = 'bosh-lite-ubuntu-trusty-aws-$CANDIDATE_BUILD_NUMBER'/" Vagrantfile
 cat Vagrantfile
 
-start_bosh_lite_vm aws aws $CANDIDATE_BUILD_NUMBER
+box_add_and_vagrant_up aws aws $CANDIDATE_BUILD_NUMBER
 
 run_bats_on_vm
 
