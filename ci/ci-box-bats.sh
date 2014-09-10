@@ -14,7 +14,7 @@ cat Vagrantfile
 sed -i'' -e "s/192.168.50.4/$PRIVATE_NETWORK_IP/" bin/add-route
 cat bin/add-route
 
-start_bosh_lite_vm $BOX_TYPE $PROVIDER $CANDIDATE_BUILD_NUMBER
+box_add_and_vagrant_up $BOX_TYPE $PROVIDER $CANDIDATE_BUILD_NUMBER
 
 ./bin/add-route || true
 run_bats_against $PRIVATE_NETWORK_IP

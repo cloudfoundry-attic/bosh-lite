@@ -28,7 +28,7 @@ clean_vagrant() {
   rm -rf /var/lib/jenkins/.bosh_cache/* || true
 }
 
-start_bosh_lite_vm() {
+box_add_and_vagrant_up() {
   set -e
 
   box_type=$1
