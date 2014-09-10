@@ -58,7 +58,7 @@ get_ip_from_vagrant_ssh_config() {
 get_ip_from_vm_ifconfig() {
   set -e
   config=$(vagrant ssh -c ifconfig 2>/dev/null)
-  echo $(echo "$config" | grep 192 | awk '{print $2}' | cut -d: -f2)
+  echo $(echo "$config" | grep addr:192 | awk '{print $2}' | cut -d: -f2)
 }
 
 bosh_lite_ip() {
