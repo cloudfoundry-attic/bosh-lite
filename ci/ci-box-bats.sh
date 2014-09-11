@@ -18,5 +18,3 @@ box_add_and_vagrant_up $BOX_TYPE $PROVIDER $BOSH_LITE_CANDIDATE_BUILD_NUMBER
 
 ./bin/add-route || true
 run_bats_against $PRIVATE_NETWORK_IP
-
-publish_vagrant_box $BOX_TYPE $BOSH_LITE_CANDIDATE_BUILD_NUMBER
