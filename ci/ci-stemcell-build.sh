@@ -5,6 +5,8 @@ export STEMCELL_BUILD_NUMBER=${BUILD_NUMBER}
 
 source $(dirname $0)/test_helpers.sh
 
+trap cleanup EXIT
+
 rm -rf output
 
 fetch_latest_bosh
