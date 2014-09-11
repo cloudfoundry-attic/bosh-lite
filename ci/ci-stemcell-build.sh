@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-export STEMCELL_BUILD_NUMBER=${BUILD_NUMBER}
+export STEMCELL_BUILD_NUMBER=${BOSH_LITE_CANDIDATE_BUILD_NUMBER}
 
 source $(dirname $0)/test_helpers.sh
 
