@@ -6,7 +6,7 @@ export PATH=/var/lib/jenkins/.rbenv/shims:/var/lib/jenkins/.rbenv/bin:/usr/local
 export RBENV_VERSION=1.9.3-p547
 
 CUD=$(pwd)
-export TMPDIR=$CUD
+export TMPDIR=$(mktemp -d -u)
 
 env | sort
 
@@ -16,6 +16,8 @@ cleanup() {
 
   # Reset any changes made for this test
   git checkout .
+
+  rm -rf $TMPDIR
 }
 
 clean_vagrant() {
