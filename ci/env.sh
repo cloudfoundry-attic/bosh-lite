@@ -4,8 +4,7 @@ set -ex
 
 env | sort
 
-# Ensure that any modifications or stray files are removed
-git clean -df
+# Ensure that any modifications are removed
 git checkout .
 
 # BUILD_FLOW_GIT_COMMIT gets set in the build_flow jenkins job.
