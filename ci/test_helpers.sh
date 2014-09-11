@@ -42,14 +42,14 @@ run_bats() {
     ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
   fi
 
-  status=$(nofail dpkg-query -l git libmysqlclient-dev libpq-dev libsqlite3-dev > /dev/null 2>&1)
+  nofail dpkg-query -l git libmysqlclient-dev libpq-dev libsqlite3-dev > /dev/null 2>&1
   if [ $status -ne 0 ]; then
     sudo apt-get -y update
     sudo apt-get -y clean
     sudo apt-get install -y git libmysqlclient-dev libpq-dev libsqlite3-dev
   fi
 
-  status=$(nofail sudo which gem > /dev/null 2>&1)
+  nofail sudo which gem > /dev/null 2>&1
   if [ $status -eq 0 ]; then
     sudo gem install bundler --no-ri --no-rdoc
   else
@@ -61,7 +61,7 @@ run_bats() {
 
   rm -f $config_file
   # the director may not be running yet, so allow one failure
-  status=$(nofail bundle exec bosh -c $config_file -n target $director_ip)
+  nofail bundle exec bosh -c $config_file -n target $director_ip
   if [ $status -ne 0 ]; then
     bundle exec bosh -c $config_file -n target $director_ip
   fi
@@ -120,7 +120,6 @@ nofail() {
   $@
   status=$?
   set -e
-  echo $status
 }
 
 fetch_latest_bosh() {
