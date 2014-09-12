@@ -3,7 +3,7 @@
 BOSH_RELEASE_VERSION=$1
 BOSH_RELEASE_BUILD_NUMBER=$2
 WARDEN_RELEASE_VERSION=$3
-BUILD_NUMBER=$4
+BOSH_LITE_CANDIDATE_BUILD_NUMBER=$4
 BASE_AMI=$5
 REGION=$6
 
@@ -14,8 +14,8 @@ function valid_arguments() {
 function packer_build() {
   template_path=$(dirname $0)/../templates/aws.json
   args=""
-  if [ -n "$BUILD_NUMBER" ]; then
-    args="$args -var 'build_number=$BUILD_NUMBER'"
+  if [ -n "$BOSH_LITE_CANDIDATE_BUILD_NUMBER" ]; then
+    args="$args -var 'build_number=$BOSH_LITE_CANDIDATE_BUILD_NUMBER'"
   fi
   if [ -n "$BASE_AMI" ]; then
     args="$args -var 'base_ami=$BASE_AMI'"

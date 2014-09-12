@@ -6,7 +6,7 @@ rm -rf *.box
 
 PACKER_LOG=1
 
-./bin/build-aws ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION} ${BUILD_NUMBER} | tee output
+./bin/build-aws ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION} ${BOSH_LITE_CANDIDATE_BUILD_NUMBER} | tee output
 
 ami=`tail -2 output | grep -Po "ami-.*"`
 
