@@ -11,8 +11,8 @@ vagrant up --provider=virtualbox
 
 rm -rf output
 
-export BAT_STEMCELL=$(pwd)/bosh-stemcell-$BOSH_LITE_CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu-trusty-go_agent.tgz
-run_bats_against 192.168.50.4
+export BAT_STEMCELL=$(pwd)/bosh-stemcell-$BOSH_LITE_CANDIDATE_BUILD_NUMBER-warden-boshlite-$STEMCELL_OS_NAME-go_agent.tgz
+run_bats_against 192.168.50.4 $STEMCELL_OS_NAME
 
 mkdir -p output
-mv bosh-stemcell-$BOSH_LITE_CANDIDATE_BUILD_NUMBER-warden-boshlite-ubuntu-trusty-go_agent.tgz output/
+mv bosh-stemcell-$BOSH_LITE_CANDIDATE_BUILD_NUMBER-warden-boshlite-$STEMCELL_OS_NAME-go_agent.tgz output/

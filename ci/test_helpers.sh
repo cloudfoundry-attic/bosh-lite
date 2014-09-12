@@ -37,6 +37,8 @@ box_add_and_vagrant_up() {
 
 run_bats() {
   director_ip=$1
+  stemcell_os_name=$2
+
   config_file=bosh-$RANDOM.yml
 
   if [ ! -f "$HOME/.ssh/id_rsa" ]; then
@@ -82,7 +84,7 @@ properties:
   uuid: $(bundle exec bosh -c $config_file -u admin -p admin status --uuid | tail -n 1)
   pool_size: 1
   stemcell:
-    name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+    name: bosh-warden-boshlite-$stemcell_os_name-go_agent
     version: latest
   instances: 1
   mbus: nats://nats:nats-password@10.254.50.4:4222
@@ -103,18 +105,21 @@ EOF
 
 run_bats_against() {
   director_ip=$1
+  stemcell_os_name=$2
 
-  ( run_bats $director_ip )
+  ( run_bats $director_ip $stemcell_os_name )
 }
 
 run_bats_on_vm() {
-  vagrant ssh -c "$(declare -f fetch_latest_bosh); $(declare -f nofail); $(declare -f run_bats); run_bats 127.0.0.1"
+  stemcell_os_name=$1
+  vagrant ssh -c "$(declare -f fetch_latest_bosh); $(declare -f nofail); $(declare -f run_bats); run_bats 127.0.0.1 $stemcell_os_name"
 }
 
 publish_vagrant_box() {
   box_type=$1
-  candidate_build_number=$2
-  s3cmd put -P bosh-lite-$box_type-ubuntu-trusty-$candidate_build_number.box s3://bosh-lite-build-artifacts/
+  stemcell_os_name=$2
+  candidate_build_number=$3
+  s3cmd put -P bosh-lite-$box_type-$stemcell_os_name-$candidate_build_number.box s3://bosh-lite-build-artifacts/
 }
 
 nofail() {
