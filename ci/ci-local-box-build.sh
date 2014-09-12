@@ -14,4 +14,4 @@ if [ -f '/var/lib/jenkins/VirtualBox VMs/packer-virtualbox-iso/packer-virtualbox
   rm -f '/var/lib/jenkins/VirtualBox VMs/packer-virtualbox-iso/packer-virtualbox-iso.vbox'
 fi
 
-./bin/build-${BOX_TYPE} ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION} ${BUILD_NUMBER}
+./bin/build-${BOX_TYPE} ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION} ${BOSH_LITE_CANDIDATE_BUILD_NUMBER}
