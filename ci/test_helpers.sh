@@ -136,8 +136,8 @@ fetch_latest_bosh() {
 
   (
     cd bosh
-    git checkout master
-    git pull
+    git fetch
+    git reset --hard origin/master
     git submodule update --init --recursive
     bundle install
   )
