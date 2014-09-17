@@ -134,10 +134,11 @@ fetch_latest_bosh() {
     git clone --depth=1 https://github.com/cloudfoundry/bosh.git
   fi
 
+  branch=centos-stemcell
   (
     cd bosh
-    git fetch
-    git reset --hard origin/master
+    git fetch origin +refs/heads/$branch:refs/remotes/origin/$branch
+    git reset --hard origin/$branch
     git submodule update --init --recursive
     bundle install
   )

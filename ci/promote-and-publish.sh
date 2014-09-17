@@ -51,12 +51,12 @@ done
 
 curl https://vagrantcloud.com/api/v1/box/BOSH/bosh-lite-ubuntu-trusty/version/${version_id}/release -X PUT -d access_token="$VAGRANT_CLOUD_ACCESS_TOKEN"
 
-sed -i'' -e "s/config.vm.box_version = '.*'/config.vm.box_version = '$BOSH_LITE_CANDIDATE_BUILD_NUMBER'/" Vagrantfile
-git diff
-git add Vagrantfile
-git commit -m "Update box version to $BOSH_LITE_CANDIDATE_BUILD_NUMBER"
-git push origin HEAD:master
-
-git fetch origin develop
-git merge develop -m "Merge build ${CANDIDATE_BUILD_NUMBER} to develop"
-git push origin HEAD:develop
+# sed -i'' -e "s/config.vm.box_version = '.*'/config.vm.box_version = '$BOSH_LITE_CANDIDATE_BUILD_NUMBER'/" Vagrantfile
+# git diff
+# git add Vagrantfile
+# git commit -m "Update box version to $BOSH_LITE_CANDIDATE_BUILD_NUMBER"
+# git push origin HEAD:master
+#
+# git fetch origin develop
+# git merge develop -m "Merge build ${CANDIDATE_BUILD_NUMBER} to develop"
+# git push origin HEAD:develop
