@@ -83,6 +83,7 @@ properties:
   static_ip: 10.244.0.2
   uuid: $(bundle exec bosh -c $config_file -u admin -p admin status --uuid | tail -n 1)
   pool_size: 1
+  persistent_disk: 100
   stemcell:
     name: bosh-warden-boshlite-$stemcell_os_name-go_agent
     version: latest
