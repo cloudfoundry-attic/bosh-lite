@@ -24,7 +24,8 @@
       "scripts/update-sources-list.sh",
       "scripts/update-trusty-kernel.sh",
       "scripts/kernel-cleanup.sh",
-      "scripts/admin-sudoers.sh"
+      "scripts/admin-sudoers.sh",
+      "scripts/setup-syslog.sh"
     ]
   },{
     "type": "shell",
