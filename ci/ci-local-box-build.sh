@@ -17,4 +17,4 @@ fi
 
 ./bin/build-${BOX_TYPE} ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION} ${BUILD_NUMBER}
 
-vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${BUILD_NUMBER}.box --name bosh-lite-virtualbox-ubuntu-trusty --force
+vagrant box add bosh-lite-${BOX_TYPE}-ubuntu-trusty-${BUILD_NUMBER}.box --name bosh-lite-${BOX_TYPE}-ubuntu-trusty --force
