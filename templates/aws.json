@@ -42,6 +42,7 @@
   },{
     "type": "shell",
     "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E {{ .Path }}",
+    "remote_path": "/opt/bosh-provisioner/packer-shell.sh",
     "scripts": [
       "scripts/clean-up.sh",
       "scripts/shrink-disk.sh"
