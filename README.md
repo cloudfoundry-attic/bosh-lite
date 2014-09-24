@@ -51,7 +51,7 @@ Installation instructions for different Vagrant providers:
     4.3.14r95030
     ```
 
-1. Start Vagrant from the base directory of this repository. This uses the Vagrantfile.
+1. Start Vagrant from the base directory of this repository, which contains the Vagrantfile. The most recent version of the BOSH Lite boxes will be downloaded by default from the Vagrant Cloud when you run `vagrant up`. If you have already downloaded an older version you will be warned that your version is out of date. You can use the latest version by running `vagrant box update`.
 
     ```
     vagrant up --provider=virtualbox
