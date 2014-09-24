@@ -64,7 +64,8 @@
       "scripts/update-trusty-kernel.sh",
       "scripts/vmware-tools.sh",
       "scripts/kernel-cleanup.sh",
-      "scripts/admin-sudoers.sh"
+      "scripts/admin-sudoers.sh",
+      "scripts/increase-loop-devices.sh"
     ]
   },{
     "type": "shell",
