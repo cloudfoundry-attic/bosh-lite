@@ -12,4 +12,4 @@ cat Vagrantfile
 
 box_add_and_vagrant_up aws aws $BOSH_LITE_CANDIDATE_BUILD_NUMBER
 
-run_bats_on_vm
+run_bats_on_vm ubuntu-trusty
