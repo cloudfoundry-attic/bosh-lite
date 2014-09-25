@@ -19,5 +19,5 @@ Vagrant.configure('2') do |config|
     end
   end
 
-  config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=775"]
+  config.vm.synced_folder ".", "/vagrant", mount_options: %w( dmode=777 fmode=777 )
 end
