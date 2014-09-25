@@ -18,4 +18,6 @@ Vagrant.configure('2') do |config|
       vmware.vmx["memsize"] = VM_MEMORY
     end
   end
+
+  config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=775"]
 end
