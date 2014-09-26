@@ -1,0 +1,8 @@
+Vagrant.configure('2') do |config|
+  [:vmware_fusion, :vmware_desktop, :vmware_workstation].each do |provider|
+    config.vm.provider provider do |v, override|
+      override.vm.box = 'bosh-lite-ubuntu-trusty-vmware-BOSH_LITE_CANDIDATE_BUILD_NUMBER'
+      override.vm.network :private_network, ip: 'PRIVATE_NETWORK_IP', id: :local
+    end
+  end
+end
