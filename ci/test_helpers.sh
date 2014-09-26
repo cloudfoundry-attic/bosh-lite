@@ -118,9 +118,8 @@ run_bats_on_vm() {
 
 publish_vagrant_box() {
   box_type=$1
-  stemcell_os_name=$2
-  candidate_build_number=$3
-  s3cmd put -P bosh-lite-$box_type-$stemcell_os_name-$candidate_build_number.box s3://bosh-lite-build-artifacts/
+  candidate_build_number=$2
+  s3cmd put -P bosh-lite-$box_type-ubuntu-trusty-$candidate_build_number.box s3://bosh-lite-build-artifacts/
 }
 
 nofail() {
