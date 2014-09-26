@@ -1,5 +1,7 @@
 Vagrant.configure('2') do |config|
   config.vm.box = 'BOSH/bosh-lite-ubuntu-trusty'
+  config.vm.box_version = '347'
+
   config.vm.provider :virtualbox do |v, override|
     # To use a different IP address for the bosh-lite director, uncomment this line:
     # override.vm.network :private_network, ip: '192.168.59.4', id: :local
