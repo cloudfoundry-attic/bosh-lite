@@ -7,8 +7,6 @@ trap cleanup EXIT
 
 clean_vagrant
 
-sed -e "s/BOSH_LITE_CANDIDATE_BUILD_NUMBER/$BOSH_LITE_CANDIDATE_BUILD_NUMBER/" ci/Vagrantfile.virtualbox > Vagrantfile
-sed -i'' -e "s/PRIVATE_NETWORK_IP/192.168.50.4/" Vagrantfile
 vagrant up --provider=virtualbox
 
 rm -rf output
