@@ -12,7 +12,7 @@ if [ ! -d '../cf-release' ]; then
   git clone --depth=1 https://github.com/cloudfoundry/cf-release.git ../cf-release
 fi
 
-ln -s $PWD ../bosh-lite
+ln -sf $PWD ../bosh-lite
 
 sed -e "s/BOSH_LITE_CANDIDATE_BUILD_NUMBER/$BOSH_LITE_CANDIDATE_BUILD_NUMBER/" ci/Vagrantfile.virtualbox > Vagrantfile
 sed -i'' -e "s/PRIVATE_NETWORK_IP/192.168.50.4/" Vagrantfile
