@@ -38,15 +38,27 @@ Vagrant.configure('2') do |config|
     v.tags =                tags_from_environment(env)
   end
 
+  meta_data_public_ip_url = "http://169.254.169.254/latest/meta-data/public-ipv4"
+  meta_data_local_ip_url = "http://169.254.169.254/latest/meta-data/local-ipv4"
+
   PUBLIC_IP = <<-PUBLIC_IP_SCRIPT
-public_ip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
-echo "The public IP for this instance is $public_ip"
-echo "You can bosh target $public_ip, or run vagrant ssh and then bosh target 127.0.0.1"
+public_ip_http_code=`curl -s -o /dev/null -w "%{http_code}" #{meta_data_public_ip_url}`
+
+if [ public_ip_http_code == "404" ]; then
+  local_ip=`curl -s #{meta_data_local_ip_url}`
+  echo "There is no public IP for this instance"
+  echo "The private IP for this instance is $local_ip"
+  echo "You can 'bosh target $local_ip', or run 'vagrant ssh' and then 'bosh target 127.0.0.1'"
+else
+  public_ip=`curl -s #{meta_data_public_ip_url}`
+  echo "The public IP for this instance is $public_ip"
+  echo "You can 'bosh target $public_ip', or run 'vagrant ssh' and then 'bosh target 127.0.0.1'"
+fi
   PUBLIC_IP_SCRIPT
   config.vm.provision :shell, id: "public_ip", run: "always", inline: PUBLIC_IP
 
   PORT_FORWARDING = <<-IP_SCRIPT
-local_ip=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
+local_ip=`curl -s #{meta_data_local_ip_url}`
 echo "Setting up port forwarding for the CF Cloud Controller..."
 sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 80 -j DNAT --to 10.244.0.34:80
 sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 443 -j DNAT --to 10.244.0.34:443
