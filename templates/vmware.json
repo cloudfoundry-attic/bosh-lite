@@ -65,7 +65,8 @@
       "scripts/update-trusty-kernel.sh",
       "scripts/vmware-tools.sh",
       "scripts/kernel-cleanup.sh",
-      "scripts/admin-sudoers.sh"
+      "scripts/admin-sudoers.sh",
+      "scripts/increase-loop-devices.sh"
     ]
   },{
     "type": "shell",
@@ -84,6 +85,7 @@
     "remote_path": "/opt/bosh-provisioner/packer-shell.sh",
     "scripts": [
       "scripts/add-vcap-to-vagrant.sh",
+      "scripts/install-cli-tools.sh",
       "scripts/clean-up.sh",
       "scripts/shrink-disk.sh"
     ]

@@ -11,6 +11,6 @@ default=0
 timeout=1
 title ${os_name} (${kernel_version})
   root (hd0)
-  kernel /boot/vmlinuz-${kernel_version} root=LABEL=cloudimg-rootfs ro selinux=0 cgroup_enable=memory swapaccount=1
+  kernel /boot/vmlinuz-${kernel_version} root=LABEL=cloudimg-rootfs ro selinux=0 cgroup_enable=memory swapaccount=1 max_loop=255
   initrd /boot/${initrd_file}
 GRUB_CONF
