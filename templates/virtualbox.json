@@ -88,6 +88,7 @@
     "remote_path": "/opt/bosh-provisioner/packer-shell.sh",
     "scripts": [
       "scripts/add-vcap-to-vagrant.sh",
+      "scripts/set-temp-dir.sh",
       "scripts/install-cli-tools.sh",
       "scripts/clean-up.sh",
       "scripts/shrink-disk.sh"
