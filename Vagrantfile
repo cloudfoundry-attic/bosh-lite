@@ -1,5 +1,5 @@
 Vagrant.configure('2') do |config|
-  config.vm.box = 'BOSH/bosh-lite-ubuntu-trusty'
+  config.vm.box = 'cloudfoundry/bosh-lite'
   config.vm.box_version = '360'
 
   config.vm.provider :virtualbox do |v, override|

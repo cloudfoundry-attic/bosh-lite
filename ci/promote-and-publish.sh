@@ -19,7 +19,7 @@ upload_box() {
   provider=$1
   box_type=$2
 
-  curl https://vagrantcloud.com/api/v1/box/BOSH/bosh-lite-ubuntu-trusty/version/${version_id}/providers \
+  curl https://vagrantcloud.com/api/v1/box/cloudfoundry/bosh-lite/version/${version_id}/providers \
   -X POST \
   -d provider[name]="$provider" \
   -d provider[url]="https://s3.amazonaws.com/bosh-lite-build-artifacts/bosh-lite-$box_type-ubuntu-trusty-$BOSH_LITE_CANDIDATE_BUILD_NUMBER.box" \
@@ -30,7 +30,7 @@ publish_vagrant_box aws $BOSH_LITE_CANDIDATE_BUILD_NUMBER
 publish_vagrant_box vmware $BOSH_LITE_CANDIDATE_BUILD_NUMBER
 publish_vagrant_box virtualbox $BOSH_LITE_CANDIDATE_BUILD_NUMBER
 
-result=`curl https://vagrantcloud.com/api/v1/box/BOSH/bosh-lite-ubuntu-trusty/versions \
+result=`curl https://vagrantcloud.com/api/v1/box/cloudfoundry/bosh-lite/versions \
         -X POST \
         -d version[version]="$BOSH_LITE_CANDIDATE_BUILD_NUMBER" \
         -d access_token="$VAGRANT_CLOUD_ACCESS_TOKEN"`
@@ -49,7 +49,7 @@ for provider in "vmware_fusion" "vmware_workstation" "vmware_desktop"; do
   upload_box $provider "vmware"
 done
 
-curl https://vagrantcloud.com/api/v1/box/BOSH/bosh-lite-ubuntu-trusty/version/${version_id}/release -X PUT -d access_token="$VAGRANT_CLOUD_ACCESS_TOKEN"
+curl https://vagrantcloud.com/api/v1/box/cloudfoundry/bosh-lite/version/${version_id}/release -X PUT -d access_token="$VAGRANT_CLOUD_ACCESS_TOKEN"
 
 sed -i'' -e "s/config.vm.box_version = '.*'/config.vm.box_version = '$BOSH_LITE_CANDIDATE_BUILD_NUMBER'/" Vagrantfile
 git diff
