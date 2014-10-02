@@ -22,7 +22,7 @@ upload_box() {
   curl https://vagrantcloud.com/api/v1/box/cloudfoundry/bosh-lite/version/${version_id}/providers \
   -X POST \
   -d provider[name]="$provider" \
-  -d provider[url]="https://s3.amazonaws.com/bosh-lite-build-artifacts/bosh-lite-$box_type-ubuntu-trusty-$BOSH_LITE_CANDIDATE_BUILD_NUMBER.box" \
+  -d provider[url]="http://d3a4sadvqj176z.cloudfront.net/bosh-lite-$box_type-ubuntu-trusty-$BOSH_LITE_CANDIDATE_BUILD_NUMBER.box" \
   -d access_token="$VAGRANT_CLOUD_ACCESS_TOKEN"
 }
 
