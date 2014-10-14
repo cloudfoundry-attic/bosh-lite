@@ -2,8 +2,8 @@
 
 set -xe
 
-STEMCELL_SOURCE=http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden
-STEMCELL_FILE=latest-bosh-stemcell-warden.tgz
+STEMCELL_SOURCE=http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
+STEMCELL_FILE=$(basename "${STEMCELL_SOURCE}")
 WORKSPACE_DIR="$(cd $(dirname ${BASH_SOURCE[0]})/../../ && pwd)"
 BOSH_LITE_DIR="${WORKSPACE_DIR}/bosh-lite"
 CF_DIR="${WORKSPACE_DIR}/cf-release"
@@ -18,7 +18,7 @@ main() {
 fetch_stemcell() {
   if [[ ! -e $STEMCELL_FILE ]]
   then
-    curl --progress-bar "${STEMCELL_SOURCE}/${STEMCELL_FILE}" > "$STEMCELL_FILE"
+    curl --progress-bar "${STEMCELL_SOURCE}" > "$STEMCELL_FILE"
   fi
 }
 
