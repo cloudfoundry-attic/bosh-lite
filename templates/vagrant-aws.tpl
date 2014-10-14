@@ -44,7 +44,7 @@ Vagrant.configure('2') do |config|
   PUBLIC_IP = <<-PUBLIC_IP_SCRIPT
 public_ip_http_code=`curl -s -o /dev/null -w "%{http_code}" #{meta_data_public_ip_url}`
 
-if [ public_ip_http_code == "404" ]; then
+if [ $public_ip_http_code == "404" ]; then
   local_ip=`curl -s #{meta_data_local_ip_url}`
   echo "There is no public IP for this instance"
   echo "The private IP for this instance is $local_ip"
