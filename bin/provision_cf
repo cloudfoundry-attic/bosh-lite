@@ -1,18 +1,46 @@
 #!/usr/bin/env bash
 
-set -xe
+set -e
 
 STEMCELL_SOURCE=http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
-STEMCELL_FILE=$(basename "${STEMCELL_SOURCE}")
 WORKSPACE_DIR="$(cd $(dirname ${BASH_SOURCE[0]})/../../ && pwd)"
 BOSH_LITE_DIR="${WORKSPACE_DIR}/bosh-lite"
 CF_DIR="${WORKSPACE_DIR}/cf-release"
 
 main() {
+  parse_args "$@"
+  set -x
   fetch_stemcell
   upload_stemcell
   build_manifest
   deploy_release
+}
+
+usage() {
+  echo "USAGE: $(basename $0) [-h] [-s <stemcell_url>]"
+  echo
+  echo "Where: -s <stemcell_url> specifies a url from which to download a stemcell."
+  echo "                         (defaults to '${DEFAULT_STEMCELL_SOURCE}')"
+  echo
+  echo "       -h                shows this help"
+  echo
+  exit 1
+}
+
+parse_args() {
+  while getopts :s: option ; do
+    case $option in
+      s)
+        STEMCELL_SOURCE="$OPTARG"
+        ;;
+      ?) # -h caught here
+        usage
+        ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  STEMCELL_FILE=$(basename "${STEMCELL_SOURCE}")
 }
 
 fetch_stemcell() {
@@ -64,4 +92,4 @@ bosh_lite_ip() {
   echo $ip
 }
 
-main
+main "$@"
