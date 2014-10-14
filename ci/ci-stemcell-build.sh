@@ -13,7 +13,7 @@ fetch_latest_bosh
 
 (
   cd bosh
-  bundle exec rake stemcell:build[warden,$OS_NAME,$OS_VERSION,go,bosh-os-images,bosh-$OS_NAME-$OS_VERSION-os-image.tgz]
+  bundle exec rake stemcell:build[warden,boshlite,$OS_NAME,$OS_VERSION,go,bosh-os-images,bosh-$OS_NAME-$OS_VERSION-os-image.tgz]
 )
 
 mkdir -p output
