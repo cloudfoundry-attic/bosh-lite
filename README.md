@@ -21,6 +21,9 @@ BOSH and BOSH Lite can be used to deploy just about anything once you've got the
    gem install bosh_cli
    ```
 
+   Refer to [BOSH CLI installation instructions](http://docs.cloudfoundry.org/bosh/bosh-cli.html) 
+   for more information and troubleshooting tips.
+
 1. Install [Vagrant](http://www.vagrantup.com/downloads.html).
 
     Known working version:
