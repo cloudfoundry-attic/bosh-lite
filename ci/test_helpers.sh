@@ -89,6 +89,8 @@ properties:
     version: latest
   instances: 1
   mbus: nats://nats:nats-password@10.254.50.4:4222
+  - type: manual
+    static_ip: 10.244.0.2
 EOF
   cat bat.spec
 
@@ -97,6 +99,7 @@ EOF
   export BAT_DNS_HOST=$director_ip
   export BAT_VCAP_PASSWORD=c1oudc0w
   export BAT_INFRASTRUCTURE=warden
+  export BAT_NETWORKING=manual
 
   cd bat
   bundle exec rake bat
