@@ -89,6 +89,7 @@ properties:
     version: latest
   instances: 1
   mbus: nats://nats:nats-password@10.254.50.4:4222
+  networks:
   - type: manual
     static_ip: 10.244.0.2
 EOF
