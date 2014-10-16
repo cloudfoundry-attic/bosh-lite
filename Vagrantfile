@@ -1,6 +1,6 @@
 Vagrant.configure('2') do |config|
   config.vm.box = 'cloudfoundry/bosh-lite'
-  config.vm.box_version = '370'
+  config.vm.box_version = '374'
 
   config.vm.provider :virtualbox do |v, override|
     # To use a different IP address for the bosh-lite director, uncomment this line:
