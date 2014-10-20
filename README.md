@@ -21,7 +21,7 @@ BOSH and BOSH Lite can be used to deploy just about anything once you've got the
    gem install bosh_cli
    ```
 
-   Refer to [BOSH CLI installation instructions](http://docs.cloudfoundry.org/bosh/bosh-cli.html) 
+   Refer to [BOSH CLI installation instructions](http://docs.cloudfoundry.org/bosh/bosh-cli.html)
    for more information and troubleshooting tips.
 
 1. Install [Vagrant](http://www.vagrantup.com/downloads.html).
@@ -53,6 +53,8 @@ Installation instructions for different Vagrant providers:
     $ VBoxManage --version
     4.3.14r95030
     ```
+
+    Note: If you encounter problems with VirtualBox networking try installing [Oracle VM VirtualBox Extension Pack](https://www.virtualbox.org/wiki/Downloads) as suggested by [Issue 202](https://github.com/cloudfoundry/bosh-lite/issues/202).
 
 1. Start Vagrant from the base directory of this repository, which contains the Vagrantfile. The most recent version of the BOSH Lite boxes will be downloaded by default from the Vagrant Cloud when you run `vagrant up`. If you have already downloaded an older version you will be warned that your version is out of date. You can use the latest version by running `vagrant box update`.
 

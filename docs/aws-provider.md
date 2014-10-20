@@ -8,7 +8,7 @@ variable, vagrant will provision the BOSH Lite VM in that subnet in whichever VP
 When deploying to a VPC, the security group must be specified as an ID of the form `sg-abcd1234`, as
 opposed to a name like `default`.
 
-NOTE: You can only deploy into a VPC if the instance can be accessed by the machine doing the deploying. If
+Note: You can only deploy into a VPC if the instance can be accessed by the machine doing the deploying. If
 not, Vagrant will fail to use SSH to provision the instance further. This similarly applies to steps 7-9, below.
 
 ### Steps
