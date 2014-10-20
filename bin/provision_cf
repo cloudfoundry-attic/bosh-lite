@@ -3,6 +3,7 @@
 set -e
 
 STEMCELL_SOURCE=http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
+STEMCELL_OVERRIDDEN=F
 WORKSPACE_DIR="$(cd $(dirname ${BASH_SOURCE[0]})/../../ && pwd)"
 BOSH_LITE_DIR="${WORKSPACE_DIR}/bosh-lite"
 CF_DIR="${WORKSPACE_DIR}/cf-release"
@@ -32,6 +33,7 @@ parse_args() {
     case $option in
       s)
         STEMCELL_SOURCE="$OPTARG"
+        STEMCELL_OVERRIDDEN=T
         ;;
       ?) # -h caught here
         usage
@@ -62,7 +64,21 @@ build_manifest() {
 
   cd $BOSH_LITE_DIR
   export CF_RELEASE_DIR=$CF_DIR
-  ./bin/make_manifest_spiff
+
+  if [[ "${STEMCELL_OVERRIDDEN}" == "T" ]] ; then
+    spec=$(tar -zxf ${STEMCELL_FILE} -O stemcell.MF)
+    name=$(echo "$spec" | grep "^name:" | cut -d: -f2 | tr -d " '")
+    version=$(echo "$spec" | grep "^version:" | cut -d: -f2 | tr -d " '")
+    cat > manifests/custom-stemcell-stub.yml <<EOF
+meta:
+  stemcell:
+    name: ${name}
+    version: ${version}
+EOF
+    ./bin/make_manifest_spiff manifests/custom-stemcell-stub.yml
+  else
+    ./bin/make_manifest_spiff
+  fi
 }
 
 deploy_release() {
