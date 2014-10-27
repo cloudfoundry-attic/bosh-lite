@@ -2,12 +2,16 @@
 set -ex
 
 export STEMCELL_BUILD_NUMBER=${BOSH_LITE_CANDIDATE_BUILD_NUMBER}
+export TMPDIR="/var/vcap/data/tmp"
 
 source $(dirname $0)/test_helpers.sh
 
 trap cleanup EXIT
 
+rm -rf $TMPDIR
 rm -rf output
+
+mkdir -p $TMPDIR
 
 fetch_latest_bosh
 
