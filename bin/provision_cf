@@ -49,6 +49,15 @@ fetch_stemcell() {
   if [[ ! -e $STEMCELL_FILE ]]
   then
     curl --progress-bar "${STEMCELL_SOURCE}" > "$STEMCELL_FILE"
+  else
+    set +x
+    latest_size=`curl -sI https://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz | sed -n -e 's/^Content-Length: \([0-9]*\)/\1/p' | tr -d '\n\r '`
+    existing_size=`wc -c < $STEMCELL_FILE | tr -d '\n\r '`
+    if [ $latest_size -ne $existing_size ]
+    then
+      echo -e "\n** WARNING ** current stemcell does not match $STEMCELL_SOURCE.\nIf you wan't the latest stemcell, delete $STEMCELL_FILE and run this script again'\n"
+    fi
+    set -x
   fi
 }
 
