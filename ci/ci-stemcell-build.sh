@@ -13,6 +13,8 @@ rm -rf output
 
 mkdir -p $TMPDIR
 
+chruby 2.1.2
+
 fetch_latest_bosh
 
 (

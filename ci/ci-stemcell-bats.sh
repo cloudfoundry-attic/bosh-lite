@@ -5,6 +5,8 @@ source $(dirname $0)/test_helpers.sh
 
 trap cleanup EXIT
 
+chruby 2.1.2
+
 clean_vagrant
 
 vagrant up --provider=virtualbox
