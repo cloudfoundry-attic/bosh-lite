@@ -26,6 +26,15 @@ clean_vagrant() {
   rm -rf /var/lib/jenkins/.bosh_cache/*
 }
 
+download_box() {
+  box_type=$1
+  candidate_build_number=$2
+  box_name=bosh-lite-${box_type}-ubuntu-trusty-${candidate_build_number}.box
+
+  rm -f bosh-lite-${box_type}-ubuntu-trusty-*.box
+  wget "https://s3.amazonaws.com/bosh-lite-build-artifacts/${box_name}"
+}
+
 box_add_and_vagrant_up() {
   box_type=$1
   provider=$2
