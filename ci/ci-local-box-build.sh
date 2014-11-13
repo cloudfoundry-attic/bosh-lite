@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -ex
 
+source $(dirname $0)/ci_helpers.sh
+
 git submodule update --init --recursive
 
 PACKER_LOG=1
@@ -15,3 +17,4 @@ if [ -f '/var/lib/jenkins/VirtualBox VMs/packer-virtualbox-iso/packer-virtualbox
 fi
 
 ./bin/build-${BOX_TYPE} ${BOSH_RELEASE_VERSION} ${BOSH_RELEASE_BUILD_NUMBER} ${WARDEN_RELEASE_VERSION} ${BOSH_LITE_CANDIDATE_BUILD_NUMBER}
+upload_box ${BOX_TYPE} ${BOSH_LITE_CANDIDATE_BUILD_NUMBER}
