@@ -2,6 +2,7 @@
 set -ex
 
 source $(dirname $0)/test_helpers.sh
+source $(dirname $0)/ci_helpers.sh
 
 trap cleanup EXIT
 

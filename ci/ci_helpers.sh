@@ -1,5 +1,23 @@
 #!/bin/bash
 
+download_box() {
+  box_type=$1
+  candidate_build_number=$2
+  box_name=bosh-lite-${box_type}-ubuntu-trusty-${candidate_build_number}.box
+
+  rm -f bosh-lite-${box_type}-ubuntu-trusty-*.box
+  wget "https://s3.amazonaws.com/bosh-lite-ci-pipeline/${box_name}"
+}
+
+upload_box() {
+  box_type=$1
+  candidate_build_number=$2
+
+  box_name=bosh-lite-${box_type}-ubuntu-trusty-${candidate_build_number}.box
+  bucket_url=s3://bosh-lite-ci-pipeline/
+  s3cmd --access_key=$BOSH_AWS_ACCESS_KEY_ID --secret_key=$BOSH_AWS_SECRET_ACCESS_KEY put $box_name $bucket_url
+}
+
 set_virtualbox_machine_folder() {
   VBoxManage setproperty machinefolder /var/vcap/data/vbox_machines
 }
