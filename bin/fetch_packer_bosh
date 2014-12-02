@@ -5,7 +5,7 @@ packer_bosh_dir=${DIR}/../packer-bosh
 
 mkdir -p $packer_bosh_dir
 
-wget -qO- https://s3.amazonaws.com/bosh-jenkins-artifacts/packer-bosh/packer-bosh.tgz | tar xz -C ${packer_bosh_dir}
+wget -qO- https://s3.amazonaws.com/bosh-lite-ci-artifacts/packer-bosh/packer-bosh.tgz | tar xz -C ${packer_bosh_dir}
 if [ `uname` = "Darwin" ]; then
  packer_bin_path="${packer_bosh_dir}/bin/darwin/packer-bosh"
 elif [ `uname` = "Linux" ]; then
