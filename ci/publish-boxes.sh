@@ -58,7 +58,7 @@ upload_box_to_vagrant_cloud() {
   curl https://vagrantcloud.com/api/v1/box/cloudfoundry/bosh-lite/version/${version_id}/providers \
   -X POST \
   -d provider[name]="$provider" \
-  -d provider[url]="http://d3a4sadvqj176z.cloudfront.net/bosh-lite-$box_type-ubuntu-trusty-$BOSH_LITE_CANDIDATE_BUILD_NUMBER.box" \
+  -d provider[url]="http://d2u2rxhdayhid5.cloudfront.net/bosh-lite-$box_type-ubuntu-trusty-$BOSH_LITE_CANDIDATE_BUILD_NUMBER.box" \
   -d access_token="$VAGRANT_CLOUD_ACCESS_TOKEN"
 }
 
@@ -67,7 +67,7 @@ publish_vagrant_box_to_s3() {
   candidate_build_number=$2
   box_name="bosh-lite-${box_type}-ubuntu-trusty-${candidate_build_number}.box"
 
-  s3cmd --access_key=$BOSH_AWS_ACCESS_KEY_ID --secret_key=$BOSH_AWS_SECRET_ACCESS_KEY mv s3://bosh-lite-ci-pipeline/$box_name s3://bosh-lite-build-artifacts/$box_name
+  s3cmd --access_key=$BOSH_AWS_ACCESS_KEY_ID --secret_key=$BOSH_AWS_SECRET_ACCESS_KEY mv s3://bosh-lite-ci-pipeline/$box_name s3://bosh-lite-boxes/$box_name
 }
 
 main(){
