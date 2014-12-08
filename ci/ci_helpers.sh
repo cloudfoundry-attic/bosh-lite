@@ -39,20 +39,6 @@ install_vagrant_prerequisites() {
   fi
 }
 
-install_vagrant_plugins() {
-  installed_plugins=`vagrant plugin list`
-
-  for plugin in "vagrant-vmware-fusion" "vagrant-aws" "vagrant-berkshelf" "vagrant-omnibus"; do
-    echo $installed_plugins | grep $plugin > /dev/null
-
-    if [ $? = 1 ]; then
-      vagrant plugin install $plugin
-    else
-      echo "$plugin is already installed"
-    fi
-  done
-}
-
 install_s3cmd() {
   set -x
   sudo apt-get install -y python-dateutil
