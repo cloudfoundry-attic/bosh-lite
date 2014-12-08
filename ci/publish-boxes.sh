@@ -23,7 +23,7 @@ create_vagrant_cloud_version(){
 }
 
 publish_to_s3(){
-  for provider in "virtualbox" "aws" "vmware"; do
+  for provider in "virtualbox" "aws"; do
     publish_vagrant_box_to_s3 $provider $BOSH_LITE_CANDIDATE_BUILD_NUMBER
   done
 }
@@ -33,10 +33,6 @@ publish_to_vagrant_cloud(){
 
   for provider in "virtualbox" "aws"; do
     upload_box_to_vagrant_cloud $provider $provider $version_id
-  done
-
-  for provider in "vmware_fusion" "vmware_workstation" "vmware_desktop"; do
-    upload_box_to_vagrant_cloud $provider "vmware" $version_id
   done
 
   curl https://vagrantcloud.com/api/v1/box/cloudfoundry/bosh-lite/version/${version_id}/release -X PUT -d access_token="$VAGRANT_CLOUD_ACCESS_TOKEN"  
