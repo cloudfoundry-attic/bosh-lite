@@ -9,7 +9,6 @@ main() {
   install_bundle
 
   install_vagrant_prerequisites
-  install_vagrant_plugins
   install_s3cmd
   install_aws_cli
 
