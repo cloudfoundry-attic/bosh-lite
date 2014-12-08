@@ -13,7 +13,7 @@ create_vagrant_cloud_version(){
           -X POST \
           -d version[version]="$BOSH_LITE_CANDIDATE_BUILD_NUMBER" \
           -d access_token="$VAGRANT_CLOUD_ACCESS_TOKEN"`
-  version_id=`echo $result | jq ".number"`
+  version_id=`echo $result | jq --raw-output ".number"`
 
   if [ "$version_id" = "null" ]; then
     echo "Failed to create version"
