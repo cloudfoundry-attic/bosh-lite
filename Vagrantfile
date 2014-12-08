@@ -11,6 +11,8 @@ Vagrant.configure('2') do |config|
     config.vm.provider provider do |v, override|
       # To use a different IP address for the bosh-lite director, uncomment this line:
       # override.vm.network :private_network, ip: '192.168.54.4', id: :local
+
+      override.vm.box_version = '388'
     end
   end
 
