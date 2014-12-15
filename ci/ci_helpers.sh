@@ -60,6 +60,13 @@ install_s3cmd() {
   fi
 }
 
+install_jq() {
+  jq --version 2> /dev/null
+  if [ $? -ne 0 ]; then
+    sudo apt-get install -y jq
+  fi
+}
+
 install_aws_cli() {
   aws --version > /dev/null
 
