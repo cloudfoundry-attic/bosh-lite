@@ -44,7 +44,7 @@ update_vagrant_file() {
   git add Vagrantfile
   git commit -m "Update box version to $BOSH_LITE_CANDIDATE_BUILD_NUMBER"
   git remote rm origin
-  git remote add origin 'git@github.com/cloudfoundry/bosh-lite.git'
+  git remote add origin 'git@github.com:cloudfoundry/bosh-lite.git'
   git push origin HEAD:develop
 }
 
