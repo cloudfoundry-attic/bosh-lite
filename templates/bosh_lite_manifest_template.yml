@@ -7,7 +7,7 @@ releases:
   url: https://s3.amazonaws.com/bosh-jenkins-artifacts/release/bosh-BOSH_RELEASE_BUILD_NUMBER.tgz
 - name: bosh-warden-cpi
   version: WARDEN_RELEASE_VERSION
-  url: https://s3.amazonaws.com/bosh-jenkins-artifacts/bosh-warden-cpi-release/bosh-warden-cpi-WARDEN_RELEASE_VERSION.tgz
+  url: https://s3.amazonaws.com/bosh-warden-cpi-blobs/bosh-warden-cpi-WARDEN_RELEASE_VERSION.tgz
 
 networks:
 - name: default
