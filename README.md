@@ -105,6 +105,7 @@ The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4
 ## Troubleshooting
 
 * Starting over again is often the quickest path to success; you can use `vagrant destroy` from the base directory of this project to remove the VM.
+* Another option is to use `bosh cleanup`. This will clean up the blob store to free up some space on the virtual machine.
 
 ## Manage your local boxes
 
