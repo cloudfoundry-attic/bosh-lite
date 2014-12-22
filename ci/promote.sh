@@ -3,6 +3,9 @@
 set -ex
 
 promote() {
+  git remote rm origin
+  git remote add origin 'git@github.com:cloudfoundry/bosh-lite.git'
+  
   git push origin HEAD:master
 
   git fetch origin develop
