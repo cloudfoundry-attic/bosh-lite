@@ -13,3 +13,5 @@ latest-bosh-stemcell-warden.*
 /pkg/
 /packer-bosh/
 /tmp/compiled_package_cache/*
+
+.envrc
