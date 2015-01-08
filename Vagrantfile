@@ -9,15 +9,14 @@ Vagrant.configure('2') do |config|
 
   [:vmware_fusion, :vmware_desktop, :vmware_workstation].each do |provider|
     config.vm.provider provider do |v, override|
+      override.vm.box_version = '388'
       # To use a different IP address for the bosh-lite director, uncomment this line:
       # override.vm.network :private_network, ip: '192.168.54.4', id: :local
-
-      override.vm.box_version = '388'
     end
   end
 
   config.vm.provider :aws do |v, override|
-    override.vm.box_version = '2776'
+    override.vm.box_version = '388'
     # To turn off public IP echoing, uncomment this line:
     # override.vm.provision :shell, id: "public_ip", run: "always", inline: "/bin/true"
 
