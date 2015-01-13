@@ -13,8 +13,6 @@ main() {
   install_jq
   install_aws_cli
 
-  get_bosh_stemcell_key
-
   #required for bats
   set_virtualbox_machine_folder
 }

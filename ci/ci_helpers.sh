@@ -76,11 +76,3 @@ install_aws_cli() {
     ln -s /usr/local/bin/aws /usr/bin/aws
   fi
 }
-
-get_bosh_stemcell_key() {
-  new_key_path=$HOME/.ssh/id_rsa_bosh
-  echo "-----BEGIN RSA PRIVATE KEY-----" > $new_key_path
-  echo $ID_RSA_BOSH | sed 's/\s\+/\n/g' >> $new_key_path
-  echo "-----END RSA PRIVATE KEY-----" >> $new_key_path
-}
-
