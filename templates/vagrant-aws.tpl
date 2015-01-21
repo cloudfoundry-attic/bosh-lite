@@ -56,7 +56,12 @@ else
   echo "You can 'bosh target $public_ip', or run 'vagrant ssh' and then 'bosh target 127.0.0.1'"
 fi
   PUBLIC_IP_SCRIPT
-  config.vm.provision "public_ip", type: :shell, run: "always", inline: PUBLIC_IP
+
+  if Vagrant::VERSION =~ /^1.[0-6]/
+    config.vm.provision :shell, id: "public_ip", run: "always", inline: PUBLIC_IP
+  else
+    config.vm.provision "public_ip", type: :shell, run: "always", inline: PUBLIC_IP
+  end
 
   PORT_FORWARDING = <<-IP_SCRIPT
 local_ip=`curl -s #{meta_data_local_ip_url}`
@@ -65,5 +70,10 @@ sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 80 -j DNAT --to 1
 sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 443 -j DNAT --to 10.244.0.34:443
 sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 4443 -j DNAT --to 10.244.0.34:4443
   IP_SCRIPT
-  config.vm.provision "port_forwarding", type: :shell, run: "always", inline: PORT_FORWARDING
+
+  if Vagrant::VERSION =~ /^1.[0-6]/
+    config.vm.provision :shell, id: "port_forwarding", run: "always", inline: PORT_FORWARDING
+  else
+    config.vm.provision "port_forwarding", type: :shell, run: "always", inline: PORT_FORWARDING
+  end
 end
