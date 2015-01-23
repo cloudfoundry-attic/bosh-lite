@@ -39,7 +39,7 @@ publish_to_vagrant_cloud(){
 }
 
 update_vagrant_file() {
-  sed -i'' -e "s/config.vm.box_version = '.*'/config.vm.box_version = '$BOSH_LITE_CANDIDATE_BUILD_NUMBER'/" Vagrantfile
+  sed -i'' -e "s/override.vm.box_version = '.\{4\}'/override.vm.box_version = '$BOSH_LITE_CANDIDATE_BUILD_NUMBER'/" Vagrantfile
   git diff
   git add Vagrantfile
   git commit -m "Update box version to $BOSH_LITE_CANDIDATE_BUILD_NUMBER"
