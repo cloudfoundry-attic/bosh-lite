@@ -35,6 +35,11 @@ BOSH and BOSH Lite can be used to deploy just about anything once you've got the
 
 1. Clone this repository.
 
+    ```
+    cd ~/workspace
+    git clone https://github.com/cloudfoundry/bosh-lite
+    ```
+
 ### Install and Boot a Virtual Machine
 
 Installation instructions for different Vagrant providers:
