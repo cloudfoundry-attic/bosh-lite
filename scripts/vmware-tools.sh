@@ -2,13 +2,17 @@
 
 set -ex
 
-apt-get install -y linux-headers-$(uname -r) build-essential make perl dkms
+apt-get install -y linux-headers-$(uname -r) build-essential make perl dkms git
 
 mount -o loop /home/vagrant/linux.iso /media/cdrom
 
 cd /tmp
-tar zxf /media/cdrom/VMwareTools-*.tar.gz -C .
-/tmp/vmware-tools-distrib/vmware-install.pl -d
+
+git clone https://github.com/rasa/vmware-tools-patches.git
+cd vmware-tools-patches
+cp /media/cdrom/VMwareTools-*.tar.gz .
+
+./untar-and-patch-and-compile.sh
 
 rm /home/vagrant/linux.iso
 umount /media/cdrom
