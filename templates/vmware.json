@@ -6,7 +6,7 @@
     "type": "vmware-iso",
 
     "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
-    "iso_checksum": "4d94f6111b8fe47da94396180ce499d8c0bb44f3",
+    "iso_checksum": "3bfa6eac84d527380d0cc52db9092cde127f161e",
     "iso_checksum_type": "sha1",
 
     "guest_os_type": "ubuntu-64",
