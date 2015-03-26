@@ -1,7 +1,6 @@
 Vagrant.configure('2') do |config|
- config.vm.provider :virtualbox do |v, override|
-   override.vm.box = 'bosh-lite-ubuntu-trusty-virtualbox-BOSH_LITE_CANDIDATE_BUILD_NUMBER'
-   override.vm.network :private_network, ip: 'PRIVATE_NETWORK_IP', id: :local
- end
+  config.vm.provider :virtualbox do |v, override|
+    override.vm.box = 'bosh-lite-ubuntu-trusty-virtualbox-BOSH_LITE_CANDIDATE_BUILD_NUMBER'
+    override.vm.network :private_network, ip: 'PRIVATE_NETWORK_IP', id: :local
+  end
 end
-

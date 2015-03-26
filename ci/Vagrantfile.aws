@@ -3,4 +3,3 @@ Vagrant.configure('2') do |config|
     override.vm.box = 'bosh-lite-ubuntu-trusty-aws-BOSH_LITE_CANDIDATE_BUILD_NUMBER'
   end
 end
-

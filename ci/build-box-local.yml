@@ -1,0 +1,22 @@
+---
+platform: linux
+
+tags: [hetzner]
+
+image: docker:///cppforlife/bosh-lite-ci
+
+inputs:
+- name: bosh-lite
+- name: box-version
+
+params:
+  BOSH_RELEASE_VERSION:
+  WARDEN_RELEASE_VERSION:
+
+  BOSH_AWS_ACCESS_KEY_ID:
+  BOSH_AWS_SECRET_ACCESS_KEY:
+
+  BOX_TYPE: virtualbox
+
+run:
+  path: bosh-lite/ci/build-box-local.sh

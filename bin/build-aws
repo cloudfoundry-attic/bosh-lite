@@ -1,46 +1,37 @@
 #!/bin/bash
 
 BOSH_RELEASE_VERSION=$1
-BOSH_RELEASE_BUILD_NUMBER=$2
-WARDEN_RELEASE_VERSION=$3
-BOSH_LITE_CANDIDATE_BUILD_NUMBER=$4
-BASE_AMI=$5
-REGION=$6
-
-function valid_arguments() {
-  [ -n "$BOSH_RELEASE_VERSION" -a -n "$BOSH_RELEASE_BUILD_NUMBER" -a -n "$WARDEN_RELEASE_VERSION" -a -n "$AWS_ACCESS_KEY_ID" -a -n "$AWS_SECRET_ACCESS_KEY" ]
-}
+WARDEN_RELEASE_VERSION=$2
+BOSH_LITE_CANDIDATE_BUILD_NUMBER=$3 # optional
+BASE_AMI=$4 # optional
+REGION=$5 # optional
 
 function packer_build() {
   template_path=$(dirname $0)/../templates/aws.json
+
   args=""
+
   if [ -n "$BOSH_LITE_CANDIDATE_BUILD_NUMBER" ]; then
     args="$args -var 'build_number=$BOSH_LITE_CANDIDATE_BUILD_NUMBER'"
   fi
+
   if [ -n "$BASE_AMI" ]; then
     args="$args -var 'base_ami=$BASE_AMI'"
   fi
+
   if [ -n "$REGION" ]; then
     args="$args -var 'region=$REGION'"
   fi
-
-  rm -rf $(dirname $0)/../output-amazon-ebs
 
   sh -c "packer build $args $template_path"
 }
 
 function main() {
-  if valid_arguments; then
-    $(dirname $0)/render_bosh_lite_manifest $BOSH_RELEASE_VERSION $BOSH_RELEASE_BUILD_NUMBER $WARDEN_RELEASE_VERSION
-    packer_config_path=$($(dirname $0)/fetch_packer_bosh)
-    export PACKER_CONFIG=$packer_config_path
-    packer_build
-  else
-    echo "usage: $0 <bosh_release_version> <bosh_release_build_number> <warden_release_version> [<build_number>] [<base_ami>] [<region>]"
-    echo "       Additionally, the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables must be set"
-    echo "example: $0 100 2690 6 2 ami-864d84ee us-east-1"
-    exit 1
-  fi
+  $(dirname $0)/render_bosh_lite_manifest $BOSH_RELEASE_VERSION $WARDEN_RELEASE_VERSION
+
+  export PACKER_CONFIG=$($(dirname $0)/fetch_packer_bosh)
+
+  packer_build
 }
 
 main

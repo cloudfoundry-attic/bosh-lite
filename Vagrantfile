@@ -2,7 +2,7 @@ Vagrant.configure('2') do |config|
   config.vm.box = 'cloudfoundry/bosh-lite'
 
   config.vm.provider :virtualbox do |v, override|
-    override.vm.box_version = '2811'
+    override.vm.box_version = '2811' # ci:replace
     # To use a different IP address for the bosh-lite director, uncomment this line:
     # override.vm.network :private_network, ip: '192.168.59.4', id: :local
   end
@@ -16,7 +16,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.provider :aws do |v, override|
-    override.vm.box_version = '2811'
+    override.vm.box_version = '2811' # ci:replace
     # To turn off public IP echoing, uncomment this line:
     # override.vm.provision :shell, id: "public_ip", run: "always", inline: "/bin/true"
 

@@ -1,0 +1,11 @@
+---
+platform: linux
+
+image: docker:///cppforlife/bosh-lite-ci
+
+inputs:
+- name: bosh-lite
+- name: box-version
+
+run:
+  path: bosh-lite/ci/update-box-version.sh

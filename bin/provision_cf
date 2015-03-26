@@ -16,8 +16,7 @@ main() {
 }
 
 fetch_stemcell() {
-  if [[ ! -e $STEMCELL_FILE ]]
-  then
+  if [[ ! -e $STEMCELL_FILE ]]; then
     curl --progress-bar "${STEMCELL_SOURCE}/${STEMCELL_FILE}" > "$STEMCELL_FILE"
   fi
 }
@@ -45,8 +44,7 @@ deploy_release() {
 
 get_ip_from_vagrant_ssh_config() {
   config=$(vagrant ssh-config)
-  ip=$(echo "$config" | grep HostName | awk '{print $2}')
-  echo $ip
+  echo $(echo "$config" | grep HostName | awk '{print $2}')
 }
 
 get_ip_from_vm_ifconfig() {
@@ -56,8 +54,7 @@ get_ip_from_vm_ifconfig() {
 
 bosh_lite_ip() {
   ip=$(get_ip_from_vagrant_ssh_config)
-  # Local VMs show up as 127.0.0.1 in ssh-config so we need to find their IP
-  # elsewhere
+  # Local VMs show up as 127.0.0.1 in ssh-config so we need to find their IP elsewhere
   if [ $ip = "127.0.0.1" ]; then
     ip=$(get_ip_from_vm_ifconfig)
   fi

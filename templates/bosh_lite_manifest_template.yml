@@ -4,18 +4,18 @@ name: bosh-lite
 releases:
 - name: bosh
   version: BOSH_RELEASE_VERSION
-  url: https://s3.amazonaws.com/bosh-jenkins-artifacts/release/bosh-BOSH_RELEASE_BUILD_NUMBER.tgz
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=BOSH_RELEASE_VERSION
 - name: bosh-warden-cpi
   version: WARDEN_RELEASE_VERSION
-  url: https://s3.amazonaws.com/bosh-warden-cpi-blobs/bosh-warden-cpi-WARDEN_RELEASE_VERSION.tgz
+  url: https://bosh.io/d/github.com/cppforlife/bosh-warden-cpi-release?v=WARDEN_RELEASE_VERSION
 
 networks:
 - name: default
   type: dynamic
 
 update:
-  canary_watch_time: 5000 - 60000
-  update_watch_time: 5000 - 60000
+  canary_watch_time: 5000 - 600000
+  update_watch_time: 5000 - 600000
 
 compilation:
   network: default
@@ -89,6 +89,7 @@ properties:
     encryption: false
     enable_snapshots: true
     max_tasks: 100
+    max_upload_size: 10000m
     db:
       user: bosh
       password: bosh-password

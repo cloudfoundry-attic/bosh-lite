@@ -1,0 +1,19 @@
+---
+platform: linux
+
+tags: [hetzner]
+
+image: docker:///cppforlife/bosh-lite-ci
+
+inputs:
+- name: bosh-lite
+- name: box
+- name: box-version
+
+params:
+  BOX_TYPE: virtualbox
+  PROVIDER: virtualbox
+
+run:
+  path: bosh-lite/ci/lib/in-host-net.sh
+  args: [bosh-lite/ci/bats-local.sh]

@@ -27,10 +27,10 @@ echo $DIRECTOR_UUID
 perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" $temp_dir/cf-stub-with-uuid.yml
 
 $CF_RELEASE_DIR/generate_deployment_manifest \
-                                              warden \
-                                              $temp_dir/cf-stub-with-uuid.yml \
-                                              $CF_RELEASE_DIR/templates/cf-minimal-dev.yml \
-                                              $* > $BOSH_LITE_HOME/manifests/cf-manifest.yml
+	warden \
+	$temp_dir/cf-stub-with-uuid.yml \
+	$CF_RELEASE_DIR/templates/cf-minimal-dev.yml \
+	$* > $BOSH_LITE_HOME/manifests/cf-manifest.yml
 
 rm -f $temp_dir/*
 rmdir $temp_dir

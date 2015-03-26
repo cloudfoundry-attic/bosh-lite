@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image: docker:///cppforlife/bosh-lite-ci
+
+inputs:
+- name: bosh-lite
+- name: box-version
+
+params:
+  BOSH_RELEASE_VERSION:
+  WARDEN_RELEASE_VERSION:
+
+  BOSH_AWS_ACCESS_KEY_ID:
+  BOSH_AWS_SECRET_ACCESS_KEY:
+  AWS_ACCESS_KEY_ID: # todo dup
+  AWS_SECRET_ACCESS_KEY:
+  AWS_DEFAULT_REGION: us-east-1
+
+run:
+  path: bosh-lite/ci/build-box-aws.sh

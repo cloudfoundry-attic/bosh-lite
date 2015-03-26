@@ -1,0 +1,17 @@
+---
+platform: linux
+
+image: docker:///cppforlife/bosh-lite-ci
+
+inputs:
+- name: bosh-lite
+
+params:
+  BOSH_AWS_ACCESS_KEY_ID:
+  BOSH_AWS_SECRET_ACCESS_KEY:
+  BOSH_LITE_PRIVATE_KEY:
+  BOSH_LITE_SECURITY_GROUP: bosh-lite
+  BOSH_LITE_KEYPAIR: bosh-lite
+
+run:
+  path: bosh-lite/ci/deploy-cf-aws.sh
