@@ -7,7 +7,7 @@ box_version=$(cat box-version/number)
 cd bosh-lite
 
 sed \
-  -i '' \
+  -i \
   -e "s/override.vm.box_version = '.*' # ci:replace/override.vm.box_version = '${box_version}' # ci:replace/" \
   Vagrantfile
 
