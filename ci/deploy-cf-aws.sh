@@ -26,6 +26,4 @@ wget https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.3/sp
 unzip /tmp/spiff.zip -d /tmp
 sudo mv /tmp/spiff /usr/local/bin/
 
-git clone --depth=1 https://github.com/cloudfoundry/cf-release.git ../cf-release
-
 bin/provision_cf
