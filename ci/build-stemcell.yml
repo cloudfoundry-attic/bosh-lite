@@ -3,7 +3,7 @@ platform: linux
 
 tags: [hetzner]
 
-image: docker:///cppforlife/bosh-lite-ci
+image: docker:///cloudfoundry/bosh-lite-ci
 
 inputs:
 - name: bosh-lite
