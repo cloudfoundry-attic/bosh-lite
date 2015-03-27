@@ -5,6 +5,7 @@
   [bosh-users](https://groups.google.com/a/cloudfoundry.org/group/bosh-users/topics) &
   [bosh-dev](https://groups.google.com/a/cloudfoundry.org/group/bosh-dev/topics) &
   [vcap-dev](https://groups.google.com/a/cloudfoundry.org/group/vcap-dev/topics) (for CF)
+* CI: http://lite.bosh-ci.cf-app.com:8080
 
 A local development environment for BOSH using Warden containers in a Vagrant box.
 
@@ -116,11 +117,11 @@ The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4
 * Another option is to use `bosh cleanup`. This will clean up the blob store to free up some space on the virtual machine.
 * There is an issue (discussed [here](https://groups.google.com/a/cloudfoundry.org/forum/m/#!topic/bosh-users/n2qYrpPUJaE) and [here](https://github.com/mitchellh/vagrant/issues/3589)) with Vagrant permissions running on OS X Mavericks 10.9.2+ (after applying [Apple's Security Update 2014-002](http://support.apple.com/en-us/HT202966)). To diagnose, run `vagrant up --debug` and see if there is an error mentioning `Symbol not found: _iconv`. To resolve try one of the two
   1. Purging vagrant
-  
+
      Purging ~/.vagrant.d
-     
+
      Reinstalling vagrant
-     
+
   2. Removing code block as described [here](https://github.com/mitchellh/vagrant/issues/3589#issuecomment-42255427)
 
 ## Manage your local boxes
