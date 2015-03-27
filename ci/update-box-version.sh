@@ -11,6 +11,11 @@ sed \
   -e "s/override.vm.box_version = '.*' # ci:replace/override.vm.box_version = '${box_version}' # ci:replace/" \
   Vagrantfile
 
+if [ -z "$(git diff --name-only Vagrantfile)" ]; then
+  # nothing to do
+  exit 0
+fi
+
 git diff | cat
 
 git add Vagrantfile
