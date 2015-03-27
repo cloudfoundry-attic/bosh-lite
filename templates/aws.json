@@ -36,6 +36,14 @@
       "scripts/vagrant-pub-key.sh"
     ]
   },{
+    "type": "file",
+    "source": "bosh-release.tgz",
+	  "destination": "/tmp/bosh-release.tgz"
+  },{
+    "type": "file",
+    "source": "bosh-warden-cpi-release.tgz",
+	  "destination": "/tmp/bosh-warden-cpi-release.tgz"
+  },{
     "type": "packer-bosh",
     "assets_dir": "packer-bosh/assets",
     "manifest_path": "bosh_lite_manifest.yml",
