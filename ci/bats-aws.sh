@@ -15,6 +15,8 @@ cat Vagrantfile
 
 set_up_vagrant_private_key
 
+export BOSH_LITE_NAME=bats-aws-v${box_version}
+
 box_add_and_vagrant_up $box_file aws aws $box_version
 
 run_bats_on_vm ubuntu-trusty

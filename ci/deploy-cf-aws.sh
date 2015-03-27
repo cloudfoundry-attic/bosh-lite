@@ -14,6 +14,8 @@ cat Vagrantfile
 
 set_up_vagrant_private_key
 
+export BOSH_LITE_NAME=deploy-cf-aws-v${box_version}
+
 box_add_and_vagrant_up $box_file aws aws $box_version
 
 # todo remove installation
