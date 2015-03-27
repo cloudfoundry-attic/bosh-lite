@@ -4,10 +4,10 @@ name: bosh-lite
 releases:
 - name: bosh
   version: BOSH_RELEASE_VERSION
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=BOSH_RELEASE_VERSION
+  url: file:///tmp/bosh-release.tgz
 - name: bosh-warden-cpi
   version: WARDEN_RELEASE_VERSION
-  url: https://bosh.io/d/github.com/cppforlife/bosh-warden-cpi-release?v=WARDEN_RELEASE_VERSION
+  url: file:///tmp/bosh-warden-cpi-release.tgz
 
 networks:
 - name: default

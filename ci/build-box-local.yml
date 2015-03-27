@@ -8,11 +8,10 @@ image: docker:///cppforlife/bosh-lite-ci
 inputs:
 - name: bosh-lite
 - name: box-version
+- name: bosh-release
+- name: bosh-warden-cpi-release
 
 params:
-  BOSH_RELEASE_VERSION:
-  WARDEN_RELEASE_VERSION:
-
   BOSH_AWS_ACCESS_KEY_ID:
   BOSH_AWS_SECRET_ACCESS_KEY:
 
