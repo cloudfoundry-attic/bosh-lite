@@ -10,8 +10,7 @@ releases:
   url: file:///tmp/bosh-warden-cpi-release.tgz
 
 networks:
-- name: default
-  type: dynamic
+- {name: default, type: dynamic}
 
 update:
   canary_watch_time: 5000 - 600000
@@ -28,30 +27,21 @@ jobs:
   - name: default
 
   templates:
-  - name: nats
-    release: bosh
-  - name: redis
-    release: bosh
-  - name: blobstore
-    release: bosh
-  - name: postgres
-    release: bosh
-  - name: director
-    release: bosh
-  - name: health_monitor
-    release: bosh
-  - name: cpi
-    release: bosh-warden-cpi
-  - name: warden
-    release: bosh-warden-cpi
+  - {name: nats, release: bosh}
+  - {name: redis, release: bosh}
+  - {name: blobstore, release: bosh}
+  - {name: postgres, release: bosh}
+  - {name: director, release: bosh}
+  - {name: health_monitor, release: bosh}
+  - {name: cpi, release: bosh-warden-cpi}
+  - {name: warden, release: bosh-warden-cpi}
 
 properties:
   ntp: ["0.us.pool.ntp.org"]
 
   compiled_package_cache:
     provider: local
-    options:
-      blobstore_path: /vagrant/tmp/compiled_package_cache
+    options: {blobstore_path: /vagrant/tmp/compiled_package_cache}
 
   nats:
     user: nats
@@ -63,12 +53,8 @@ properties:
     address: 127.0.0.1
     port: 25251
     backend_port: 25552
-    agent:
-      user: agent
-      password: agent-password
-    director:
-      user: director
-      password: director-password
+    agent: {user: agent, password: agent-password}
+    director: {user: director, password: director-password}
 
   postgres:
     user: bosh
@@ -86,10 +72,8 @@ properties:
     name: "Bosh Lite Director"
     address: 127.0.0.1
     port: 25555
-    encryption: false
-    enable_snapshots: true
     max_tasks: 100
-    max_upload_size: 10000m
+    cpi_job: cpi
     db:
       user: bosh
       password: bosh-password
@@ -147,36 +131,9 @@ properties:
         -----END CERTIFICATE-----
 
   hm:
-    http:
-      port: 25923
-      user: admin
-      password: admin-password
-    director_account:
-      user: admin
-      password: admin-password
-    intervals:
-      poll_director: 60
-      poll_grace_period: 30
-      log_stats: 300
-      analyze_agents: 60
-      agent_timeout: 180
-      rogue_agent_alert: 180
-    loglevel: info
-    email_notifications: false
-    tsdb_enabled: false
-    cloud_watch_enabled: false
+    http: {user: admin, password: admin-password, port: 25923}
+    director_account: {user: admin, password: admin-password}
     resurrector_enabled: true
-
-  external_cpi:
-    enabled: true
-    name: cpi
-
-  # Control some remote vCenter
-  vcenter:
-    address: fake-address
-    user: fake-user
-    password: fake-password
-    datacenters: []
 
   # cpi job template
   cpi:
