@@ -5,3 +5,4 @@
 export GOPATH=/opt/local/go
 export PATH=/opt/local/bin:/opt/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export PACKER_CONFIG=/opt/local/packerconfig
+export HOME=${HOME:-/root}
