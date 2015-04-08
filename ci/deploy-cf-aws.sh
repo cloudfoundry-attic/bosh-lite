@@ -2,6 +2,7 @@
 
 set -x -e
 
+source $(dirname $0)/lib/global-env.sh
 source $(dirname $0)/lib/vagrant.sh
 
 box_version=$(cat box-version/number)

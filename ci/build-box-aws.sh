@@ -2,6 +2,8 @@
 
 set -e -x
 
+source $(dirname $0)/lib/global-env.sh
+
 box_version=$(cat box-version/number)
 
 BOSH_RELEASE_VERSION=$(cat bosh-release/version)

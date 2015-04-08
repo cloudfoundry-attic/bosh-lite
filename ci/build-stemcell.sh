@@ -2,6 +2,8 @@
 
 set -e -x
 
+source $(dirname $0)/lib/global-env.sh
+
 git clone --depth=1 https://github.com/cloudfoundry/bosh.git
 
 cd bosh
