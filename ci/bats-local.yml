@@ -13,6 +13,7 @@ inputs:
 params:
   BOX_TYPE: virtualbox
   PROVIDER: virtualbox
+  COLUMNS: 100
 
 run:
   path: bosh-lite/ci/lib/in-host-net.sh

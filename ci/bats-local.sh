@@ -26,6 +26,9 @@ cat bin/add-route
 
 box_add_and_vagrant_up $box_file $BOX_TYPE $PROVIDER $box_version
 
+# todo fixes 'FileUtils#remove_entry_secure does not work; (parent directory mode 40777)'
+chmod 1777 /tmp
+
 ./bin/add-route || true
 
 run_bats $private_net_ip ubuntu-trusty
