@@ -4,6 +4,7 @@ platform: linux
 image: docker:///cloudfoundry/bosh-lite-ci
 
 inputs:
+- name: box-version
 - name: bosh-lite
 - name: cf-release
 
