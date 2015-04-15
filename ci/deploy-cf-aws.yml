@@ -7,6 +7,7 @@ inputs:
 - name: box-version
 - name: bosh-lite
 - name: cf-release
+- name: box
 
 params:
   BOSH_AWS_ACCESS_KEY_ID:
