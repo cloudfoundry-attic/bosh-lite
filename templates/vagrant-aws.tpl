@@ -42,7 +42,7 @@ Vagrant.configure('2') do |config|
   meta_data_public_ip_url = "http://169.254.169.254/latest/meta-data/public-ipv4"
   meta_data_local_ip_url = "http://169.254.169.254/latest/meta-data/local-ipv4"
 
-  PUBLIC_IP = <<-PUBLIC_IP_SCRIPT
+  public_ip_script = <<-PUBLIC_IP_SCRIPT
 public_ip_http_code=`curl -s -o /dev/null -w "%{http_code}" #{meta_data_public_ip_url}`
 
 if [ $public_ip_http_code == "404" ]; then
@@ -58,12 +58,12 @@ fi
   PUBLIC_IP_SCRIPT
 
   if Vagrant::VERSION =~ /^1.[0-6]/
-    config.vm.provision :shell, id: "public_ip", run: "always", inline: PUBLIC_IP
+    config.vm.provision :shell, id: "public_ip", run: "always", inline: public_ip_script
   else
-    config.vm.provision "public_ip", type: :shell, run: "always", inline: PUBLIC_IP
+    config.vm.provision "public_ip", type: :shell, run: "always", inline: public_ip_script
   end
 
-  PORT_FORWARDING = <<-IP_SCRIPT
+  port_forward_script = <<-IP_SCRIPT
 local_ip=`curl -s #{meta_data_local_ip_url}`
 echo "Setting up port forwarding for the CF Cloud Controller..."
 sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 80 -j DNAT --to 10.244.0.34:80
@@ -72,8 +72,8 @@ sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 4443 -j DNAT --to
   IP_SCRIPT
 
   if Vagrant::VERSION =~ /^1.[0-6]/
-    config.vm.provision :shell, id: "port_forwarding", run: "always", inline: PORT_FORWARDING
+    config.vm.provision :shell, id: "port_forwarding", run: "always", inline: port_forward_script
   else
-    config.vm.provision "port_forwarding", type: :shell, run: "always", inline: PORT_FORWARDING
+    config.vm.provision "port_forwarding", type: :shell, run: "always", inline: port_forward_script
   end
 end
