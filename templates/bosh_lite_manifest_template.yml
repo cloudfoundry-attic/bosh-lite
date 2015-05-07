@@ -32,6 +32,7 @@ jobs:
   - {name: blobstore, release: bosh}
   - {name: postgres, release: bosh}
   - {name: director, release: bosh}
+  - {name: powerdns, release: bosh}
   - {name: health_monitor, release: bosh}
   - {name: cpi, release: bosh-warden-cpi}
   - {name: warden, release: bosh-warden-cpi}
@@ -56,7 +57,7 @@ properties:
     agent: {user: agent, password: agent-password}
     director: {user: director, password: director-password}
 
-  postgres:
+  postgres: &db
     user: bosh
     password: bosh-password
     host: 127.0.0.1
@@ -129,6 +130,13 @@ properties:
         7SD2+b2/nt8Mcz7q58nYvZteipRrmkOFszlNF5dU31FjvRLITn0bhiOOFRD3qAou
         cSOr1qwsAKuu6MzYNh2ubsLvfg==
         -----END CERTIFICATE-----
+
+  # note: garden copies over host's dns settings
+  # and bosh-agent does not configure networking
+  dns:
+    address: 10.254.50.4
+    recursor: 8.8.8.8
+    db: *db
 
   hm:
     http: {user: admin, password: admin-password, port: 25923}
