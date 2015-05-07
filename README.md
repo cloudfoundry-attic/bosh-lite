@@ -1,16 +1,15 @@
 # BOSH Lite
 
-* IRC: `#bosh` on freenode
-* Google groups:
-  [bosh-users](https://groups.google.com/a/cloudfoundry.org/group/bosh-users/topics) &
-  [bosh-dev](https://groups.google.com/a/cloudfoundry.org/group/bosh-dev/topics) &
-  [vcap-dev](https://groups.google.com/a/cloudfoundry.org/group/vcap-dev/topics) (for CF)
+* IRC: [`#bosh` on freenode](http://webchat.freenode.net/?channels=bosh)
+* Mailing lists:
+  - [cf-bosh](https://lists.cloudfoundry.org/pipermail/cf-bosh) for asking BOSH usage and development questions
+  - [cf-dev](https://lists.cloudfoundry.org/pipermail/cf-dev) for asking CloudFoundry questions
 * CI: http://lite.bosh-ci.cf-app.com:8080
+* Roadmap: [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/956238) (label:bosh-lite)
 
 A local development environment for BOSH using Warden containers in a Vagrant box.
 
-This readme walks through deploying Cloud Foundry with BOSH Lite.
-BOSH and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
+This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
 
 ## Install BOSH Lite
 
@@ -19,11 +18,10 @@ BOSH and BOSH Lite can be used to deploy just about anything once you've got the
 1. Install latest version of `bosh_cli`.
 
    ```
-   gem install bosh_cli
+   $ gem install bosh_cli
    ```
 
-   Refer to [BOSH CLI installation instructions](http://docs.cloudfoundry.org/bosh/bosh-cli.html)
-   for more information and troubleshooting tips.
+   Refer to [BOSH CLI installation instructions](http://docs.cloudfoundry.org/bosh/bosh-cli.html) for more information and troubleshooting tips.
 
 1. Install [Vagrant](http://www.vagrantup.com/downloads.html).
 
@@ -37,8 +35,8 @@ BOSH and BOSH Lite can be used to deploy just about anything once you've got the
 1. Clone this repository.
 
     ```
-    cd ~/workspace
-    git clone https://github.com/cloudfoundry/bosh-lite
+    $ cd ~/workspace
+    $ git clone https://github.com/cloudfoundry/bosh-lite
     ```
 
 ### Install and Boot a Virtual Machine
@@ -65,7 +63,7 @@ Installation instructions for different Vagrant providers:
 1. Start Vagrant from the base directory of this repository, which contains the Vagrantfile. The most recent version of the BOSH Lite boxes will be downloaded by default from the Vagrant Cloud when you run `vagrant up`. If you have already downloaded an older version you will be warned that your version is out of date. You can use the latest version by running `vagrant box update`.
 
     ```
-    vagrant up --provider=virtualbox
+    $ vagrant up --provider=virtualbox
     ```
 
 1. Target the BOSH Director and login with admin/admin.
@@ -86,7 +84,7 @@ Installation instructions for different Vagrant providers:
 1. Add a set of route entries to your local route table to enable direct Warden container access every time your networking gets reset (e.g. reboot or connect to a different network). Your sudo password may be required.
 
     ```
-    bin/add-route
+    $ bin/add-route
     ```
 
 #### Customizing the local VM IP
