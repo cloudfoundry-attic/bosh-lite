@@ -25,7 +25,8 @@
       "scripts/update-trusty-kernel.sh",
       "scripts/kernel-cleanup.sh",
       "scripts/admin-sudoers.sh",
-      "scripts/setup-syslog.sh"
+      "scripts/setup-syslog.sh",
+      "scripts/setup-ntpdate.sh"
     ]
   },{
     "type": "shell",

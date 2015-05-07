@@ -72,7 +72,8 @@
       "scripts/kernel-cleanup.sh",
       "scripts/admin-sudoers.sh",
       "scripts/increase-loop-devices.sh",
-      "scripts/setup-syslog.sh"
+      "scripts/setup-syslog.sh",
+      "scripts/setup-ntpdate.sh"
     ]
   },{
     "type": "shell",
