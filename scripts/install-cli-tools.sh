@@ -13,7 +13,7 @@ BOSH_CONFIG
 ) > $HOME/.bosh_config
 
 bosh target 127.0.0.1
-chown ubuntu:ubuntu $HOME/.bosh_config
+chown $USER:$USER $HOME/.bosh_config
 
 wget "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" -O /tmp/cf-cli.tgz
 tar xf /tmp/cf-cli.tgz -C /tmp
