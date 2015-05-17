@@ -8,4 +8,6 @@ PROFILE
 ) >> $HOME/.profile
 
 mkdir -p $HOME/tmp
-chown -R $USER:$USER $HOME/tmp
+
+[[ `id ubuntu` ]] && user=ubuntu || user=vagrant
+chown -R $user:$user $HOME/tmp
