@@ -44,7 +44,6 @@ This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH 
 Installation instructions for different Vagrant providers:
 
 * Virtualbox (below)
-* [VMware Fusion](docs/vmware-fusion-provider.md)
 * [AWS](docs/aws-provider.md)
 
 #### Using the Virtualbox Provider
