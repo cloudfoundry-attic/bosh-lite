@@ -14,9 +14,9 @@ run_bats() {
   fi
 
   git clone --depth=1 https://github.com/cloudfoundry/bosh.git
-  git submodule update --init --recursive
 
   cd bosh
+  git submodule update --init --recursive
 
   rm -rf ./.bundle
   bundle install
