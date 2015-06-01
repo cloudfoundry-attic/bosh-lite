@@ -33,8 +33,7 @@
     "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E {{ .Path }}",
     "scripts": [
       "scripts/aws-grub.sh",
-      "scripts/aws-preseed.sh",
-      "scripts/vagrant-pub-key.sh"
+      "scripts/aws-preseed.sh"
     ]
   },{
     "type": "file",
