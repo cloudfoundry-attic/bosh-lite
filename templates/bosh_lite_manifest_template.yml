@@ -56,7 +56,7 @@ properties:
     agent: {user: agent, password: agent-password}
     director: {user: director, password: director-password}
 
-  postgres:
+  postgres: &db
     user: bosh
     password: bosh-password
     host: 127.0.0.1
@@ -71,15 +71,9 @@ properties:
   director:
     name: "Bosh Lite Director"
     address: 127.0.0.1
-    port: 25555
     max_tasks: 100
     cpi_job: cpi
-    db:
-      user: bosh
-      password: bosh-password
-      host: 127.0.0.1
-      port: 5432
-      database: bosh
+    db: *db
     ssl:
       key: |
         -----BEGIN RSA PRIVATE KEY-----
@@ -132,7 +126,7 @@ properties:
 
   hm:
     http: {user: admin, password: admin-password, port: 25923}
-    director_account: {user: admin, password: admin-password}
+    director_account: {user: admin, password: admin}
     resurrector_enabled: true
 
   # cpi job template
