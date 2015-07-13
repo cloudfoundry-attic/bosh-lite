@@ -14,5 +14,11 @@ Vagrant.configure('2') do |config|
 
     # To turn off CF port forwarding, uncomment this line:
     # override.vm.provision :shell, id: "port_forwarding", run: "always", inline: "/bin/true"
+
+    # Needed for Vagrant 1.7 since it loads Vagrantfile before downloading the box
+    env = ENV.to_hash
+    v.access_key_id = env.fetch('BOSH_AWS_ACCESS_KEY_ID')
+    v.secret_access_key = env.fetch('BOSH_AWS_SECRET_ACCESS_KEY')
+    v.ami = ''
   end
 end
