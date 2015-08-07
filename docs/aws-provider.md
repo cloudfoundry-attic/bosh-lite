@@ -16,7 +16,7 @@ not, Vagrant will fail to use SSH to provision the instance further. This simila
 * Install Vagrant AWS provider
 
     ```
-    vagrant plugin install vagrant-aws
+    $ vagrant plugin install vagrant-aws
     ```
 
     Known working version: 0.4.1
@@ -35,14 +35,16 @@ AWS Environment Variables:
 |BOSH_LITE_PRIVATE_KEY          |path to private key matching keypair |~/.ssh/id_rsa_bosh|
 |[VPC only] BOSH_LITE_SUBNET_ID |AWS VPC subnet ID                    | |
 
-* **NOTE**: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if VM is deployed into the VPC, e.g. `sg-11764446`
+* **Note**: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if VM is deployed into the VPC, e.g. `sg-11764446`
+
+* **Note**: Currently bosh-lite AWS boxes only work in `us-east-1` region.
 
 * Make sure the EC2 security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
 
 * Run vagrant up with provider `aws`:
 
     ```
-    vagrant up --provider=aws
+    $ vagrant up --provider=aws
     ```
 
 * Find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config`.
@@ -52,6 +54,7 @@ AWS Environment Variables:
     ```
     $ bosh target <public_ip_of_the_box>
     Target set to `Bosh Lite Director'
+
     $ bosh login
     Your username: admin
     Enter password: *****
