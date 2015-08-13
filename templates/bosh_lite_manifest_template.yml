@@ -75,6 +75,9 @@ properties:
     cpi_job: cpi
     db: *db
 
+    # Compatibility with current garden networking manifest config
+    ignore_missing_gateway: true
+
     # From https://github.com/cppforlife/turbulence-release/blob/master/ca/generate.sh
     ssl:
       key: |
