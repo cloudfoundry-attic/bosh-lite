@@ -1,6 +1,6 @@
 {
   "variables": {
-    "base_ami": "ami-d2ff23ba",
+    "base_ami": "ami-6df05806",
     "region": "us-east-1",
     "build_number": "0"
   },
