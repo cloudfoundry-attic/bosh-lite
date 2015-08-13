@@ -22,6 +22,7 @@
     "scripts": [
       "scripts/quiet-tty-warning.sh",
       "scripts/update-sources-list.sh",
+      "scripts/update-ruby.sh",
       "scripts/update-trusty-kernel.sh",
       "scripts/kernel-cleanup.sh",
       "scripts/admin-sudoers.sh",
