@@ -97,7 +97,7 @@ Install the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) and run the
 ```
 # for AWS use public IP https://api.BOSH_LITE_PUBLIC_IP.xip.io
 # else, and if behind a proxy, exclude this domain by setting no_proxy
-# export no_proxy=192.168.50.4,xip.io
+# export no_proxy=xip.io,192.168.50.4
 cf api --skip-ssl-validation https://api.10.244.0.34.xip.io
 cf auth admin admin
 cf create-org me
