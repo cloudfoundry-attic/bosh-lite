@@ -15,7 +15,7 @@
     "guest_additions_sha256":"7b61f523db7ba75aebc4c7bb0cae2da92674fa72299e4a006c5c67517f7d786b",
     "virtualbox_version_file": ".vbox_version",
 
-    "headless": "true",
+    "headless": true,
 
     "boot_wait": "10s",
     "boot_command": [
@@ -50,7 +50,7 @@
     "ssh_password": "vagrant",
     "ssh_wait_timeout": "60m",
 
-    "disk_size": 80000,
+    "disk_size": 81920,
 
     "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
 
