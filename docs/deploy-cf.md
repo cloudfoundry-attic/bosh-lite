@@ -17,7 +17,7 @@
 
 Note: This process is an alternative to the manual steps below to deploy the latest version of CloudFoundry.
 
-* Run `./bin/provision_cf`
+* Run `./bin/provision_cf` from bosh-lite repository.
 
 ### Manual deploy
 
