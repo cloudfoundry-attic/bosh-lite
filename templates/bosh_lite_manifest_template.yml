@@ -8,6 +8,9 @@ releases:
 - name: bosh-warden-cpi
   version: WARDEN_RELEASE_VERSION
   url: file:///tmp/bosh-warden-cpi-release.tgz
+- name: garden-linux
+  version: GARDEN_LINUX_RELEASE_VERSION
+  url: file:///tmp/garden-linux-release.tgz
 
 networks:
 - {name: default, type: dynamic}
@@ -34,7 +37,7 @@ jobs:
   - {name: director, release: bosh}
   - {name: health_monitor, release: bosh}
   - {name: cpi, release: bosh-warden-cpi}
-  - {name: warden, release: bosh-warden-cpi}
+  - {name: garden, release: garden-linux}
 
 properties:
   ntp: ["0.us.pool.ntp.org"]
@@ -157,7 +160,6 @@ properties:
         -----END CERTIFICATE-----
 
   hm:
-    http: {user: admin, password: admin-password, port: 25923}
     director_account: {user: admin, password: admin}
     resurrector_enabled: true
 
@@ -176,10 +178,9 @@ properties:
           user: agent
           password: agent-password
 
-  # warden job template
-  warden:
+  # garden job template
+  garden:
     listen_network: tcp
     listen_address: 0.0.0.0:7777
-    network_pool: 10.244.0.0/16 # bosh-lite v1 used this pool
     disk_quota_enabled: false
-    kernel_network_tuning_enabled: false
+    allow_host_access: true

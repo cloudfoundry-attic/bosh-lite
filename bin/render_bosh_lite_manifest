@@ -2,6 +2,7 @@
 
 BOSH_RELEASE_VERSION=$1
 WARDEN_RELEASE_VERSION=$2
+GARDEN_LINUX_RELEASE_VERSION=$3
 
 function main() {
   template_path=$(dirname $0)/../templates/bosh_lite_manifest_template.yml
@@ -10,6 +11,7 @@ function main() {
 
   sed -e "s/BOSH_RELEASE_VERSION/$BOSH_RELEASE_VERSION/g" \
       -e "s/WARDEN_RELEASE_VERSION/$WARDEN_RELEASE_VERSION/g" \
+      -e "s/GARDEN_LINUX_RELEASE_VERSION/$GARDEN_LINUX_RELEASE_VERSION/g" \
       $template_path > $rendered_template_path
 
   if [ -z "$COMPILED_PACKAGE_CACHE_ENABLED" ]; then

@@ -8,6 +8,7 @@ inputs:
 - name: box-version
 - name: bosh-release
 - name: bosh-warden-cpi-release
+- name: garden-linux-release
 
 params:
   BOSH_AWS_ACCESS_KEY_ID:
