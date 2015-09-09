@@ -90,6 +90,10 @@
     "source": "bosh-warden-cpi-release.tgz",
 	  "destination": "/tmp/bosh-warden-cpi-release.tgz"
   },{
+    "type": "file",
+    "source": "garden-linux-release.tgz",
+    "destination": "/tmp/garden-linux-release.tgz"
+  },{
     "type": "packer-bosh",
     "assets_dir": "packer-bosh/assets",
     "manifest_path": "bosh_lite_manifest.yml",
