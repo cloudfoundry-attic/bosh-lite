@@ -1,8 +1,6 @@
 ---
 platform: linux
 
-tags: [hetzner]
-
 image: docker:///cloudfoundry/bosh-lite-ci
 
 inputs:

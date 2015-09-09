@@ -5,12 +5,11 @@ jobs:
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, trigger: false}
-    - {get: bosh-release, trigger: false}
-    - {get: bosh-warden-cpi-release, trigger: false}
-    - get: box-version
-      trigger: false
-      params: {bump: minor}
+    # Nothing is triggered by default
+    - get: bosh-lite
+    - get: bosh-release
+    - get: bosh-warden-cpi-release
+    - {get: box-version, params: {bump: minor}}
   - put: box-version
     params: {file: box-version/number}
 
@@ -19,41 +18,42 @@ jobs:
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, passed: [new-box]}
-    - {get: box-version, passed: [new-box]}
-    - {get: bosh-release, passed: [new-box]}
-    - {get: bosh-warden-cpi-release, passed: [new-box]}
+    - {get: bosh-lite, passed: [new-box], trigger: true}
+    - {get: box-version, passed: [new-box], trigger: true}
+    - {get: bosh-release, passed: [new-box], trigger: true}
+    - {get: bosh-warden-cpi-release, passed: [new-box], trigger: true}
   - task: build-box
     privileged: true
+    tags: [hetzner]
     file: bosh-lite/ci/build-box-local.yml
     config:
       params:
         BOSH_AWS_ACCESS_KEY_ID: {{aws_key_id}}
         BOSH_AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}
   - put: pipeline-bucket-vbox
-    params:
-      from: build-box/bosh-lite/bosh-lite-.*\.box
+    params: {from: build-box/bosh-lite/bosh-lite-.*\.box}
 
 - name: bats-vbox
   public: true
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, passed: [build-box-vbox]}
-    - {get: box-version, passed: [build-box-vbox]}
-    - {get: box, passed: [build-box-vbox], resource: pipeline-bucket-vbox}
+    - {get: bosh-lite, passed: [build-box-vbox], trigger: true}
+    - {get: box-version, passed: [build-box-vbox], trigger: true}
+    - {get: box, passed: [build-box-vbox], resource: pipeline-bucket-vbox, trigger: true}
   - task: build
     privileged: true
+    tags: [hetzner]
     file: bosh-lite/ci/bats-local.yml
 
 - name: build-box-aws
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, passed: [new-box]}
-    - {get: box-version, passed: [new-box]}
-    - {get: bosh-release, passed: [new-box]}
-    - {get: bosh-warden-cpi-release, passed: [new-box]}
+    - {get: bosh-lite, passed: [new-box], trigger: true}
+    - {get: box-version, passed: [new-box], trigger: true}
+    - {get: bosh-release, passed: [new-box], trigger: true}
+    - {get: bosh-warden-cpi-release, passed: [new-box], trigger: true}
   - task: build-box
     file: bosh-lite/ci/build-box-aws.yml
     config:
@@ -67,9 +67,9 @@ jobs:
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, passed: [build-box-aws]}
-    - {get: box-version, passed: [build-box-aws]}
-    - {get: box, passed: [build-box-aws], resource: pipeline-bucket-aws}
+    - {get: bosh-lite, passed: [build-box-aws], trigger: true}
+    - {get: box-version, passed: [build-box-aws], trigger: true}
+    - {get: box, passed: [build-box-aws], resource: pipeline-bucket-aws, trigger: true}
   - task: build
     privileged: true
     file: bosh-lite/ci/bats-aws.yml
@@ -83,12 +83,13 @@ jobs:
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, passed: [build-box-aws]}
-    - {get: box-version, passed: [build-box-aws]}
-    - {get: cf-release, trigger: false}
+    - {get: bosh-lite, passed: [build-box-aws], trigger: true}
+    - {get: box-version, passed: [build-box-aws], trigger: true}
+    - get: cf-release # No trigger, dont care about new cf versions
     - get: box
       passed: [build-box-aws]
       resource: pipeline-bucket-aws
+      trigger: true
   - task: build
     privileged: true
     file: bosh-lite/ci/deploy-cf-aws.yml
@@ -103,18 +104,15 @@ jobs:
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, passed: [bats-vbox, bats-aws, deploy-cf-aws]}
-    - {get: box-version, passed: [bats-vbox, bats-aws, deploy-cf-aws]}
-    - {get: pipeline-bucket-vbox, passed: [bats-vbox]}
-    - {get: pipeline-bucket-aws, passed: [bats-aws, deploy-cf-aws]}
+    - {get: bosh-lite, passed: [bats-vbox, bats-aws, deploy-cf-aws], trigger: true}
+    - {get: box-version, passed: [bats-vbox, bats-aws, deploy-cf-aws], trigger: true}
+    - {get: pipeline-bucket-vbox, passed: [bats-vbox], trigger: true}
+    - {get: pipeline-bucket-aws, passed: [bats-aws, deploy-cf-aws], trigger: true}
   - aggregate:
     - put: final-boxes-bucket-vbox
       params: {from: pipeline-bucket-vbox/.*.box}
     - put: final-boxes-bucket-aws
       params: {from: pipeline-bucket-aws/.*.box}
-  - aggregate:
-    - get: final-boxes-bucket-vbox
-    - get: final-boxes-bucket-aws
   - put: atlas-vbox
     params:
       version: final-boxes-bucket-vbox/version
@@ -131,8 +129,8 @@ jobs:
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, passed: [publish-boxes]}
-    - {get: box-version, passed: [publish-boxes]}
+    - {get: bosh-lite, passed: [publish-boxes], trigger: true}
+    - {get: box-version, passed: [publish-boxes], trigger: true}
   - task: update-box-version
     file: bosh-lite/ci/update-box-version.yml
   - aggregate:
