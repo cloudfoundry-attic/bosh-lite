@@ -4,7 +4,7 @@
 * Mailing lists:
   - [cf-bosh](https://lists.cloudfoundry.org/pipermail/cf-bosh) for asking BOSH usage and development questions
   - [cf-dev](https://lists.cloudfoundry.org/pipermail/cf-dev) for asking CloudFoundry questions
-* CI: http://lite.bosh-ci.cf-app.com:8080
+* CI: <https://main.bosh-ci.cf-app.com/pipelines/bosh-lite>
 * Roadmap: [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/956238) (label:bosh-lite)
 
 A local development environment for BOSH using Warden containers in a Vagrant box.
