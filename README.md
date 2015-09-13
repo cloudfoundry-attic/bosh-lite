@@ -15,7 +15,7 @@ This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH 
 
 ### Prepare the Environment
 
-1. Install latest version of `bosh_cli`.
+1. Install latest version of `bosh_cli`
 
    ```
    $ gem install bosh_cli
@@ -23,7 +23,7 @@ This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH 
 
    Refer to [BOSH CLI installation instructions](http://docs.cloudfoundry.org/bosh/bosh-cli.html) for more information and troubleshooting tips.
 
-1. Install [Vagrant](http://www.vagrantup.com/downloads.html).
+1. Install [Vagrant](http://www.vagrantup.com/downloads.html)
 
     Known working version:
 
@@ -32,7 +32,7 @@ This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH 
     Vagrant 1.6.3
     ```
 
-1. Clone this repository.
+1. Clone this repository
 
     ```
     $ cd ~/workspace
@@ -48,7 +48,7 @@ Installation instructions for different Vagrant providers:
 
 #### Using the Virtualbox Provider
 
-1. Install Virtualbox
+1. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 
     Known working version:
 
