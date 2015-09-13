@@ -25,10 +25,15 @@ export AWS_SECRET_ACCESS_KEY=$BOSH_AWS_SECRET_ACCESS_KEY
   $GARDEN_LINUX_RELEASE_VERSION \
   $box_version | tee output
 
-ami=`tail -2 output | grep -Po "ami-.*"`
-
 sleep 60
 
-aws ec2 modify-image-attribute \
-  --image-id $ami \
-  --launch-permission "{\"Add\": [{\"Group\":\"all\"}]}"
+# Example:
+# ap-southeast-2: ami-05baf53f
+# us-west-1: ami-31cb0e75
+region_to_amis=`tail -20 output | grep ': ami-'`
+
+for region_to_ami in ${region_to_amis//: /=}; do
+  region=$(echo $region_to_ami | cut -f1 -d=)
+  ami=$(echo $region_to_ami | cut -f2 -d=)
+  AWS_DEFAULT_REGION=$region aws ec2 modify-image-attribute --image-id $ami --launch-permission "{\"Add\": [{\"Group\":\"all\"}]}"
+done
