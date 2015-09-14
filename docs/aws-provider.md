@@ -2,14 +2,11 @@
 
 ### EC2 Classic or VPC
 
-The default mode provisions the BOSH-lite VM in EC2 classic. If you set the `BOSH_LITE_SUBNET_ID` environment
-variable, vagrant will provision the BOSH Lite VM in that subnet in whichever VPC it lives.
+The default mode provisions the BOSH-lite VM in EC2 classic. If you set the `BOSH_LITE_SUBNET_ID` environment variable, vagrant will provision the BOSH Lite VM in that subnet in whichever VPC it lives.
 
-When deploying to a VPC, the security group must be specified as an ID of the form `sg-abcd1234`, as
-opposed to a name like `default`.
+When deploying to a VPC, the security group must be specified as an ID of the form `sg-abcd1234`, as opposed to a name like `default`.
 
-Note: You can only deploy into a VPC if the instance can be accessed by the machine doing the deploying. If
-not, Vagrant will fail to use SSH to provision the instance further. This similarly applies to steps 7-9, below.
+Note: You can only deploy into a VPC if the instance can be accessed by the machine doing the deploying. If not, Vagrant will fail to use SSH to provision the instance further. This similarly applies to steps 7-9, below.
 
 ### Steps
 
@@ -21,9 +18,7 @@ not, Vagrant will fail to use SSH to provision the instance further. This simila
 
     Known working version: 0.4.1
 
-* Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values. If you've followed along with other documentation such as [these steps to deploy Cloud Foundry on AWS](http://docs.cloudfoundry.org/deploying/ec2/bootstrap-aws-vpc.html), you may simply need to source your `bosh_environment` file.
-
-AWS Environment Variables:
+* Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values. You may have to set additional environment variables listed below depending on your environment.
 
 |Name|Description|Default|
 |---|---|---|
@@ -35,11 +30,9 @@ AWS Environment Variables:
 |BOSH_LITE_PRIVATE_KEY          |path to private key matching keypair |~/.ssh/id_rsa_bosh|
 |[VPC only] BOSH_LITE_SUBNET_ID |AWS VPC subnet ID                    | |
 
-* **Note**: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if VM is deployed into the VPC, e.g. `sg-11764446`
+Note: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if VM is deployed into the VPC, e.g. `sg-11764446`
 
-* **Note**: Currently bosh-lite AWS boxes only work in `us-east-1` region.
-
-* Make sure the EC2 security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
+* Make sure the security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
 
 * Run vagrant up with provider `aws`:
 
@@ -61,24 +54,30 @@ AWS Environment Variables:
     Logged in as `admin'
     ```
 
-* As part of vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another ip (the HAProxy). These rules are cleared on restart. In case of restart they can be created by running `vagrant provision`.
+* As part of Vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another IP (the HAProxy). These rules are cleared on restart. In case of restart they can be created by running `vagrant provision`.
 
 ### Customizing AWS provisioning
 
 The AWS bosh-lite VM will echo its private IP on provisioning so that you can target it. You can disable this by uncommenting the `public_ip` provisioner in the `aws` provider.
 
 ```
-  config.vm.provider :aws do |v, override|
-    # To turn off public IP echoing, uncomment this lines:
-    # override.vm.provision :shell, id: "public_ip", run: "always", inline: "/bin/true"
-  end
+config.vm.provider :aws do |v, override|
+  override.vm.provision :shell, id: "public_ip", run: "always", inline: "/bin/true"
+end
 ```
 
 Port forwarding on HTTP/S ports is set up for the CF Cloud Controller on the AWS VM. If you are not going to deploy Cloud Contorller (or just don't want this), you can disable this by uncommenting the `port_forwarding` provisioner in the `aws` provider.
 
 ```
-  config.vm.provider :aws do |v, override|
-    # To turn off CF port forwarding, uncomment this line:
-    # override.vm.provision :shell, id: "port_forwarding", run: "always", inline: "/bin/true"
-  end
+config.vm.provider :aws do |v, override|
+  override.vm.provision :shell, id: "port_forwarding", run: "always", inline: "/bin/true"
+end
+```
+
+AWS boxes are published for the following regions: us-east-1, us-west-1, us-west-2, eu-west-1, ap-southeast-1, ap-southeast-2, ap-northeast-1, sa-east-1. Default region is us-east-1. To use a different region add `region` configuration to the `aws` provider.
+
+```
+config.vm.provider :aws do |v, override|
+  v.region = "us-west-2"
+end
 ```
