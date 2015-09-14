@@ -35,5 +35,5 @@ region_to_amis=`tail -20 output | grep ': ami-'`
 for region_to_ami in ${region_to_amis//: /=}; do
   region=$(echo $region_to_ami | cut -f1 -d=)
   ami=$(echo $region_to_ami | cut -f2 -d=)
-  AWS_DEFAULT_REGION=$region aws ec2 modify-image-attribute --image-id $ami --launch-permission "{\"Add\": [{\"Group\":\"all\"}]}"
+  aws ec2 modify-image-attribute --region $region --image-id $ami --launch-permission "{\"Add\": [{\"Group\":\"all\"}]}"
 done
