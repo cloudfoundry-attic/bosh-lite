@@ -11,6 +11,15 @@ A local development environment for BOSH using Warden containers in a Vagrant bo
 
 This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
 
+1. [Install BOSH Lite](#install-bosh-lite)  
+    a. [Prepare the Environment](#prepare-the-environment)  
+    b. [Install and Boot a Virtual Machine](#install-and-boot-a-virtual-machine)  
+    c. [Customizing the Local VM IP](#customizing-the-local-vm-ip)  
+2. [Deploy Cloud Foundry](#deploy-cloud-foundry)
+3. [Upgrading the BOSH Lite VM](#upgrading-the-bosh-lite-vm)
+4. [Troubleshooting](#troubleshooting)
+5. [Miscellaneous](#miscellaneous)
+
 ## Install BOSH Lite
 
 ### Prepare the Environment
@@ -59,7 +68,7 @@ Installation instructions for different Vagrant providers:
 
     Note: If you encounter problems with VirtualBox networking try installing [Oracle VM VirtualBox Extension Pack](https://www.virtualbox.org/wiki/Downloads) as suggested by [Issue 202](https://github.com/cloudfoundry/bosh-lite/issues/202).
 
-1. Start Vagrant from the base directory of this repository, which contains the Vagrantfile. The most recent version of the BOSH Lite boxes will be downloaded by default from the Vagrant Cloud when you run `vagrant up`. If you have already downloaded an older version you will be warned that your version is out of date. You can use the latest version by running `vagrant box update`.
+1. Start Vagrant from the base directory of this repository, which contains the Vagrantfile. The most recent version of the BOSH Lite boxes will be downloaded by default from the Vagrant Cloud when you run `vagrant up`. If you have already downloaded an older version you will be warned that your version is out of date.
 
     ```
     $ vagrant up --provider=virtualbox
@@ -86,9 +95,9 @@ Installation instructions for different Vagrant providers:
     $ bin/add-route
     ```
 
-#### Customizing the local VM IP
+### Customizing the Local VM IP
 
-The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4`. To change this IP, uncomment the `private_network` line in the appropriate provider and change the IP address.
+The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4`. You can optionally change this IP, uncomment the `private_network` line in the appropriate provider and change the IP address.
 
 ```
   config.vm.provider :virtualbox do |v, override|
@@ -101,12 +110,15 @@ The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4
 
 * See [deploying Cloud Foundry documentation](docs/deploy-cf.md)
 
-## Misc
+## Upgrading the BOSH Lite VM
 
-* [bosh cck documentation](docs/bosh-cck.md) for restoring deployments after VM reboot
-* [bosh ssh documentation](docs/bosh-ssh.md) for SSH into deployment jobs
-* [Offline documentation](docs/offline-dns.md) to configure BOSH lite firewall rules
-* [xip.io](http://xip.io) to access local IPs via DNS
+If you wish to upgrade the BOSH Lite VM, you can run the following commands from the root of the `bosh-lite` directory. Make sure you have the latest version of this repository checked out. WARNING: these operations are destructive, and essentially amount to starting from scratch.
+
+```
+$ vagrant box update
+$ vagrant destroy
+$ vagrant up --provider=DESIRED_PROVIDER
+```
 
 ## Troubleshooting
 
@@ -121,6 +133,10 @@ The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4
 
   2. Removing code block as described [here](https://github.com/mitchellh/vagrant/issues/3589#issuecomment-42255427)
 
-## Manage your local boxes
+## Miscellaneous
 
-We publish pre-built Vagrant boxes on Amazon S3. It is recommended to use the latest boxes. To do so get a latest copy of the Vagrantfile from this repo and run `vagrant up`.
+* [bosh cck documentation](docs/bosh-cck.md) for restoring deployments after VM reboot
+* [bosh ssh documentation](docs/bosh-ssh.md) for SSH into deployment jobs
+* [Offline documentation](docs/offline-dns.md) to configure BOSH lite firewall rules
+* [xip.io](http://xip.io) to access local IPs via DNS
+
