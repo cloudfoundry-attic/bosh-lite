@@ -2,7 +2,7 @@
 
 First, download and install Packer from <http://www.packer.io/docs/installation.html>.
 
-Binaries for creating VirtualBox, VMWare Fusion, and Amazon EC2 boxes are provided in bin/.
+Binaries for creating VirtualBox, VMWare Fusion, and Amazon EC2 boxes are provided in `bin/`.
 
 Binary               | Host Environment
 -------------------- | ----------------
@@ -14,12 +14,15 @@ Each binary takes a required set of arguments:
 
 Argument               | Purpose
 ---------------------- | -------
-bosh_release_version   | the BOSH release manifest version for the specific BOSH release
-warden_release_version | the BOSH release manifest version for the BOSH Warden CPI release
+bosh_release_version   | the BOSH release manifest version for the bosh release
+warden_release_version | the BOSH release manifest version for the bosh-warden-cpi release
+garden_release_version | the BOSH release manifest version for the garden-linux release
 
-Example: `bin/build-vbox 100 6`
+Example: `bin/build-vbox 206 27 0.306.0`
 
 Each binary also takes an optional build number, to be included in the output filename, defaults to 0.
+
+See `ci/build-box-local.sh` and `ci/build-box-aws.sh` for an example how these scripts are used in CI.
 
 ### Amazon EC2 Only
 
