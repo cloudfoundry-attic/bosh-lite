@@ -57,6 +57,8 @@ Installation instructions for different Vagrant providers:
 
 #### Using the Virtualbox Provider
 
+1. Make sure your machine has at least 8GB RAM, and 100GB free disk space. Smaller configurations may work.
+
 1. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 
     Known working version:
