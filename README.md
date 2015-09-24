@@ -11,10 +11,10 @@ A local development environment for BOSH using Warden containers in a Vagrant bo
 
 This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
 
-1. [Install BOSH Lite](#install-bosh-lite)  
-    a. [Prepare the Environment](#prepare-the-environment)  
-    b. [Install and Boot a Virtual Machine](#install-and-boot-a-virtual-machine)  
-    c. [Customizing the Local VM IP](#customizing-the-local-vm-ip)  
+1. [Install BOSH Lite](#install-bosh-lite)
+    a. [Prepare the Environment](#prepare-the-environment)
+    b. [Install and Boot a Virtual Machine](#install-and-boot-a-virtual-machine)
+    c. [Customizing the Local VM IP](#customizing-the-local-vm-ip)
 2. [Deploy Cloud Foundry](#deploy-cloud-foundry)
 3. [Upgrading the BOSH Lite VM](#upgrading-the-bosh-lite-vm)
 4. [Troubleshooting](#troubleshooting)
@@ -141,4 +141,4 @@ $ vagrant up --provider=DESIRED_PROVIDER
 * [bosh ssh documentation](docs/bosh-ssh.md) for SSH into deployment jobs
 * [Offline documentation](docs/offline-dns.md) to configure BOSH lite firewall rules
 * [xip.io](http://xip.io) to access local IPs via DNS
-
+* [Dev documentation](docs/dev.md) to find out how to build custom bosh-lite boxes
