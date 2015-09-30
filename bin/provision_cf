@@ -11,7 +11,7 @@ CF_DIR="${WORKSPACE_DIR}/cf-release"
 main() {
   fetch_stemcell
   upload_stemcell
-  build_manifest
+  build_manifest $@
   deploy_release
 }
 
@@ -61,4 +61,4 @@ bosh_lite_ip() {
   echo $ip
 }
 
-main
+main $@
