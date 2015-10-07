@@ -15,11 +15,11 @@ cp bosh-release/*.tgz            bosh-lite/bosh-release.tgz
 cp bosh-warden-cpi-release/*.tgz bosh-lite/bosh-warden-cpi-release.tgz
 cp garden-linux-release/*.tgz    bosh-lite/garden-linux-release.tgz
 
-cd bosh-lite
+cd bosh-lite/packer
 
 enable_local_vbox
 
-./packer/build-$BOX_TYPE \
+./build-$BOX_TYPE \
 	$BOSH_RELEASE_VERSION \
 	$WARDEN_RELEASE_VERSION \
 	$GARDEN_LINUX_RELEASE_VERSION \

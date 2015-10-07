@@ -14,12 +14,12 @@ cp bosh-release/*.tgz            bosh-lite/bosh-release.tgz
 cp bosh-warden-cpi-release/*.tgz bosh-lite/bosh-warden-cpi-release.tgz
 cp garden-linux-release/*.tgz    bosh-lite/garden-linux-release.tgz
 
-cd bosh-lite
+cd bosh-lite/packer
 
 export AWS_ACCESS_KEY_ID=$BOSH_AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY=$BOSH_AWS_SECRET_ACCESS_KEY
 
-./packer/build-aws \
+./build-aws \
   $BOSH_RELEASE_VERSION \
   $WARDEN_RELEASE_VERSION \
   $GARDEN_LINUX_RELEASE_VERSION \
