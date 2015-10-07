@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -xe
+set -e -x
 
 STEMCELL_SOURCE=http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden
 STEMCELL_FILE=latest-bosh-stemcell-warden.tgz
@@ -30,9 +30,7 @@ upload_stemcell() {
 build_manifest() {
   cd $CF_DIR
   ./scripts/update
-
   ./scripts/generate-bosh-lite-dev-manifest "$@"
-
   bosh status
 }
 
