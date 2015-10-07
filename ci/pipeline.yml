@@ -33,7 +33,7 @@ jobs:
         BOSH_AWS_ACCESS_KEY_ID: {{aws_key_id}}
         BOSH_AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}
   - put: pipeline-bucket-vbox
-    params: {from: build-box/bosh-lite/bosh-lite-.*\.box}
+    params: {from: build-box/bosh-lite/packer/bosh-lite-.*\.box}
 
 - name: bats-vbox
   public: true
@@ -64,7 +64,7 @@ jobs:
         BOSH_AWS_ACCESS_KEY_ID: {{aws_key_id}}
         BOSH_AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}
   - put: pipeline-bucket-aws
-    params: {from: build-box/bosh-lite/bosh-lite-.*\.box}
+    params: {from: build-box/bosh-lite/packer/bosh-lite-.*\.box}
 
 - name: bats-aws
   serial: true
