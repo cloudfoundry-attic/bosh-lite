@@ -19,7 +19,7 @@ cd bosh-lite
 
 enable_local_vbox
 
-./bin/build-$BOX_TYPE \
+./packer/build-$BOX_TYPE \
 	$BOSH_RELEASE_VERSION \
 	$WARDEN_RELEASE_VERSION \
 	$GARDEN_LINUX_RELEASE_VERSION \

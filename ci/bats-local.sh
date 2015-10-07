@@ -16,7 +16,7 @@ enable_local_vbox
 
 private_net_ip=${PRIVATE_NETWORK_IP:-192.168.50.4}
 
-sed -e "s/BOSH_LITE_CANDIDATE_BUILD_NUMBER/$box_version/" ci/Vagrantfile.$BOX_TYPE > Vagrantfile
+sed -e "s/BOSH_LITE_CANDIDATE_BUILD_NUMBER/$box_version/" packer/templates/Vagrantfile.$BOX_TYPE > Vagrantfile
 
 sed -i'' -e "s/PRIVATE_NETWORK_IP/$private_net_ip/" Vagrantfile
 cat Vagrantfile

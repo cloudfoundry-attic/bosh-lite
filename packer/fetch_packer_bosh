@@ -1,7 +1,6 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname $0 )" && pwd )"
-packer_bosh_dir=${DIR}/../packer-bosh
+packer_bosh_dir="$( cd "$( dirname $0 )" && pwd )/packer-bosh"
 
 mkdir -p $packer_bosh_dir
 
