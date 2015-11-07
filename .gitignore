@@ -1,6 +1,7 @@
 .idea
 .vagrant
 *.box
+.envrc
 
 manifests/cf-manifest.yml
 bosh_lite_manifest.yml
@@ -8,11 +9,10 @@ bosh_lite_manifest.yml
 latest-bosh-stemcell-warden.*
 bosh-stemcell-*-warden-*
 
-/output-virtualbox-iso/
-/output-vmware-iso/
-/packer_cache/
-/pkg/
-/packer-bosh/
 /tmp/compiled_package_cache/*
 
-.envrc
+output-virtualbox-iso
+output-vmware-iso
+packer_cache
+packer-bosh
+pkg

@@ -16,8 +16,8 @@ This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH 
     b. [Install and Boot a Virtual Machine](#install-and-boot-a-virtual-machine)
     c. [Customizing the Local VM IP](#customizing-the-local-vm-ip)
 2. [Deploy Cloud Foundry](#deploy-cloud-foundry)
-3. [Upgrading the BOSH Lite VM](#upgrading-the-bosh-lite-vm)
-4. [Troubleshooting](#troubleshooting)
+3. [Troubleshooting](#troubleshooting)
+4. [Upgrading the BOSH Lite VM](#upgrading-the-bosh-lite-vm)
 5. [Miscellaneous](#miscellaneous)
 
 ## Install BOSH Lite
@@ -27,7 +27,7 @@ This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH 
 1. Install latest version of `bosh_cli`
 
    ```
-   $ gem install bosh_cli
+   $ gem install bosh_cli --no-ri --no-rdoc
    ```
 
    Refer to [BOSH CLI installation instructions](http://docs.cloudfoundry.org/bosh/bosh-cli.html) for more information and troubleshooting tips.
@@ -76,6 +76,8 @@ Installation instructions for different Vagrant providers:
     $ vagrant up --provider=virtualbox
     ```
 
+1. When you are not using your VM we recommmend to *Pause* the VM from the VirtualBox UI (or use `vagrant suspend`), so that VM can be later simply resumed after your machine goes to sleep or gets rebooted. Otherwise, your VM will be halted by the OS and you will have to recreate previously deployed software.
+
 1. Target the BOSH Director. When prompted to log in, use admin/admin.
 
     ```
@@ -112,6 +114,10 @@ The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4
 
 See [deploying Cloud Foundry documentation](http://docs.cloudfoundry.org/deploying/boshlite/deploy_cf_boshlite.html) for detailed instructions. Alternatively run `./bin/provision_cf` from this repository.
 
+## Troubleshooting
+
+* [See troubleshooting doc](docs/troubleshooting.md) for solutions to common problems
+
 ## Upgrading the BOSH Lite VM
 
 If you wish to upgrade the BOSH Lite VM, you can run the following commands from the root of the `bosh-lite` directory. Make sure you have the latest version of this repository checked out. WARNING: these operations are destructive, and essentially amount to starting from scratch.
@@ -121,19 +127,6 @@ $ vagrant box update
 $ vagrant destroy
 $ vagrant up --provider=DESIRED_PROVIDER
 ```
-
-## Troubleshooting
-
-* Starting over again is often the quickest path to success; you can use `vagrant destroy` from the base directory of this project to remove the VM.
-* Another option is to use `bosh cleanup`. This will clean up the blob store to free up some space on the virtual machine.
-* There is an issue (discussed [here](https://groups.google.com/a/cloudfoundry.org/forum/m/#!topic/bosh-users/n2qYrpPUJaE) and [here](https://github.com/mitchellh/vagrant/issues/3589)) with Vagrant permissions running on OS X Mavericks 10.9.2+ (after applying [Apple's Security Update 2014-002](http://support.apple.com/en-us/HT202966)). To diagnose, run `vagrant up --debug` and see if there is an error mentioning `Symbol not found: _iconv`. To resolve try one of the two
-  1. Purging vagrant
-
-     Purging ~/.vagrant.d
-
-     Reinstalling vagrant
-
-  2. Removing code block as described [here](https://github.com/mitchellh/vagrant/issues/3589#issuecomment-42255427)
 
 ## Miscellaneous
 

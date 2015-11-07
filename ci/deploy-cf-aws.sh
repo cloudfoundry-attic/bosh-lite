@@ -10,7 +10,7 @@ box_file=$(ls $PWD/box/*.box)
 
 cd bosh-lite
 
-sed -e "s/BOSH_LITE_CANDIDATE_BUILD_NUMBER/$box_version/" ci/Vagrantfile.aws > Vagrantfile
+sed -e "s/BOSH_LITE_CANDIDATE_BUILD_NUMBER/$box_version/" packer/templates/Vagrantfile.aws > Vagrantfile
 cat Vagrantfile
 
 set_up_vagrant_private_key
@@ -20,6 +20,8 @@ export BOSH_LITE_NAME=deploy-cf-aws-v${box_version}
 box_add_and_vagrant_up $box_file aws aws $box_version
 
 # todo remove installation
+gem install net-ssh -v 2.10.0.beta2
+gem install fog-google -v 0.1.0
 gem install bosh_cli --no-ri --no-rdoc
 
 # Install spiff

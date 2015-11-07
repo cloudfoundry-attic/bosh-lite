@@ -5,9 +5,9 @@ WARDEN_RELEASE_VERSION=$2
 GARDEN_LINUX_RELEASE_VERSION=$3
 
 function main() {
-  template_path=$(dirname $0)/../templates/bosh_lite_manifest_template.yml
+  template_path=$(dirname $0)/templates/bosh_lite_manifest_template.yml
 
-  rendered_template_path=$(dirname $0)/../bosh_lite_manifest.yml
+  rendered_template_path=$(dirname $0)/bosh_lite_manifest.yml
 
   sed -e "s/BOSH_RELEASE_VERSION/$BOSH_RELEASE_VERSION/g" \
       -e "s/WARDEN_RELEASE_VERSION/$WARDEN_RELEASE_VERSION/g" \

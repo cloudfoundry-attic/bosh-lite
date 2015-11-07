@@ -11,7 +11,7 @@ box_file=$(ls $PWD/box/*.box)
 
 cd bosh-lite
 
-sed -e "s/BOSH_LITE_CANDIDATE_BUILD_NUMBER/$box_version/" ci/Vagrantfile.aws > Vagrantfile
+sed -e "s/BOSH_LITE_CANDIDATE_BUILD_NUMBER/$box_version/" packer/templates/Vagrantfile.aws > Vagrantfile
 cat Vagrantfile
 
 set_up_vagrant_private_key

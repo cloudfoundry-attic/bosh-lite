@@ -36,7 +36,7 @@ jobs:
   - {name: postgres, release: bosh}
   - {name: director, release: bosh}
   - {name: health_monitor, release: bosh}
-  - {name: cpi, release: bosh-warden-cpi}
+  - {name: warden_cpi, release: bosh-warden-cpi}
   - {name: garden, release: garden-linux}
 
 properties:
@@ -75,7 +75,7 @@ properties:
     name: "Bosh Lite Director"
     address: 127.0.0.1
     max_tasks: 100
-    cpi_job: cpi
+    cpi_job: warden_cpi
     db: *db
 
     # Compatibility with current garden networking manifest config
@@ -164,7 +164,7 @@ properties:
     resurrector_enabled: true
 
   # cpi job template
-  cpi:
+  warden_cpi:
     host_ip: 10.254.50.4
     warden:
       connect_network: tcp

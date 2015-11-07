@@ -6,7 +6,7 @@ GARDEN_LINUX_RELEASE_VERSION=$3
 BOSH_LITE_CANDIDATE_BUILD_NUMBER=$4 # optional
 
 function packer_build() {
-  template_path=$(dirname $0)/../templates/vmware.json
+  template_path=$(dirname $0)/templates/virtualbox.json
 
   args=""
 
