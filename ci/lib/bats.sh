@@ -26,10 +26,10 @@ run_bats() {
 
   bundle exec bosh -c $config_file -n target $director_ip
 
-  if [ -z "$BAT_STEMCELL" ]; then
-    wget -nv -N https://s3.amazonaws.com/bosh-jenkins-artifacts/bosh-stemcell/warden/latest-bosh-stemcell-warden.tgz
-    export BAT_STEMCELL=`pwd`/latest-bosh-stemcell-warden.tgz
-  fi
+  # todo temporarily point to exact stemcell until we can certify them
+  wget -nv -N https://s3.amazonaws.com/bosh-warden-stemcells2/bosh-stemcell-3126-warden-boshlite-ubuntu-trusty-go_agent.tgz
+
+  export BAT_STEMCELL=`pwd`/bosh-stemcell-*.tgz
 
   bundle exec bosh -c $config_file -u admin -p admin -n upload stemcell $BAT_STEMCELL
 
