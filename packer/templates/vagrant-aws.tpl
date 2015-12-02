@@ -65,9 +65,10 @@ fi
 
   port_forward_script = <<-IP_SCRIPT
 local_ip=`curl -s #{meta_data_local_ip_url}`
-echo "Setting up port forwarding for the CF Cloud Controller..."
+echo "Setting up port forwarding for CF..."
 sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 80 -j DNAT --to 10.244.0.34:80
 sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 443 -j DNAT --to 10.244.0.34:443
+sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 2222 -j DNAT --to 10.244.0.34:2222
 sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 4443 -j DNAT --to 10.244.0.34:4443
   IP_SCRIPT
 
