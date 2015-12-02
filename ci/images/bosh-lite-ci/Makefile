@@ -1,4 +1,4 @@
-TAG?=dev
+TAG?=latest
 
 all: build
 
