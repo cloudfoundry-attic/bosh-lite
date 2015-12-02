@@ -1,7 +1,7 @@
 ---
 platform: linux
 
-image: docker:///cloudfoundry/bosh-lite-ci
+image: docker:///bosh/bosh-lite-ci
 
 inputs:
 - name: box-version

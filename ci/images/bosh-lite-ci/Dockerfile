@@ -3,10 +3,10 @@ FROM concourse/buildbox-ci
 RUN apt-get -y update
 
 # install ruby
-RUN apt-get install -y ruby ruby-dev ruby-bundler
+RUN apt-get install -y ruby ruby-dev
 
 # bundler
-RUN apt-get install -y postgresql-server-dev-9.3
+RUN apt-get install -y postgresql-server-dev-9.4
 RUN apt-get install -y libsqlite3-dev
 RUN apt-get install -y libmysqlclient-dev
 RUN gem install bundler
@@ -36,7 +36,7 @@ RUN apt-get -y install rsync
 RUN apt-get install -y libxslt-dev libxml2-dev
 
 # vagrant
-RUN wget  --progress bar:force https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.deb -O /tmp/vagrant.deb
+RUN wget --progress bar:force https://releases.hashicorp.com/vagrant/1.6.5/vagrant_1.6.5_x86_64.deb -O /tmp/vagrant.deb
 RUN dpkg -i /tmp/vagrant.deb
 
 # chefdk for vagrant up
