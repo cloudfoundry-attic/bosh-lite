@@ -1,7 +1,7 @@
 ---
 platform: linux
 
-image: docker:///bosh/bosh-lite-ci
+image: docker:///concourse/buildbox-ci
 
 inputs:
 - name: bosh-lite
