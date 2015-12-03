@@ -3,7 +3,7 @@ TAG?=latest
 all: build
 
 push: build
-	docker push bosh/bosh-lite-ci:${TAG}
+	docker push cloudfoundry/bosh-lite-ci:${TAG}
 
 build:
-	docker build -t bosh/bosh-lite-ci:${TAG} .
+	docker build -t cloudfoundry/bosh-lite-ci:${TAG} .
