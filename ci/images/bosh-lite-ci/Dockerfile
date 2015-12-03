@@ -36,7 +36,7 @@ RUN apt-get -y install rsync
 RUN apt-get install -y libxslt-dev libxml2-dev
 
 # vagrant
-RUN wget --progress bar:force https://releases.hashicorp.com/vagrant/1.6.5/vagrant_1.6.5_x86_64.deb -O /tmp/vagrant.deb
+RUN wget --progress bar:force https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4_x86_64.deb -O /tmp/vagrant.deb
 RUN dpkg -i /tmp/vagrant.deb
 
 # chefdk for vagrant up
@@ -46,8 +46,6 @@ RUN dpkg -i chefdk_0.4.0-1_amd64.deb
 # vagrant plugins for building stemcells
 ENV HOME /root
 RUN vagrant plugin install vagrant-aws --plugin-version 0.5.0
-RUN vagrant plugin install vagrant-berkshelf
-RUN vagrant plugin install vagrant-omnibus
 
 # for making calls to VagrantCloud
 RUN apt-get -y install curl
