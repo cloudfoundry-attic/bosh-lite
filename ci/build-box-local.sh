@@ -2,8 +2,6 @@
 
 set -e -x
 
-$(dirname $0)/lib/tmp-docker-img-hack.sh
-
 source $(dirname $0)/lib/global-env.sh
 source $(dirname $0)/lib/vbox.sh
 
