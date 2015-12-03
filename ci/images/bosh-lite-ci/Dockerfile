@@ -49,3 +49,8 @@ RUN vagrant plugin install vagrant-aws --plugin-version 0.5.0
 
 # for making calls to VagrantCloud
 RUN apt-get -y install curl
+
+RUN apt-get -y install sudo
+
+# for making Virtualbox's hostonlyifs work since it shells to ifconfig
+RUN apt-get -y install net-tools
