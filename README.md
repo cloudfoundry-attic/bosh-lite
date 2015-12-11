@@ -123,6 +123,7 @@ See [deploying Cloud Foundry documentation](http://docs.cloudfoundry.org/deployi
 If you wish to upgrade the BOSH Lite VM, you can run the following commands from the root of the `bosh-lite` directory. Make sure you have the latest version of this repository checked out. WARNING: these operations are destructive, and essentially amount to starting from scratch.
 
 ```
+$ git pull
 $ vagrant box update
 $ vagrant destroy
 $ vagrant up --provider=DESIRED_PROVIDER
