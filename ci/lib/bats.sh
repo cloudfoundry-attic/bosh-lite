@@ -66,7 +66,10 @@ EOF
 
 install_bats_prereqs() {
   sudo apt-get -y update
-  sudo apt-get install -y git libmysqlclient-dev libpq-dev libsqlite3-dev || sudo apt-get install -f
+  for i in {1..50}; do
+    sudo apt-get install -y git && break || sleep 1;
+  done
+  sudo apt-get install -y libmysqlclient-dev libpq-dev libsqlite3-dev
   sudo gem install bundler --no-ri --no-rdoc
 }
 
