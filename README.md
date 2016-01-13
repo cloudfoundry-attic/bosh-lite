@@ -1,6 +1,6 @@
 # BOSH Lite
 
-* IRC: [`#bosh` on freenode](http://webchat.freenode.net/?channels=bosh)
+* Slack: #bosh on <https://slack.cloudfoundry.org>
 * Mailing lists:
   - [cf-bosh](https://lists.cloudfoundry.org/pipermail/cf-bosh) for asking BOSH usage and development questions
   - [cf-dev](https://lists.cloudfoundry.org/pipermail/cf-dev) for asking CloudFoundry questions
