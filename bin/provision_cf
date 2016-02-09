@@ -53,7 +53,7 @@ get_ip_from_vm_ifconfig() {
 bosh_lite_ip() {
   ip=$(get_ip_from_vagrant_ssh_config)
   # Local VMs show up as 127.0.0.1 in ssh-config so we need to find their IP elsewhere
-  if [ $ip = "127.0.0.1" ]; then
+  if [ "$ip" == "127.0.0.1" ]; then
     ip=$(get_ip_from_vm_ifconfig)
   fi
   echo $ip
