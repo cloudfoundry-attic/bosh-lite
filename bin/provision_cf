@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-set -e -x
+set -e
 
-STEMCELL_SOURCE=http://bosh-jenkins-artifacts.s3.amazonaws.com/bosh-stemcell/warden
-STEMCELL_FILE=latest-bosh-stemcell-warden.tgz
+STEMCELL_SOURCE=https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
+STEMCELL_FILE=latest-bosh-lite-stemcell-warden.tgz
 WORKSPACE_DIR="$(cd $(dirname ${BASH_SOURCE[0]})/../../ && pwd)"
 BOSH_LITE_DIR="${WORKSPACE_DIR}/bosh-lite"
 CF_DIR="${WORKSPACE_DIR}/cf-release"
@@ -16,18 +16,34 @@ main() {
 }
 
 fetch_stemcell() {
+  # check if we already have a stemcell and how old it is
+  # if its older than 7 days. Lets get it again
+  if [[ -e $STEMCELL_FILE ]]; then
+    echo "Checking for latest stemcell"
+    DATEFILE=$BOSH_LITE_DIR/7daysago
+    touch -t "$(date -v -7d +%Y%m%d%H%M)" ${DATEFILE}
+    if [ ${STEMCELL_FILE} -ot ${DATEFILE} ]; then
+      echo "Removing stemcells older than 7 days"
+      rm -f $STEMCELL_FILE
+    fi
+    rm -f $DATEFILE
+  fi
+
   if [[ ! -e $STEMCELL_FILE ]]; then
-    curl --progress-bar "${STEMCELL_SOURCE}/${STEMCELL_FILE}" > "$STEMCELL_FILE"
+    echo "Fetching stemcell from $STEMCELL_SOURCE"
+    curl -L --progress-bar -o $STEMCELL_FILE $STEMCELL_SOURCE
   fi
 }
 
 upload_stemcell() {
-  ip=$(bosh_lite_ip)
+  bosh_lite_ip ip
   bosh -n target $ip
+  echo "Uploading stemcell from $STEMCELL_FILE"
   bosh -n -u admin -p admin upload stemcell --skip-if-exists $STEMCELL_FILE
 }
 
 build_manifest() {
+  echo "Generating bosh lite manifest"
   cd $CF_DIR
   ./scripts/update
   ./scripts/generate-bosh-lite-dev-manifest "$@"
@@ -51,12 +67,15 @@ get_ip_from_vm_ifconfig() {
 }
 
 bosh_lite_ip() {
+  echo "Acquiring bosh-lite IP"
   ip=$(get_ip_from_vagrant_ssh_config)
   # Local VMs show up as 127.0.0.1 in ssh-config so we need to find their IP elsewhere
   if [ "$ip" == "127.0.0.1" ]; then
     ip=$(get_ip_from_vm_ifconfig)
   fi
-  echo $ip
+  echo "Bosh IP is: $ip"
+  local  result=$1
+  eval $result="'$ip'"
 }
 
 main $@
