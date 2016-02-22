@@ -24,7 +24,7 @@ Related issue: <https://github.com/cloudfoundry/bosh-lite/issues/296>
 
 ## None of the deployed components are accessible after reboot
 
-See [bosh cck documentation](docs/bosh-cck.md) for restoring deployments after VM reboot.
+See [bosh cck documentation](bosh-cck.md) for restoring deployments after VM reboot.
 
 ## Inaccessible Director
 

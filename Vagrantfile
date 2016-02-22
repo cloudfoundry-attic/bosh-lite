@@ -21,4 +21,16 @@ Vagrant.configure('2') do |config|
     v.secret_access_key = ENV['BOSH_AWS_SECRET_ACCESS_KEY'] || ''
     v.ami = ''
   end
+
+  config.vm.provider :vmware_fusion do |v, override|
+    override.vm.box = 'cloudfoundry/no-support-for-bosh-lite-on-fusion'
+    #we no longer build current boxes for vmware_fusion
+    #ensure that this fails. otherwise the user gets an old box
+  end
+
+  config.vm.provider :vmware_workstation do |v, override|
+    override.vm.box = 'cloudfoundry/no-support-for-bosh-lite-on-workstation'
+    #we no longer build current boxes for vmware_workstation
+    #ensure that this fails. otherwise the user gets an old box
+  end
 end
