@@ -18,7 +18,7 @@ main() {
 fetch_stemcell() {
   # check if we already have a stemcell and how old it is
   # if its older than 7 days. Lets get it again
-  if [[ -e $STEMCELL_FILE ]]; then
+  if [[ -e $STEMCELL_FILE && `uname` == "Darwin" ]]; then
     echo "Checking for latest stemcell"
     DATEFILE=$BOSH_LITE_DIR/7daysago
     touch -t "$(date -v -7d +%Y%m%d%H%M)" ${DATEFILE}
