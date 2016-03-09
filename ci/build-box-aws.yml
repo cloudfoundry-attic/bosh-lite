@@ -13,6 +13,9 @@ inputs:
 - name: bosh-warden-cpi-release
 - name: garden-linux-release
 
+outputs:
+- name: box-out
+
 params:
   BOSH_AWS_ACCESS_KEY_ID:
   BOSH_AWS_SECRET_ACCESS_KEY:

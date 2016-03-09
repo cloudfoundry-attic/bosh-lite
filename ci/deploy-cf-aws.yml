@@ -12,6 +12,8 @@ inputs:
 - name: cf-release
 - name: box
 
+outputs: []
+
 params:
   BOSH_AWS_ACCESS_KEY_ID:
   BOSH_AWS_SECRET_ACCESS_KEY:

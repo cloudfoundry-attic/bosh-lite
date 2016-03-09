@@ -10,5 +10,8 @@ inputs:
 - name: bosh-lite
 - name: box-version
 
+outputs:
+- name: bosh-lite-out
+
 run:
   path: bosh-lite/ci/update-box-version.sh

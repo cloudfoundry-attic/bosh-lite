@@ -25,3 +25,5 @@ git add Vagrantfile
 git config --global user.email "cf-bosh-eng@pivotal.io"
 git config --global user.name "CI"
 git commit -m "Update box version to $box_version"
+
+git clone ../bosh-lite ../bosh-lite-out

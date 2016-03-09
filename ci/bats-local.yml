@@ -11,6 +11,8 @@ inputs:
 - name: box
 - name: box-version
 
+outputs: []
+
 params:
   BOX_TYPE: virtualbox
   PROVIDER: virtualbox

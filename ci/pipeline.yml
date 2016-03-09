@@ -33,7 +33,7 @@ jobs:
         BOSH_AWS_ACCESS_KEY_ID: {{aws_key_id}}
         BOSH_AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}
   - put: pipeline-bucket-vbox
-    params: {from: build-box/bosh-lite/packer/bosh-lite-.*\.box}
+    params: {file: box-out/bosh-lite-*.box}
 
 - name: bats-vbox
   public: true
@@ -64,7 +64,7 @@ jobs:
         BOSH_AWS_ACCESS_KEY_ID: {{aws_key_id}}
         BOSH_AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}
   - put: pipeline-bucket-aws
-    params: {from: build-box/bosh-lite/packer/bosh-lite-.*\.box}
+    params: {file: box-out/bosh-lite-*.box}
 
 - name: bats-aws
   serial: true
@@ -110,9 +110,9 @@ jobs:
     - {get: pipeline-bucket-aws, passed: [bats-aws, deploy-cf-aws]}
   - aggregate:
     - put: final-boxes-bucket-vbox
-      params: {from: pipeline-bucket-vbox/.*.box}
+      params: {file: pipeline-bucket-vbox/*.box}
     - put: final-boxes-bucket-aws
-      params: {from: pipeline-bucket-aws/.*.box}
+      params: {file: pipeline-bucket-aws/*.box}
   - put: atlas-vbox
     params:
       version: final-boxes-bucket-vbox/version
@@ -137,9 +137,9 @@ jobs:
     - put: promoted-bosh-lite
       # - do not rebase; no one should push to master!
       # - push tag only in one put to avoid a race
-      params: {repository: update-box-version/bosh-lite, tag: box-version/number}
+      params: {repository: bosh-lite-out, tag: box-version/number}
     - put: bosh-lite
-      params: {repository: update-box-version/bosh-lite, rebase: true}
+      params: {repository: bosh-lite-out, rebase: true}
 
 resources:
 - name: box-version

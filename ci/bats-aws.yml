@@ -11,6 +11,8 @@ inputs:
 - name: box
 - name: box-version
 
+outputs: []
+
 params:
   BOSH_AWS_ACCESS_KEY_ID:
   BOSH_AWS_SECRET_ACCESS_KEY:
