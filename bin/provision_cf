@@ -73,7 +73,7 @@ build_manifest() {
 create_release() {
   echo "Creating cf-release release"
   cd $CF_DIR
-  bosh create release --force
+  bosh -n create release --force
 }
 
 deploy_release() {
