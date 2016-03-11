@@ -25,4 +25,4 @@ enable_local_vbox
 	$GARDEN_LINUX_RELEASE_VERSION \
 	$box_version
 
-mv bosh-lite-.*\.box ../../box-out/
+mv bosh-lite-*.box ../../box-out/
