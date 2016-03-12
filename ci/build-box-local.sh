@@ -24,3 +24,5 @@ enable_local_vbox
 	$WARDEN_RELEASE_VERSION \
 	$GARDEN_LINUX_RELEASE_VERSION \
 	$box_version
+
+mv bosh-lite-*.box ../../box-out/

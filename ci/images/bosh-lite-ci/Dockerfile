@@ -9,7 +9,6 @@ RUN apt-get install -y ruby ruby-dev
 RUN apt-get install -y postgresql-server-dev-9.4
 RUN apt-get install -y libsqlite3-dev
 RUN apt-get install -y libmysqlclient-dev
-RUN gem install bundler
 
 RUN apt-get install -y wget
 
@@ -49,8 +48,10 @@ RUN vagrant plugin install vagrant-aws --plugin-version 0.5.0
 
 # for making calls to VagrantCloud
 RUN apt-get -y install curl
-
 RUN apt-get -y install sudo
 
 # for making Virtualbox's hostonlyifs work since it shells to ifconfig
 RUN apt-get -y install net-tools
+
+# Pre install bundler
+RUN gem install bundler -v 1.11.0

@@ -1,7 +1,10 @@
 ---
 platform: linux
 
-image: docker:///cloudfoundry/bosh-lite-ci
+image_resource:
+  type: docker-image
+  source:
+    repository: cloudfoundry/bosh-lite-ci
 
 inputs:
 - name: bosh-lite
@@ -9,6 +12,9 @@ inputs:
 - name: bosh-release
 - name: bosh-warden-cpi-release
 - name: garden-linux-release
+
+outputs:
+- name: box-out
 
 params:
   BOSH_AWS_ACCESS_KEY_ID:

@@ -37,3 +37,5 @@ for region_to_ami in ${region_to_amis//: /=}; do
   ami=$(echo $region_to_ami | cut -f2 -d=)
   aws ec2 modify-image-attribute --region $region --image-id $ami --launch-permission "{\"Add\": [{\"Group\":\"all\"}]}"
 done
+
+mv bosh-lite-*.box ../../box-out/

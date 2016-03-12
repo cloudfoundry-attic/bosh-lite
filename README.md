@@ -86,8 +86,6 @@ Installation instructions for different Vagrant providers:
 
     $ bosh target 192.168.50.4 lite
     Target set to `Bosh Lite Director'
-
-    $ bosh login
     Your username: admin
     Enter password: *****
     Logged in as `admin'
@@ -112,7 +110,7 @@ The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4
 
 ## Deploy Cloud Foundry
 
-See [deploying Cloud Foundry documentation](http://docs.cloudfoundry.org/deploying/boshlite/deploy_cf_boshlite.html) for detailed instructions. Alternatively, check out [CF Release](https://github.com/cloudfoundry/cf-release) as `~/workspace/cf-release` and run `./bin/provision_cf` from this repository.
+See [deploying Cloud Foundry documentation](http://docs.cloudfoundry.org/deploying/boshlite/deploy_cf_boshlite.html) for detailed instructions. Alternatively, check out [CF Release](https://github.com/cloudfoundry/cf-release) as `~/workspace/cf-release` and return to the `bosh-lite` repository and run `./bin/provision_cf`.
 
 ## Troubleshooting
 
