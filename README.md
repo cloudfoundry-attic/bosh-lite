@@ -65,7 +65,7 @@ Installation instructions for different Vagrant providers:
 
     ```
     $ VBoxManage --version
-    4.3.14r95030
+    5.0.16r...
     ```
 
     Note: If you encounter problems with VirtualBox networking try installing [Oracle VM VirtualBox Extension Pack](https://www.virtualbox.org/wiki/Downloads) as suggested by [Issue 202](https://github.com/cloudfoundry/bosh-lite/issues/202).

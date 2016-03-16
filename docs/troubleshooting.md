@@ -49,6 +49,15 @@ This error happens when VMs (really containers) managed by Garden are left aroun
 
 Related issue: <https://github.com/cloudfoundry/bosh-lite/issues/311>
 
+## Customization command failed
+
+```
+A customization command failed:
+["modifyvm", :id, "--paravirtprovider", "minimal"]
+```
+
+Please upgrade to VirtualBox 5+. We are now using 'paravirtprovider=minimal' mode to avoid kernel CPU lockups.
+
 ## "An error occurred while downloading the remote file. The error message, if any, is reproduced below. Please fix this error and try again."
 
 There is an issue (discussed [here](https://groups.google.com/a/cloudfoundry.org/forum/m/#!topic/bosh-users/n2qYrpPUJaE) and [here](https://github.com/mitchellh/vagrant/issues/3589)) with Vagrant permissions running on OS X Mavericks 10.9.2+ (after applying [Apple's Security Update 2014-002](http://support.apple.com/en-us/HT202966)). To diagnose, run `vagrant up --debug` and see if there is an error mentioning `Symbol not found: _iconv`. To resolve try one of the following:
