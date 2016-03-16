@@ -10,6 +10,7 @@ Vagrant.configure('2') do |config|
     vbox.customize ['modifyvm', :id, '--cpus', VM_CORES]
     vbox.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
     vbox.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
+    vbox.customize ['modifyvm', :id, '--paravirtprovider', 'minimal']
   end
 
   [:vmware_fusion, :vmware_desktop, :vmware_workstation].each do |provider|
