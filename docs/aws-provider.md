@@ -32,7 +32,7 @@ Note: You can only deploy into a VPC if the instance can be accessed by the mach
 
     Note: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if VM is deployed into the VPC, e.g. `sg-11764446`
 
-1. Make sure the security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
+1. Make sure the security group you are using exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
 
 1. Run vagrant up with provider `aws`:
 
