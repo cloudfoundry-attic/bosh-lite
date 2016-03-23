@@ -6,11 +6,11 @@ The default mode provisions the BOSH-lite VM in EC2 classic. If you set the `BOS
 
 When deploying to a VPC, the security group must be specified as an ID of the form `sg-abcd1234`, as opposed to a name like `default`.
 
-Note: You can only deploy into a VPC if the instance can be accessed by the machine doing the deploying. If not, Vagrant will fail to use SSH to provision the instance further. This similarly applies to steps 7-9, below.
+Note: You can only deploy into a VPC if the instance can be accessed by the machine doing the deploying. If not, Vagrant will fail to use SSH to provision the instance further.
 
 ### Steps
 
-* Install Vagrant AWS provider
+1. Install Vagrant AWS provider
 
     ```
     $ vagrant plugin install vagrant-aws
@@ -18,31 +18,31 @@ Note: You can only deploy into a VPC if the instance can be accessed by the mach
 
     Known working version: 0.4.1
 
-* Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values. You may have to set additional environment variables listed below depending on your environment.
+1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values. You may have to set additional environment variables listed below depending on your environment.
 
-|Name|Description|Default|
-|---|---|---|
-|BOSH_AWS_ACCESS_KEY_ID         |AWS access key ID                    | |
-|BOSH_AWS_SECRET_ACCESS_KEY     |AWS secret access key                | |
-|BOSH_LITE_KEYPAIR              |AWS keypair name                     |bosh|
-|BOSH_LITE_NAME                 |AWS instance name                    |Vagrant|
-|BOSH_LITE_SECURITY_GROUP       |AWS security group                   |inception|
-|BOSH_LITE_PRIVATE_KEY          |path to private key matching keypair |~/.ssh/id_rsa_bosh|
-|[VPC only] BOSH_LITE_SUBNET_ID |AWS VPC subnet ID                    | |
+    |Name|Description|Default|
+    |---|---|---|
+    |BOSH_AWS_ACCESS_KEY_ID         |AWS access key ID                    | |
+    |BOSH_AWS_SECRET_ACCESS_KEY     |AWS secret access key                | |
+    |BOSH_LITE_KEYPAIR              |AWS keypair name                     |bosh|
+    |BOSH_LITE_NAME                 |AWS instance name                    |Vagrant|
+    |BOSH_LITE_SECURITY_GROUP       |AWS security group                   |inception|
+    |BOSH_LITE_PRIVATE_KEY          |path to private key matching keypair |~/.ssh/id_rsa_bosh|
+    |[VPC only] BOSH_LITE_SUBNET_ID |AWS VPC subnet ID                    | |
 
-Note: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if VM is deployed into the VPC, e.g. `sg-11764446`
+    Note: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if VM is deployed into the VPC, e.g. `sg-11764446`
 
-* Make sure the security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
+1. Make sure the security group you are using in the `Vagrantfile` exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
 
-* Run vagrant up with provider `aws`:
+1. Run vagrant up with provider `aws`:
 
     ```
     $ vagrant up --provider=aws
     ```
 
-* Find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config`.
+1. Find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config`.
 
-* Target the BOSH Director and login with admin/admin.
+1. Target the BOSH Director and login with admin/admin.
 
     ```
     $ bosh target <public_ip_of_the_box>
@@ -54,7 +54,7 @@ Note: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if
     Logged in as `admin'
     ```
 
-* As part of Vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another IP (the HAProxy). These rules are cleared on restart. In case of restart they can be created by running `vagrant provision`.
+1. As part of Vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another IP (the HAProxy). These rules are cleared on restart. In case of restart they can be created by running `vagrant provision`.
 
 ### Customizing AWS provisioning
 
