@@ -38,7 +38,7 @@ This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH 
 
     ```
     $ vagrant --version
-    Vagrant 1.6.3
+    Vagrant 1.7.4
     ```
 
 1. Clone this repository
