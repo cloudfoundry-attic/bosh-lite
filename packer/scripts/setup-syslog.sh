@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 # Copied from bosh/stemcell_builder/stages/rsyslog/apply.sh
 # (Not installing custom rsyslog version, for now...)

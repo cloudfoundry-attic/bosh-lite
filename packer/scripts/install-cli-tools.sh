@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 gem install bosh_cli --no-ri --no-rdoc
 

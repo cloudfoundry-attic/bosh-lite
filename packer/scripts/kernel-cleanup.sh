@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 export DEBIAN_FRONTEND=noninteractive
 
 echo "Removing kernels that do not match $(uname -r)"
