@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -x
 
 # Remove release upgrader to prevent check-new-release from running
 apt-get -y remove ubuntu-release-upgrader-core
