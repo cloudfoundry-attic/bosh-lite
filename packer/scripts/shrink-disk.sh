@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -x
 
 # Zero out the free space to save space in the final image
 # Ignore no space left on device error

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 (cat <<PROFILE
 export TMPDIR=${HOME}/tmp

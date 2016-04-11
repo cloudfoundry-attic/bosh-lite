@@ -1,14 +1,6 @@
-## Using the AWS Provider
+# Using the AWS Provider
 
-### EC2 Classic or VPC
-
-The default mode provisions the BOSH-lite VM in EC2 classic. If you set the `BOSH_LITE_SUBNET_ID` environment variable, vagrant will provision the BOSH Lite VM in that subnet in whichever VPC it lives.
-
-When deploying to a VPC, the security group must be specified as an ID of the form `sg-abcd1234`, as opposed to a name like `default`.
-
-Note: You can only deploy into a VPC if the instance can be accessed by the machine doing the deploying. If not, Vagrant will fail to use SSH to provision the instance further.
-
-### Steps
+## Prerequisites
 
 1. Install Vagrant AWS provider
 
@@ -18,21 +10,47 @@ Note: You can only deploy into a VPC if the instance can be accessed by the mach
 
     Known working version: 0.4.1
 
-1. Set environment variables called `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY` with the appropriate values. You may have to set additional environment variables listed below depending on your environment.
+1. If you don't already have one, create an AWS Access Key. Set environment variables `BOSH_AWS_ACCESS_KEY_ID` and `BOSH_AWS_SECRET_ACCESS_KEY`.
+1. Create an SSH key pair so that you can SSH into Bosh Lite once it is deployed. If you generate an EC2 Key Pair in AWS the private key will be downloaded. Call the EC2 Key Pair `bosh` or set the environment variable `BOSH_LITE_KEYPAIR` to the name you gave. Set `BOSH_LITE_PRIVATE_KEY` to the local file path for the private key (defaults to `~/.ssh/id_rsa_bosh`).
 
-    |Name|Description|Default|
-    |---|---|---|
-    |BOSH_AWS_ACCESS_KEY_ID         |AWS access key ID                    | |
-    |BOSH_AWS_SECRET_ACCESS_KEY     |AWS secret access key                | |
-    |BOSH_LITE_KEYPAIR              |AWS keypair name                     |bosh|
-    |BOSH_LITE_NAME                 |AWS instance name                    |Vagrant|
-    |BOSH_LITE_SECURITY_GROUP       |AWS security group                   |inception|
-    |BOSH_LITE_PRIVATE_KEY          |path to private key matching keypair |~/.ssh/id_rsa_bosh|
-    |[VPC only] BOSH_LITE_SUBNET_ID |AWS VPC subnet ID                    | |
+Set the environment variables:
 
-    Note: `BOSH_LITE_SECURITY_GROUP` should be set to group id not the group name if VM is deployed into the VPC, e.g. `sg-11764446`
+```
+$ export BOSH_AWS_ACCESS_KEY_ID=
+$ export BOSH_AWS_SECRET_ACCESS_KEY=
+$ export BOSH_LITE_PRIVATE_KEY=
+```
 
-1. Make sure the security group you are using exists and allows inbound TCP traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
+### Additional Prerequisites for VPC
+
+1. If you don't already have one, create a VPC. If you use the VPC Wizard, a Security Group and a Subnet will be created for you. If you create the VPC manually a Security Group will be created automatically but you must manually create a Subnet.
+1. Set the environment variable `BOSH_LITE_SECURITY_GROUP` to the Group ID (e.g. `sg-62166d1a`) of a Security Group associated with the VPC. Note: this is different from [EC2-Classic](#additional-prerequisites-for-ec2-classic), where the Group Name is used.
+1. By default Security Groups only allow access from within the Security Group. Modify the Security Group to allow inbound traffic from anywhere (set Source to `0.0.0.0/0`).
+  - If you want to lock down access, set Source to your IP address. You can also limit what ports are opened; BOSH Lite requires inbound traffic on ports 25555 (for the BOSH director), 22 (for SSH), 80/443 (for Cloud Controller), and 4443 (for Loggregator).
+1. If you don't already have one, create a Subnet. Set the environment variable `BOSH_LITE_SUBNET_ID` to the Subnet ID (e.g. `subnet-37d0526f`).
+1. By default, VMs will not be assigned a public IP on creation. Modify the Subnet to Enable auto-assign Public IP.
+1. Continue to [Deploy BOSH Lite](#deploy-bosh-lite).
+
+### Additional Prerequisites for EC2 Classic
+
+1. Create a Security Group with name `inception`, or set the environment variable `BOSH_LITE_SECURITY_GROUP` to the Group Name of the security group you created. Do not use Group ID, as the deploy will fail unless the Security Group is associated with a VPC.
+1. Continue to [Deploy BOSH Lite](#deploy-bosh-lite).
+
+### Supported Environment Variables
+
+The full list of supported environment variables follows:
+
+|Name|Description|Default|
+|---|---|---|
+|BOSH_AWS_ACCESS_KEY_ID     |AWS Access Key ID                    | |
+|BOSH_AWS_SECRET_ACCESS_KEY |AWS Secret Access Key                | |
+|BOSH_LITE_KEYPAIR          |AWS EC2 Key Pair name                |bosh|
+|BOSH_LITE_PRIVATE_KEY      |Local file path for private key matching `BOSH_LITE_KEYPAIR` |~/.ssh/id_rsa_bosh|
+|BOSH_LITE_SECURITY_GROUP   |AWS Security Group. For [EC2-Classic](#additional-prerequisites-for-ec2-classic), where Security Groups are created manually, use the value of Group Name. For [VPC](#additional-prerequisites-for-vpc), where the Security Group is created automatically, use the value of Group ID; e.g. `sg-62166d1a`. |inception|
+|BOSH_LITE_SUBNET_ID        |AWS VPC Subnet ID (Not necessary for EC2 Classic. Use the ID, not the name; e.g. `subnet-37d0526f`) | |
+|BOSH_LITE_NAME             |AWS EC2 instance name                |Vagrant|
+
+## Deploy BOSH Lite
 
 1. Run vagrant up with provider `aws`:
 
@@ -40,9 +58,14 @@ Note: You can only deploy into a VPC if the instance can be accessed by the mach
     $ vagrant up --provider=aws
     ```
 
-1. Find out the public IP of the box you just launched. You can see this info at the end of `vagrant up` output. Another way is running `vagrant ssh-config`.
+1. If you haven't already, install the BOSH CLI
 
-1. Target the BOSH Director and login with admin/admin.
+  See [bosh.io](http://bosh.io/docs/bosh-cli.html) for instructions.
+
+1. Target the BOSH Director and login
+
+      - Use the public IP found in the output of `vagrant up` or the hostname returned by running `vagrant ssh-config`
+      - Default credentials are admin/admin
 
     ```
     $ bosh target <public_ip_of_the_box>
@@ -54,30 +77,34 @@ Note: You can only deploy into a VPC if the instance can be accessed by the mach
     Logged in as `admin'
     ```
 
-1. As part of Vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another IP (the HAProxy). These rules are cleared on restart. In case of restart they can be created by running `vagrant provision`.
+## Troubleshooting
 
-### Customizing AWS provisioning
+- As part of Vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another IP (the HAProxy). These rules are cleared on restart. In case of restart they can be created by running `vagrant provision`.
 
-The AWS bosh-lite VM will echo its private IP on provisioning so that you can target it. You can disable this by uncommenting the `public_ip` provisioner in the `aws` provider.
+## Customizing AWS Provisioning
 
-```
-config.vm.provider :aws do |v, override|
-  override.vm.provision :shell, id: "public_ip", run: "always", inline: "/bin/true"
-end
-```
+The following instructions involve modifying the Vagrantfile found in the cloned bosh-lite directory.
 
-Port forwarding on HTTP/S ports is set up for the CF Cloud Controller on the AWS VM. If you are not going to deploy Cloud Contorller (or just don't want this), you can disable this by uncommenting the `port_forwarding` provisioner in the `aws` provider.
+- The AWS bosh-lite VM will echo its private IP on provisioning so that you can target it. You can disable this by uncommenting the `public_ip` provisioner in the `aws` provider.
 
-```
-config.vm.provider :aws do |v, override|
-  override.vm.provision :shell, id: "port_forwarding", run: "always", inline: "/bin/true"
-end
-```
+    ```
+    config.vm.provider :aws do |v, override|
+      override.vm.provision :shell, id: "public_ip", run: "always", inline: "/bin/true"
+    end
+    ```
 
-AWS boxes are published for the following regions: us-east-1, us-west-1, us-west-2, eu-west-1, ap-southeast-1, ap-southeast-2, ap-northeast-1, sa-east-1. Default region is us-east-1. To use a different region add `region` configuration to the `aws` provider.
+- Port forwarding on HTTP/S ports is set up for the CF Cloud Controller on the AWS VM. If you are not going to deploy Cloud Contorller (or just don't want this), you can disable this by uncommenting the `port_forwarding` provisioner in the `aws` provider.
 
-```
-config.vm.provider :aws do |v, override|
-  v.region = "us-west-2"
-end
-```
+    ```
+    config.vm.provider :aws do |v, override|
+      override.vm.provision :shell, id: "port_forwarding", run: "always", inline: "/bin/true"
+    end
+    ```
+
+- AWS boxes are published for the following regions: us-east-1, us-west-1, us-west-2, eu-west-1, ap-southeast-1, ap-southeast-2, ap-northeast-1, sa-east-1. Default region is us-east-1. To use a different region add `region` configuration to the `aws` provider.
+
+    ```
+    config.vm.provider :aws do |v, override|
+      v.region = "us-west-2"
+    end
+    ```

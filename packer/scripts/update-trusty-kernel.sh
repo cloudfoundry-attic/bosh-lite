@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 export UCF_FORCE_CONFFNEW=YES
 export DEBIAN_FRONTEND=noninteractive
