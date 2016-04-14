@@ -83,7 +83,7 @@ Instructions are the same as for [local deployment](https://github.com/cloudfoun
 
 ## Troubleshooting
 
-- To use `bosh ssh` to log into a job of a deployment, you must provide the public IP of your VM, the user to log in as (note: this is `ubuntu`, not `vcap` as for Cloud Foundry deployments), and the private key for the SSH key pair you generated above. You can provide the private key on the command line, or add it to your key chain. 
+- To use `bosh ssh` to log into a job of a deployment, you must provide the public IP of your VM (unless you've configured a DNS name), the user to log in as (note: this is `ubuntu`, not `vcap` as for Cloud Foundry deployments), and the private key for the SSH key pair you generated above. You can provide the private key on the command line, or add it to your key chain. 
   ```
   bosh ssh etcd_z1 --gateway_host 52.87.6.252 --gateway_user ubuntu --gateway_identity_file bosh.pem
   ```
