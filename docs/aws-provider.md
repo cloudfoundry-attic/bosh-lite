@@ -77,8 +77,16 @@ The full list of supported environment variables follows:
     Logged in as `admin'
     ```
 
+## Deploying Cloud Foundry
+
+Instructions are the same as for [local deployment](https://github.com/cloudfoundry/bosh-lite#deploy-cloud-foundry).
+
 ## Troubleshooting
 
+- To use `bosh ssh` to log into a job of a deployment, you must provide the public IP of your VM, the user to log in as (note: this is `ubuntu`, not `vcap` as for Cloud Foundry deployments), and the private key for the SSH key pair you generated above. You can provide the private key on the command line, or add it to your key chain. 
+  ```
+  bosh ssh etcd_z1 --gateway_host 52.87.6.252 --gateway_user ubuntu --gateway_identity_file bosh.pem
+  ```
 - As part of Vagrant provisioning bosh-lite is setting IP tables rules to direct future traffic received on the instance to another IP (the HAProxy). These rules are cleared on restart. In case of restart they can be created by running `vagrant provision`.
 
 ## Customizing AWS Provisioning
