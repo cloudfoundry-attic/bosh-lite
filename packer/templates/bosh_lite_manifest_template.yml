@@ -31,7 +31,6 @@ jobs:
 
   templates:
   - {name: nats, release: bosh}
-  - {name: redis, release: bosh}
   - {name: blobstore, release: bosh}
   - {name: postgres, release: bosh}
   - {name: director, release: bosh}
@@ -65,11 +64,6 @@ properties:
     host: 127.0.0.1
     port: 5432
     database: bosh
-
-  redis:
-    password: redis-password
-    address: 127.0.0.1
-    port: 25255
 
   director:
     name: "Bosh Lite Director"
