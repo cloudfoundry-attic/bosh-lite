@@ -71,6 +71,9 @@ properties:
     max_tasks: 100
     cpi_job: warden_cpi
     db: *db
+    flush_arp: true
+    events:
+      record_events: true
 
     # Compatibility with current garden networking manifest config
     ignore_missing_gateway: true
