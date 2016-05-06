@@ -53,9 +53,7 @@ start_docker() {
     mount -o remount,rw /proc/sys
   fi
 
-  local server_args=""
-
-  docker daemon ${server_args} >/tmp/docker.log 2>&1 &
+  docker -d >/tmp/docker.log 2>&1 &
   echo $! > /tmp/docker.pid
 
   trap stop_docker EXIT

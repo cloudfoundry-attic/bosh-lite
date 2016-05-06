@@ -27,6 +27,6 @@ cd bosh-lite/packer
 
 export PACKER_CONFIG=$(./fetch_packer_bosh)
 
-packer build ./templates/docker.json -var 'build_number=$box_version'
+packer build -var 'build_number=$box_version' ./templates/docker.json
 
 mv bosh-lite-*.tar ../../box-out/
