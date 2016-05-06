@@ -44,7 +44,7 @@
     "destination": "/tmp/garden-linux-release.tgz"
   },{
     "type": "packer-bosh",
-    "assets_dir": "/tmp/packer-bosh-tmp/assets/",
+    "assets_dir": "packer-bosh/assets",
     "manifest_path": "bosh_lite_manifest.yml",
     "ssh_password": "vagrant"
   },{
