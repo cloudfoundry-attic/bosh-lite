@@ -3,6 +3,7 @@
 set -ex
 
 source $(dirname $0)/lib/global-env.sh
+source $(dirname $0)/lib/docker.sh
 
 cp bosh-release/*.tgz            bosh-lite/packer/bosh-release.tgz
 cp bosh-warden-cpi-release/*.tgz bosh-lite/packer/bosh-warden-cpi-release.tgz
@@ -19,7 +20,8 @@ box_version=$(cat box-version/number)
 # todo move to the bosh-lite-ci image
 apt-get -y update
 apt-get -y install docker.io
-chmod 777 /var/run/docker.sock
+
+start_docker
 
 cd bosh-lite/packer
 
