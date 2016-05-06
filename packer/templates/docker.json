@@ -1,0 +1,59 @@
+{
+  "variables": {
+    "build_number": "0"
+  },
+
+  "builders": [{
+    "type": "docker",
+    "image": "bosh/bosh-stemcell:3147",
+    "run_command": ["-d", "-i", "-t", "--privileged=true", "{{.Image}}", "/bin/bash"],
+    "export_path": "bosh-lite-docker-{{user `build_number`}}.tar"
+  }],
+
+  "provisioners": [{
+    "type": "file",
+    "source": "unshare",
+    "destination": "/var/vcap/bosh/bin/unshare"
+  },{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E {{ .Path }}",
+    "scripts": [
+      "scripts/apt-get-replacement.sh",
+      "scripts/update-resolv.conf.sh",
+      "scripts/quiet-tty-warning.sh",
+      "scripts/apt-update.sh",
+      "scripts/update-ruby.sh",
+      "scripts/admin-sudoers.sh",
+      "scripts/setup-syslog.sh",
+      "scripts/setup-ntpdate.sh",
+      "scripts/start-runsvdir.sh",
+      "scripts/fix-garden.sh",
+      "scripts/add-start-bosh.sh"
+    ]
+  },{
+    "type": "file",
+    "source": "bosh-release.tgz",
+	  "destination": "/tmp/bosh-release.tgz"
+  },{
+    "type": "file",
+    "source": "bosh-warden-cpi-release.tgz",
+	  "destination": "/tmp/bosh-warden-cpi-release.tgz"
+  },{
+    "type": "file",
+    "source": "garden-linux-release.tgz",
+    "destination": "/tmp/garden-linux-release.tgz"
+  },{
+    "type": "packer-bosh",
+    "assets_dir": "/tmp/packer-bosh-tmp/assets/",
+    "manifest_path": "bosh_lite_manifest.yml",
+    "ssh_password": "vagrant"
+  },{
+    "type": "shell",
+    "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E {{ .Path }}",
+    "remote_path": "/opt/bosh-provisioner/packer-shell.sh",
+    "scripts": [
+      "scripts/install-bosh-cli2.sh",
+      "scripts/clean-up.sh"
+    ]
+  }]
+}

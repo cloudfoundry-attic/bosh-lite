@@ -51,3 +51,7 @@ find /usr/share/locale -maxdepth 1 -mindepth 1 -not -name 'en*' | xargs rm -rf
 
 echo "Cleaning up /usr/share/doc"
 rm -rf /usr/share/doc/*
+
+echo "Cleaning up garden disk"
+umount /tmp/garden-disk || true
+rm -rf /tmp/garden-disk

@@ -1,0 +1,20 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: cloudfoundry/bosh-lite-ci
+
+inputs:
+- name: bosh-lite
+- name: box-version
+- name: bosh-release
+- name: bosh-warden-cpi-release
+- name: garden-linux-release
+
+outputs:
+- name: box-out
+
+run:
+  path: bosh-lite/ci/build-box-docker.sh
