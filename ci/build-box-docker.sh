@@ -34,6 +34,7 @@ unzip packer.zip
 
 # Expose ext4 partition for garden to start successfully
 # todo remove (do we even need to start thing???)
+add_loopback
 truncate -s 10M /tmp/garden-disk
 mkfs -t ext4 -F /tmp/garden-disk
 mount /tmp/garden-disk /tmp/garden-fix

@@ -75,3 +75,28 @@ stop_docker() {
   kill -TERM $pid
   wait $pid
 }
+
+add_loopback() {
+  (
+    set -e
+
+    mount_path=/tmp/self-cgroups
+    cgroups_path=`cat /proc/self/cgroup|grep devices|cut -d: -f3`
+
+    # Clean up possibly leftover cgroups mount
+    [ -d $mount_path ] && umount $mount_path && rmdir $mount_path
+
+    # Make new mount for cgroups
+    mkdir -p $mount_path
+    mount -t cgroup -o devices none $mount_path
+
+    # Allow loop devices
+    echo 'b 7:* rwm' > $mount_path/$cgroups_path/devices.allow
+
+    # Clean up cgroups mount
+    umount $mount_path
+    rmdir $mount_path
+
+    [ ! -b /dev/loop2 ] && mknod /dev/loop2 b 7 2
+  )
+}
