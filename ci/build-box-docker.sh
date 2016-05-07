@@ -32,6 +32,6 @@ export PACKER_CONFIG=$(./fetch_packer_bosh)
 wget -qO- https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux_amd64.zip > packer.zip
 unzip packer.zip
 
-./packer build -var 'build_number=$box_version' ./templates/docker.json
+./packer build -var "build_number=$box_version" ./templates/docker.json
 
 mv bosh-lite-*.tar ../../box-out/
