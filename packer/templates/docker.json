@@ -6,7 +6,13 @@
   "builders": [{
     "type": "docker",
     "image": "bosh/bosh-stemcell:3147",
-    "run_command": ["-d", "-i", "-t", "--privileged=true", "{{.Image}}", "/bin/bash"],
+    "run_command": [
+      "-d", "-i", "-t",
+      "-v", "/tmp/garden-fix:/var/vcap/data/garden/aufs_graph/",
+      "--privileged=true",
+      "{{.Image}}",
+      "/bin/bash"
+    ],
     "export_path": "bosh-lite-docker-{{user `build_number`}}.tar"
   }],
 
@@ -27,7 +33,6 @@
       "scripts/setup-syslog.sh",
       "scripts/setup-ntpdate.sh",
       "scripts/start-runsvdir.sh",
-      "scripts/fix-garden.sh",
       "scripts/add-start-bosh.sh"
     ]
   },{
