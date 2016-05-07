@@ -97,6 +97,8 @@ add_loopback() {
     umount $mount_path
     rmdir $mount_path
 
-    [ ! -b /dev/loop2 ] && mknod /dev/loop2 b 7 2
+    for i in $(seq 0 260); do
+      mknod -m660 /dev/loop${i} b 7 $i 2>/dev/null || true
+    done
   )
 }
