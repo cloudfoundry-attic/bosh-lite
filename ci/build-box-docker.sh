@@ -37,6 +37,7 @@ unzip packer.zip
 add_loopback
 truncate -s 10M /tmp/garden-disk
 mkfs -t ext4 -F /tmp/garden-disk
+mkdir -p /tmp/garden-fix
 mount /tmp/garden-disk /tmp/garden-fix
 
 ./packer build -var "build_number=$box_version" ./templates/docker.json
