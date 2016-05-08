@@ -15,6 +15,7 @@ echo "Cleaning up BOSH provisioner left-overs"
 rm -rf /opt/bosh-provisioner/{repos,blobstore,tmp,assets}
 rm -rf /var/vcap/data/compile
 rm -rf /var/vcap/data/tmp/*blobstore*
+rm -rf /var/vcap/micro_bosh/data/cache/*
 
 echo "Cleaning up /tmp"
 rm -rf /tmp/*

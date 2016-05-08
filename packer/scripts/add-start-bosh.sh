@@ -2,7 +2,7 @@
 
 set -ex
 
-cat > /usr/bin/start-bosh <<BASH
+cat > /usr/bin/start-bosh <<'BASH'
 #!/bin/bash
 set -ex
 
