@@ -88,6 +88,25 @@ jobs:
         BOSH_AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}
         BOSH_LITE_PRIVATE_KEY: {{bosh_lite_private_key}}
 
+- name: build-box-docker
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - {get: bosh-lite, passed: [new-box]}
+    - {get: box-version, passed: [new-box], trigger: true}
+    - {get: bosh-release, passed: [new-box]}
+    - {get: bosh-warden-cpi-release, passed: [new-box]}
+    - {get: garden-linux-release, passed: [new-box]}
+  - task: build-box
+    privileged: true
+    file: bosh-lite/ci/build-box-docker.yml
+    config:
+      params:
+        PACKER_LOG: 1
+  - put: pipeline-bucket-docker
+    params: {file: box-out/bosh-lite-docker-*.tar}
+
 - name: deploy-cf-aws
   serial: true
   plan:
@@ -130,13 +149,40 @@ jobs:
       url: final-boxes-bucket-aws/url
       release: true
 
+- name: publish-docker-box
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - {get: bosh-lite, passed: [bats-vbox, bats-aws, deploy-cf-aws, build-box-docker]}
+    - {get: box-version, passed: [bats-vbox, bats-aws, deploy-cf-aws, build-box-docker], trigger: true}
+    - {get: pipeline-bucket-docker, passed: [build-box-docker]}
+  - task: rename-tar
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: cloudfoundry/bosh-lite-ci}
+      run:
+        path: /bin/bash
+        args: ["-c", "mkdir -p image/ && mv pipeline-bucket-docker/bosh-lite-docker-*.tar image/image.tar"]
+      inputs:
+      - name: pipeline-bucket-docker
+      outputs:
+      - name: image
+  - put: final-docker
+    params:
+      import_file: image/image.tar # docker-image resource doesnt support globs right now
+      tag: box-version/number
+      tag_as_latest: true
+
 - name: promote-repo
   public: true
   serial: true
   plan:
   - aggregate:
-    - {get: bosh-lite, passed: [publish-boxes]}
-    - {get: box-version, passed: [publish-boxes], trigger: true}
+    - {get: bosh-lite, passed: [publish-boxes, publish-docker-box]}
+    - {get: box-version, passed: [publish-boxes, publish-docker-box], trigger: true}
   - task: update-box-version
     file: bosh-lite/ci/update-box-version.yml
   - aggregate:
@@ -212,6 +258,15 @@ resources:
     secret_access_key: {{aws_secret_access_key}}
     region_name: us-east-1
 
+- name: pipeline-bucket-docker
+  type: s3
+  source:
+    bucket: bosh-lite-ci-pipeline
+    regexp: bosh-lite-docker-(.*).tar
+    access_key_id: {{aws_key_id}}
+    secret_access_key: {{aws_secret_access_key}}
+    region_name: us-east-1
+
 - name: final-boxes-bucket-vbox
   type: s3
   source:
@@ -243,6 +298,14 @@ resources:
 - name: garden-linux-release
   type: bosh-io-release
   source: {repository: cloudfoundry-incubator/garden-linux-release}
+
+- name: final-docker
+  type: docker-image
+  source:
+    repository: bosh/bosh-lite
+    username: {{docker_username}}
+    password: {{docker_password}}
+    email: foo@bar.com
 
 - name: hetzner
   type: pool
