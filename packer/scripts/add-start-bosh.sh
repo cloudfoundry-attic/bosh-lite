@@ -4,7 +4,7 @@ set -ex
 
 cat > /usr/bin/start-bosh <<'BASH'
 #!/bin/bash
-set -ex
+set -e
 
 if [ ! "$BOSH_LITE_NO_AUFS" ]; then
 	(
