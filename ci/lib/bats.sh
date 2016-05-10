@@ -82,7 +82,7 @@ EOF
 
   sudo apt-get -y update
   sudo apt-get install -y git libmysqlclient-dev libpq-dev libsqlite3-dev
-  sudo gem install bundler --no-ri --no-rdoc
+  sudo gem install bundler -v 1.11.0 --no-ri --no-rdoc
 }
 
 run_bats_on_vm() {
