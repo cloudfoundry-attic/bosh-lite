@@ -181,4 +181,5 @@ properties:
     listen_address: 0.0.0.0:7777
     disk_quota_enabled: false
     allow_host_access: true
+    destroy_containers_on_start: true # avoids snapshots
     default_container_grace_time: 0
