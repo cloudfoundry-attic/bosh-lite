@@ -7,7 +7,11 @@
 * CI: <https://bosh-lite.ci.cf-app.com/pipelines/bosh-lite>
 * Roadmap: [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/956238) (label:bosh-lite)
 
-A local development environment for BOSH using Warden containers in a Vagrant box.
+BOSH Lite is a pre-built [Vagrant](https://www.vagrantup.com/) box which includes [the Director](http://bosh.io/docs/terminology.html#director). It uses containers (via Warden/Garden CPI) to emulate VMs which makes it an excellent choice for:
+
+- General BOSH exploration without investing time and resources to configure an IaaS
+- Development of releases (including BOSH itself)
+- Testing releases locally or in CI
 
 This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH Lite can be used to deploy just about anything once you've got the hang of it.
 
@@ -129,6 +133,7 @@ $ vagrant up --provider=DESIRED_PROVIDER
 
 ## Miscellaneous
 
+* [Warden CPI's cloud properties](http://bosh.io/docs/warden-cpi.html) for configuring deployment manifest
 * [bosh cck documentation](docs/bosh-cck.md) for restoring deployments after VM reboot
 * [bosh ssh documentation](docs/bosh-ssh.md) for SSH into deployment jobs
 * [Offline documentation](docs/offline-dns.md) to configure BOSH lite firewall rules
