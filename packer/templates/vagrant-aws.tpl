@@ -27,6 +27,7 @@ Vagrant.configure('2') do |config|
   config.vm.provider :aws do |v|
     v.access_key_id =       env.fetch('BOSH_AWS_ACCESS_KEY_ID')
     v.secret_access_key =   env.fetch('BOSH_AWS_SECRET_ACCESS_KEY')
+    v.region =              env.fetch('BOSH_LITE_REGION', 'us-east-1')
     v.keypair_name =        env.fetch('BOSH_LITE_KEYPAIR', 'bosh')
     v.block_device_mapping = [{
       :DeviceName => '/dev/sda1',
