@@ -44,11 +44,14 @@ The full list of supported environment variables follows:
 |---|---|---|
 |BOSH_AWS_ACCESS_KEY_ID     |AWS Access Key ID                    | |
 |BOSH_AWS_SECRET_ACCESS_KEY |AWS Secret Access Key                | |
+|BOSH_LITE_REGION           |AWS Region name                      |us-east-1|
 |BOSH_LITE_KEYPAIR          |AWS EC2 Key Pair name                |bosh|
 |BOSH_LITE_PRIVATE_KEY      |Local file path for private key matching `BOSH_LITE_KEYPAIR` |~/.ssh/id_rsa_bosh|
 |BOSH_LITE_SECURITY_GROUP   |AWS Security Group. For [EC2-Classic](#additional-prerequisites-for-ec2-classic), where Security Groups are created manually, use the value of Group Name. For [VPC](#additional-prerequisites-for-vpc), where the Security Group is created automatically, use the value of Group ID; e.g. `sg-62166d1a`. |inception|
 |BOSH_LITE_SUBNET_ID        |AWS VPC Subnet ID (Not necessary for EC2 Classic. Use the ID, not the name; e.g. `subnet-37d0526f`) | |
 |BOSH_LITE_NAME             |AWS EC2 instance name                |Vagrant|
+
+See [vagrant-aws.tpl](packer/templates/vagrant-aws.tpl) for all environment variables.
 
 ## Deploy BOSH Lite
 
@@ -83,7 +86,7 @@ Instructions are the same as for [local deployment](https://github.com/cloudfoun
 
 ## Troubleshooting
 
-- To use `bosh ssh` to log into a VM of a deployment, you must provide the public IP of your VM (unless you've configured a DNS name), the user to log in as (note: this is `ubuntu`, not `vcap` as for Cloud Foundry deployments), and the private key for the SSH key pair you generated above. You can provide the private key on the command line, or add it to your key chain. 
+- To use `bosh ssh` to log into a VM of a deployment, you must provide the public IP of your VM (unless you've configured a DNS name), the user to log in as (note: this is `ubuntu`, not `vcap` as for Cloud Foundry deployments), and the private key for the SSH key pair you generated above. You can provide the private key on the command line, or add it to your key chain.
   ```
   bosh ssh etcd_z1 --gateway_host 52.87.6.252 --gateway_user ubuntu --gateway_identity_file bosh.pem
   ```
