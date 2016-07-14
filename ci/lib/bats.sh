@@ -90,5 +90,5 @@ run_bats_on_vm() {
   stemcell_os_name=$1
 
   vagrant ssh -c "set -e -x; $(declare -f install_bats_prereqs); install_bats_prereqs"
-  vagrant ssh -c "set -e -x; $(declare -f run_bats); UNSUPPORTED_BATS=$UNSUPPORTED_BATS run_bats 127.0.0.1 $stemcell_os_name"
+  vagrant ssh -c "set -e -x; $(declare -f run_bats); export UNSUPPORTED_BATS=$UNSUPPORTED_BATS; run_bats 127.0.0.1 $stemcell_os_name"
 }
