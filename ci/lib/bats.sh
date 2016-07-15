@@ -60,6 +60,11 @@ EOF
   export BAT_NETWORKING=manual
 
   cd bat
+
+  # todo always use latest bats
+  git checkout master
+  git pull
+
   bundle exec rake bat
 
   rm -f $config_file
