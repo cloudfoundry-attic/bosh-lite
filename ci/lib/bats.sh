@@ -50,6 +50,10 @@ properties:
   networks:
   - type: manual
     static_ip: 10.244.0.2
+  job_networks:
+  - name: default
+    type: manual
+    static_ip: 10.244.0.2
 EOF
 
   export BAT_DEPLOYMENT_SPEC=`pwd`/bat.spec
