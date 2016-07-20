@@ -72,6 +72,7 @@ properties:
     cpi_job: warden_cpi
     db: *db
     flush_arp: true
+    enable_post_deploy: true
     events:
       record_events: true
 
