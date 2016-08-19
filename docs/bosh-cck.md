@@ -2,6 +2,8 @@
 
 The Warden container will be lost after a VM reboot, but you can restore your deployment with `bosh cck`, BOSH's command for recovering from unexpected errors. Alternatively *Pause* the VM from the VirtualBox UI (or `vagrant suspend`) before shutting down, or making your computer sleep.
 
+Note: the network routes may also need to be restored.  To do this run the `./bin/add-route` script before starting the `bosh cck`.
+
 ```
 $ bosh cck
 ```
