@@ -112,6 +112,10 @@ The local VMs (virtualbox, vmware providers) will be accessible at `192.168.50.4
   end
 ```
 
+### CA certificate
+
+CA certificate that can be used with the BOSH CLI is saved in `ca/certs/ca.crt`. It's created for `192.168.50.4` and `*.sslip.io`.
+
 ## Deploy Cloud Foundry
 
 See [deploying Cloud Foundry documentation](http://docs.cloudfoundry.org/deploying/boshlite/deploy_cf_boshlite.html) for detailed instructions. Alternatively, check out [CF Release](https://github.com/cloudfoundry/cf-release) as `~/workspace/cf-release` and return to the `bosh-lite` repository and run `./bin/provision_cf`.

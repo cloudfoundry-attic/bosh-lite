@@ -79,82 +79,57 @@ properties:
     # Compatibility with current garden networking manifest config
     ignore_missing_gateway: true
 
-    # From https://github.com/cppforlife/turbulence-release/blob/master/ca/generate.sh
+    # See ca/ directory
     ssl:
       key: |
         -----BEGIN RSA PRIVATE KEY-----
-        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
+        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
         -----END RSA PRIVATE KEY-----
 
       # subject=/C=US/O=BOSH/CN=192.168.50.4
       cert: |
         -----BEGIN CERTIFICATE-----
-        MIIDEDCCAfigAwIBAgIJANy2vEpugwXtMA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNV
+        MIIDHDCCAgSgAwIBAgIJAPJwlYY2wUIzMA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNV
         BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
-        aWRnaXRzIFB0eSBMdGQwIBcNMTUwNzEyMDIzNTA4WhgPMjI4OTA0MjUwMjM1MDha
+        aWRnaXRzIFB0eSBMdGQwIBcNMTYwODI2MjIzMzE5WhgPMjI5MDA2MTAyMjMzMTla
         MDMxCzAJBgNVBAYTAlVTMQ0wCwYDVQQKEwRCT1NIMRUwEwYDVQQDEwwxOTIuMTY4
-        LjUwLjQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDouU5BsalNHBLU
-        WYVxKkEpF5TF42K8oy6ZFMmM782f0g9LPhrO9j2gKTcNwswdPnpP45+jb5Y81ur7
-        fD1MKvg5XtbhuqwRASuQJjQLS/lwT+wVD++BQPles6Z5Z1GG467EZm5pSR+teJ4+
-        qnaecLoxsQ3Aqk0ZOkcgyvlixIUy1Vlw5eGzoPrPHvsIME22gzjkN+UFYYiitfnK
-        ln/Cp7Si9sLbioq38Ohuf1mtpIDzaI0UwrtER+QPDvtd9uOOdzl2aWXHxCE4dwD6
-        dIRrMZheCIoEQ6J+CVu7ki4duqKYPPnhDqEqeRvzJscV7zQrY6XZs9gzNyrDoUCV
-        Ll1QZSODAgMBAAGjEzARMA8GA1UdEQQIMAaHBMCoMgQwDQYJKoZIhvcNAQEFBQAD
-        ggEBAEt472rlr3dDh2zRotqLAGSYn1MlQpqeY1ptvfCFUNlzIibdU+H6lUsX/ZOy
-        jzBihUkjXSdwVmbs/sq+wNdW3en10vjlfiPhBaN9j65t7xB+NmrssUGya/6MXcSW
-        G1kgleLstp/DuqmiXA51mWbqm67djVcpBLE9nC0OQLCfzRJmceO950z7Ip8zY1mp
-        fB72jCN7+fU2pxSacJfrEN+dPE5EP6ACJBUdGPivEDWgfFdy5VjlmBZyOPf87MbK
-        HhrbjIgLWhoznfjQkVlHA3tz4Xtu8zpPpalF5tJDV8QpOooJTeBktFT+O3fS9DbR
-        juw7YrkZ61ino5Rvd1lQEOQAZJs=
-        -----END CERTIFICATE-----
-
-      # Not used by the Director
-      ca_cert: |
-        -----BEGIN CERTIFICATE-----
-        MIIDtzCCAp+gAwIBAgIJAL+XoGqlINOLMA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNV
-        BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
-        aWRnaXRzIFB0eSBMdGQwIBcNMTUwNzEyMDIzNTA4WhgPMjI4OTA0MjUwMjM1MDha
-        MEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJ
-        bnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
-        ggEKAoIBAQDOGrPb3jitQZBPqJYC2/1rrpXO6cQF4hQV6CPajFnTYI2TmoKVrPpt
-        hbJVbcWC4VopmfVrq2YLkP28L25QEtNCg8QBJOa5jLPCDzffasA40YUqrMMWOh0b
-        JqzXKgtc4u0FffHBSXq3csyQXNeB/UG6qk/0YuJCFYY5zVAnOmyKdLJjngmUQovx
-        ssjfcprkgOMqpPW9BSus4m945OEWqQixk0saxT1MTL3do7oGSacT30jXZV9bowlV
-        COsZj+rR6IQkNYaZUWfYBPuHzEP3RN/J21F7T0KCi4q49CnkEwVsf6pnjFhIBuJ7
-        u+vKQ3Gq0Yro28SJs0leE8x3OA/WnLiJAgMBAAGjgacwgaQwHQYDVR0OBBYEFNL4
-        IU9fUeXBlqKwczeB3Pnup8qeMHUGA1UdIwRuMGyAFNL4IU9fUeXBlqKwczeB3Pnu
-        p8qeoUmkRzBFMQswCQYDVQQGEwJBVTETMBEGA1UECBMKU29tZS1TdGF0ZTEhMB8G
-        A1UEChMYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkggkAv5egaqUg04swDAYDVR0T
-        BAUwAwEB/zANBgkqhkiG9w0BAQUFAAOCAQEAMgANBnQbsgs9Yr0wSG1jD4w/pM90
-        y7MkLjstmOC5u9kHihWk3KDoI4Bx0fXD9wbyhP/E9AikqG7SglkuViRCrtWDprEp
-        8kTGbPG8sPjiu2cnmG19QcmL4HHHaG76r75qEggPu2wRGlEj0BR2zwOuINHCjfgz
-        Zi8Gl/4jRAazOcXmFfnNy/RXVOwswWQOG7aKbhHWCODn7jobT95wVTouEppUw7p9
-        twzPSzG7vudrmO3PSgAT+db/xrDRoHa3xk5H3fltZi7uxpRaWPqsFDezDYul4C8b
-        9JpGUkpLi0wGcVfceVLiZooxVGIQTFJj8Yu6fnTM2ZbD0xwFDyrYM92uWg==
+        LjUwLjQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDqZq/YM51+uiy1
+        6AoFC7/dyhmrQDyUR3C1bE37XGqR5gO8ZNCBMtnFQsGBb05qWlgHZ8rCkGsdWagg
+        1O798rr+s+97FzRnsF3BdNpgHG2vGw2ZTvGwton982JhlKvG+3y1MKfduv300d+g
+        ImW6jyfEjcViIWwRRRh6NDlfwPpYRLTb8WZQV/IX7Y0xkKnEPq7dLuuDtrsWhyx1
+        mhYCCSN5e2KbL6TMSlICwZ8HtWBusNuCOaS+pZuzKfUPxuq2u8Mp+qm3YD/hDXGp
+        AxzZaE7DqLcYQqAID+9De10DrSCN+RDsi+BFJGal6B7UKOgnwoYfz6nqZVa7C8QA
+        itfnzKP7AgMBAAGjHzAdMBsGA1UdEQQUMBKHBMCoMgSCCiouc3NsaXAuaW8wDQYJ
+        KoZIhvcNAQEFBQADggEBADVff56wJtocm/+9qlMhm4BTV29MDSEWHMduUb2VMtld
+        XqsetkPA9Jq/ZvOOMc9QJgIbcFlPye9wzDbc5ZHkj+/d7G9CqUX0d8+awE+XDIA9
+        1bc35aabG/2DQYkTc3n7MHLodhictIAeg8S/FzGLITecxA1p57b9dve23MUvLn1U
+        D/zyTVn6q9ZNB3/eQH79OioKygq/Z97YuZWiOgc7J7535EgRiyhJvbzindUCJD9b
+        W38X3NeovdOBm8XvxcEqSkkX7doBVFGZMGoGClHOYTUDROYVgQftijItYxLvEMED
+        Eu3kbh5DZssZkp8N1cELvYJkM+ke0IHs9ou25BvP4r4=
         -----END CERTIFICATE-----
 
   hm:
