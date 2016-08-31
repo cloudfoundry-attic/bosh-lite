@@ -17,7 +17,7 @@ main() {
   deploy_release
   echo "Deploy completed."
   echo "Make sure you invoke bin/add-route to be able to access your deployment at"
-  echo "https://login.bosh-lite.com"
+  echo "https://api.bosh-lite.com"
 }
 
 validate_directories() {
