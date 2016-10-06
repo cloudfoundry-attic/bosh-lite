@@ -51,7 +51,7 @@ The full list of supported environment variables follows:
 |BOSH_LITE_SUBNET_ID        |AWS VPC Subnet ID (Not necessary for EC2 Classic. Use the ID, not the name; e.g. `subnet-37d0526f`) | |
 |BOSH_LITE_NAME             |AWS EC2 instance name                |Vagrant|
 
-See [vagrant-aws.tpl](packer/templates/vagrant-aws.tpl) for all environment variables.
+See [vagrant-aws.tpl](/packer/templates/vagrant-aws.tpl) for all environment variables.
 
 ## Deploy BOSH Lite
 
