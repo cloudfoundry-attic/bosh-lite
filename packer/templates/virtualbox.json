@@ -11,8 +11,8 @@
 
     "guest_os_type": "Ubuntu_64",
     "guest_additions_path": "/home/vagrant/VBoxGuestAdditions.iso",
-    "guest_additions_url":"http://download.virtualbox.org/virtualbox/5.0.0/VBoxGuestAdditions_5.0.0.iso",
-    "guest_additions_sha256":"7b61f523db7ba75aebc4c7bb0cae2da92674fa72299e4a006c5c67517f7d786b",
+    "guest_additions_url":"http://download.virtualbox.org/virtualbox/5.1.0/VBoxGuestAdditions_5.1.0.iso",
+    "guest_additions_sha256":"6c7aa93de3fae6b784484151048c4ebdc953472383508254606d5d8512f27c25",
     "virtualbox_version_file": ".vbox_version",
 
     "headless": true,
