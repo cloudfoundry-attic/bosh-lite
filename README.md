@@ -50,6 +50,7 @@ This readme walks through deploying Cloud Foundry with BOSH Lite. BOSH and BOSH 
     ```
     $ cd ~/workspace
     $ git clone https://github.com/cloudfoundry/bosh-lite
+    $ cd bosh-lite
     ```
 
 ### Install and Boot a Virtual Machine
