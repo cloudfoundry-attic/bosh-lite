@@ -13,7 +13,7 @@ run_bats() {
     ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
   fi
 
-  git clone --depth=1 https://github.com/cloudfoundry/bosh.git
+  git clone --depth=1 https://github.com/cloudfoundry/bosh.git --branch 260.x
 
   cd bosh
   git submodule update --init --recursive
