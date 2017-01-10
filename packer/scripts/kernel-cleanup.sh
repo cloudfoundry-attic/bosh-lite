@@ -14,6 +14,3 @@ dpkg --list | awk '{ print $2 }' | grep 'linux-headers-3.*' | grep -vF "$(uname 
 
 # delete linux source
 dpkg --list | awk '{ print $2 }' | grep linux-source | xargs apt-get -y purge
-
-# miscellaneous packages
-apt-get -y purge linux-firmware
