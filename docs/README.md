@@ -1,5 +1,7 @@
 ## Vagrant based BOSH Lite
 
+** We recommend to use bosh create-env based BOSH Lite. See https://bosh.io/docs/bosh-lite **
+
 BOSH Lite is a pre-built [Vagrant](https://www.vagrantup.com/) box which includes [the Director](http://bosh.io/docs/terminology.html#director). It uses containers (via Warden/Garden CPI) to emulate VMs which makes it an excellent choice for:
 
 - General BOSH exploration without investing time and resources to configure an IaaS
