@@ -1,5 +1,5 @@
 # BOSH Lite
 
-* Slack: #bosh on <https://slack.cloudfoundry.org>
+See <https://bosh.io/docs/bosh-lite> for details.
 
-Instructions moved to https://bosh.io/docs/bosh-lite.
+(Instructions for non-recommended Vagrant based BOSH Lite moved to: https://github.com/cloudfoundry/bosh-lite/blob/master/docs/README.md)
