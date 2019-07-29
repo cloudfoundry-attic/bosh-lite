@@ -1,4 +1,4 @@
-**This repository is deprecated**. It is no longer maintained, and it is not recommended for continued use.
+**This repository is deprecated**. It is no longer maintained, and it is not recommended for continued use. Vagrant BOSH lite has been deprecated in favor of [Virtualbox BOSH lite](https://github.com/cloudfoundry/bosh-deployment).
 
 The original purpose of this project was to provide a pre-baked image where you could easily start BOSH with popular tools like Vagrant. Since then, we have made improvements to the provisioning process which avoids extra dependencies like `vagrant`, the original `bosh` Ruby CLI, and the original `bosh-init`.
 
